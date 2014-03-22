@@ -1,2 +1,1 @@
-orangeejs
-=========
+npm install -g orangeejs

@@ -1,0 +1,25 @@
+{
+  "name": "orangeejs",
+  "version": "0.0.0",
+  "description": "",
+  "bin": {
+    "orangeejs": "bin/orangeejs.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orangeejs/orangeejs"
+  },
+  "author": "orangeejs <orangeejs@orangeejs.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orangeejs/orangeejs/issues"
+  },
+  "dependencies": {
+    "shelljs": "~0.2.6",
+    "node-zip": "~1.1.0",
+    "minimist": "0.0.8"
+  }
+}
