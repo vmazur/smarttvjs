@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "bin": {
-    "orangeejs": "bin/orangeejs.js"
+    "orangeejs": "bin/main.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,5 +21,9 @@
     "shelljs": "~0.2.6",
     "node-zip": "~1.1.0",
     "minimist": "0.0.8"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-uglify": "~0.4.0"
   }
 }
