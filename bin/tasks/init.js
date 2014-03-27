@@ -12,6 +12,12 @@ OrangeeJSInitTask.prototype.run = function() {
     }
   });
 
+  fs.exists('package.json', function(exist)) {
+    if (!exist) {
+      exec("npm init");
+    }
+  }
+
   fs.exists('app/icons', function(exists) {
     if (!exists) {
       mkdir('-p', 'app/icons');

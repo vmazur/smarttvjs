@@ -1,4 +1,6 @@
 var fs = require('fs');
+var path = require('path');
+var mustache = require('mustache');
 
 function OrangeeJSBuildTask() {
 };
@@ -13,15 +15,20 @@ OrangeeJSBuildTask.prototype.run = function(name) {
 OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
   mkdir('-p', 'build/samsung');
-  var content = "Use Alpha Blending? = Yes\n" + 
-    "Screen Resolution = 1280x720";
-  fs.writeFile("build/samsung/widget.info", content, function(err) {
-    if(err) {
-      console.log(err);
-    } else {
-      console.log("The file was saved!");
-    }
-  }); 
+
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
+  var appdate = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  this._transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdate);
+  this._transform_template(src + "/platforms/samsung/index.html.template", "build/samsung/index.html", {});
+
+  cp(src + "/platforms/samsung/widget.info", "build/samsung/")
+  cp("-r", 'app', 'build/samsung/')
+}
+
+OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {
+  var template = fs.readFileSync(inputfile, "utf8");
+  var s = mustache.render(template, data);
+  fs.writeFileSync(outputfile, s);
 }
 
 module.exports = OrangeeJSBuildTask;
