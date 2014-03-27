@@ -21,7 +21,8 @@
     "shelljs": "~0.2.6",
     "node-zip": "~1.1.0",
     "minimist": "0.0.8",
-    "mustache": "~0.8.1"
+    "mustache": "~0.8.1",
+    "gm": "~1.14.2"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
