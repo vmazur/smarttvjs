@@ -6,7 +6,7 @@ function OrangeeJSBuildTask() {
 };
 
 OrangeeJSBuildTask.prototype.run = function(name) {
-  if (name === 'smasung') {
+  if (name === 'samsung') {
     this._build_samsung();
   } else if (name === 'lg') {
     this._build_lg();
