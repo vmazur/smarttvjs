@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var mustache = require('mustache');
 
 function OrangeeJSInitTask() {
 };
@@ -12,13 +13,16 @@ OrangeeJSInitTask.prototype.run = function() {
     }
   });
 
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   fs.exists('package.json', function(exists) {
     if (!exists) {
-      exec("npm init");
+      var name = path.basename(process.cwd());
+      var template = fs.readFileSync(src + "/package.json.template", "utf8");
+      var s = mustache.render(template, {name: name});
+      fs.writeFileSync("package.json", s);
     }
   });
 
-  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   fs.exists('app/icons', function(exists) {
     if (!exists) {
       mkdir('-p', 'app/icons');

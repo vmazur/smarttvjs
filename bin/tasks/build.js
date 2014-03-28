@@ -16,6 +16,8 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
   mkdir('-p', 'build/samsung');
 
+  cp("-r", 'app/', 'build/samsung/')
+  
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   this._transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
@@ -24,7 +26,6 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
   cp(src + "/platforms/samsung/widget.info", "build/samsung/")
-  cp("-r", 'app', 'build/samsung/')
 }
 
 OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {
