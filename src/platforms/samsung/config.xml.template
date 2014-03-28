@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.samsung.com/">  
-  <ThumbIcon>app/icons/default_106.png</ThumbIcon>
-  <BigThumbIcon>app/icons/default_115.png</BigThumbIcon>
-  <ListIcon>app/icons/default_85.png</ListIcon>
-  <BigListIcon>app/icons/default_95.png</BigListIcon>
+  <ThumbIcon>icons/default_106.png</ThumbIcon>
+  <BigThumbIcon>icons/default_115.png</BigThumbIcon>
+  <ListIcon>icons/default_85.png</ListIcon>
+  <BigListIcon>icons/default_95.png</BigListIcon>
 	
 	<category>information</category>
 	<autoUpdate>y</autoUpdate>
