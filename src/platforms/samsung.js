@@ -2,5 +2,5 @@
 //
 
 var OrangeeJS = {
-  KEYS: new Common.API.TVKeyValue();
+  KEYS: new Common.API.TVKeyValue()
 };
