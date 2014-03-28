@@ -6,27 +6,43 @@ function OrangeeJSBuildTask() {
 };
 
 OrangeeJSBuildTask.prototype.run = function(name) {
-  this._build_samsung();
-  mkdir('-p', 'build/lg');
-  mkdir('-p', 'build/vizio')
-  mkdir('-p', 'build/html5');
+  if (name === 'smasung') {
+    this._build_samsung();
+  } else if (name === 'lg') {
+    this._build_lg();
+  } else if (name === 'vizio') {
+    this._build_vizio();
+  } else {
+    this._build_samsung();
+    this._build_lg();
+    this._build_vizio();
+  }
 };
+
+OrangeeJSBuildTask.prototype._build_lg = function() {
+  console.log("build lg");
+  mkdir('-p', 'build/lg')
+}
+OrangeeJSBuildTask.prototype._build_vizio = function() {
+  console.log("build vizio");
+  mkdir('-p', 'build/vizio')
+}
 
 OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   mkdir('-p', 'build/samsung');
 
-  cp("-r", 'app/', 'build/samsung/');
+  cp("-rf", 'app/', 'build/samsung/');
+  cp("-f", src + "/platforms/orangee.samsung.js", "build/samsung/orangee.js");
   
-  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   this._transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
   this._transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
   
-  this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
+  //this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
-  cp(src + "/platforms/samsung/widget.info", "build/samsung/");
-  cp(src + "/platforms/samsung.js", "build/samsung/orangee.js");
+  cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
 }
 
 OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {

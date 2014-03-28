@@ -23,6 +23,8 @@ OrangeeJSInitTask.prototype.run = function() {
     }
   });
 
+  cp("-f", src + "/platforms/orangee.html5.js", "app/orangee.js");
+
   fs.exists('app/icons', function(exists) {
     if (!exists) {
       mkdir('-p', 'app/icons');
