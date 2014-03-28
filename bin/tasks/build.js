@@ -26,6 +26,7 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
   cp(src + "/platforms/samsung/widget.info", "build/samsung/");
+  cp(src + "/platforms/samsung.js", "build/samsung/orangee.js");
 }
 
 OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {
