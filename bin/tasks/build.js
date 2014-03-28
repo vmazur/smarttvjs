@@ -20,7 +20,8 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   this._transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
   this._transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
-  this._transform_template(src + "/platforms/samsung/index.html.template", "build/samsung/index.html", {});
+  
+  this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
   cp(src + "/platforms/samsung/widget.info", "build/samsung/")
   cp("-r", 'app', 'build/samsung/')
@@ -30,6 +31,13 @@ OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfil
   var template = fs.readFileSync(inputfile, "utf8");
   var s = mustache.render(template, data);
   fs.writeFileSync(outputfile, s);
+}
+
+OrangeeJSBuildTask.prototype._build_index_html = function(inputfile, outputfile) {
+  var header = fs.readFileSync(inputfile, "utf8");
+  var body = fs.readFileSync("app/index.html", "utf8");;
+  var footer = "\n</body>\n</html>"
+  fs.writeFileSync(outputfile, header + body + footer);
 }
 
 module.exports = OrangeeJSBuildTask;

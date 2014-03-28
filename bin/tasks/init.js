@@ -12,17 +12,23 @@ OrangeeJSInitTask.prototype.run = function() {
     }
   });
 
-  fs.exists('package.json', function(exist)) {
-    if (!exist) {
+  fs.exists('package.json', function(exists) {
+    if (!exists) {
       exec("npm init");
     }
-  }
+  });
 
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   fs.exists('app/icons', function(exists) {
     if (!exists) {
       mkdir('-p', 'app/icons');
-      var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
       cp(src + '/icons/*.png', 'app/icons')
+    }
+  });
+
+  fs.exists('app/index.html', function(exists) {
+    if (!exists) {
+      cp(src + "/index.example.html", 'app/index.html')
     }
   });
 };
