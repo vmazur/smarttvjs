@@ -2,7 +2,7 @@ var OrangeeJS = {
   PLATFORM:  "html5"
 };
 
-OrangeeJS.init = function() {
+OrangeeJS.init = function(callback) {
   this.KEYS = {
     KEY_TOOLS:1,
     KEY_MUTE:1,
@@ -57,4 +57,8 @@ OrangeeJS.init = function() {
     KEY_PANEL_MENU:1,
     KEY_PANEL_POWER:1
   };
+
+  if (typeof callback === "function") {
+    callback();
+  }
 };
