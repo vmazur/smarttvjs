@@ -13,18 +13,18 @@ OrangeeJS.init = function() {
 };
 
 OrangeeJS._loadScript = function(srcs, callback) {
-  var head = document.getElementById('head')[0];
+  var head = document.getElementsByTagName('head')[0];;
   var i = 0;
-  scrs.forEach(function(src) {
+  srcs.forEach(function(src) {
     var e = document.createElement('script');
     e.type = 'text/javascript';
-    e.src = src;
     e.onload = function() {
       i++;
       if (i == srcs.length) {
         callback();
       }
     };
-    head.appendChild(oScript);
+    e.src = src;
+    head.appendChild(e);
   });
 };
