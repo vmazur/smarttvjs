@@ -2,13 +2,17 @@ var OrangeeJS = {
   PLATFORM: "samsung"
 };
 
-OrangeeJS.init = function() {
+OrangeeJS.init = function(callback) {
   this._loadScript(['$MANAGER_WIDGET/Common/API/TVKeyValue.js', '$MANAGER_WIDGET/Common/API/Widget.js'], function() {
     var widgetAPI = new Common.API.Widget();
     widgetAPI.sendReadyEvent();
 
     //https://www.samsungdforum.com/Guide/ref00006/common_module_tvkeyvalue_object.html
-    this.KEYS =  new Common.API.TVKeyValue();
+    OrangeeJS.KEYS =  new Common.API.TVKeyValue();
+
+    if (typeof callback === "function") {
+    	callback();
+    }
   });
 };
 
