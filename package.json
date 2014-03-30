@@ -1,6 +1,6 @@
 {
   "name": "orangeejs",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "bin": {
     "orangeejs": "bin/main.js"
@@ -17,6 +17,7 @@
   "bugs": {
     "url": "https://github.com/orangeejs/orangeejs/issues"
   },
+  "samsung_vm": "2013_Smart_TV_Emulator_4_5",
   "dependencies": {
     "shelljs": "~0.2.6",
     "node-zip": "~1.1.0",

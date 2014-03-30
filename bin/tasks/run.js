@@ -9,10 +9,17 @@ OrangeeJSRunTask.prototype.run = function(name) {
   //VBoxManage list runningvms
   //VBoxManage controlvm "Name_of_VM" poweroff
   if (name === 'samsung') {
-    exec('VBoxManage controlvm "2014_Smart_TV_Emulator_5_0" poweroff');
-    exec('VBoxManage sharedfolder remove "2014_Smart_TV_Emulator_5_0" -name "Apps"');
-    exec('VBoxManage sharedfolder add "2014_Smart_TV_Emulator_5_0" -name "Apps" -hostpath "' + process.cwd() + '/build" --automount');
-    exec('VBoxManage startvm 2014_Smart_TV_Emulator_5_0');
+    //var vm = "2014_Smart_TV_Emulator_5_0";
+    //var vm = "2013_Smart_TV_Emulator_4_5";
+    var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['samsung_vm'];
+    if (vm) {
+      exec('VBoxManage controlvm ' + vm + ' poweroff');
+      exec('VBoxManage sharedfolder remove '+ vm + ' -name Apps');
+      exec('VBoxManage sharedfolder add ' + vm + ' -name Apps -hostpath "' + process.cwd() + '/build" --automount');
+      exec('VBoxManage startvm ' + vm);
+    } else {
+      console.log("please specify samsung_vm in package.json");
+    }
   }
 };
 
