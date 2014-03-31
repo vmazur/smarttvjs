@@ -3,6 +3,7 @@ var OrangeeJS = {
 };
 
 OrangeeJS.init = function(callback) {
+  //http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
   this.KEYS = {
     KEY_TOOLS:1,
     KEY_MUTE:1,
