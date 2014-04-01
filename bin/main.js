@@ -8,6 +8,9 @@ console.dir(argv);
 if (argv._.length >= 1 && argv._[0] == 'init') {
   var T = require('./tasks/init');
   (new T()).run();
+} else if (argv._.length >= 1 && argv._[0] == 'server') {
+  var T = require('./tasks/server');
+  (new T()).run(argv._[1] || 80);
 } else if (argv._.length >= 1 && argv._[0] == 'build') {
   var T = require('./tasks/build');
   (new T()).run(argv._[1]);

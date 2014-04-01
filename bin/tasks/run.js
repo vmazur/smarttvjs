@@ -20,6 +20,8 @@ OrangeeJSRunTask.prototype.run = function(name) {
     } else {
       console.log("please specify samsung_vm in package.json");
     }
+  } else if (name === 'lg') {
+    exec('open -a LG_SMART_TV_Emulator_2013');
   }
 };
 
