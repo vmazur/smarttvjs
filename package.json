@@ -20,10 +20,10 @@
   "samsung_vm": "2013_Smart_TV_Emulator_4_5",
   "dependencies": {
     "shelljs": "~0.2.6",
-    "node-zip": "~1.1.0",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
-    "gm": "~1.14.2"
+    "gm": "~1.14.2",
+    "archiver": "~0.8.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

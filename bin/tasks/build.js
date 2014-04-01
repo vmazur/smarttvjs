@@ -22,11 +22,12 @@ OrangeeJSBuildTask.prototype.run = function(name) {
 OrangeeJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   mkdir('-p', 'build/lg')
-}
+};
+
 OrangeeJSBuildTask.prototype._build_vizio = function() {
   console.log("build vizio");
   mkdir('-p', 'build/vizio')
-}
+};
 
 OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
@@ -43,19 +44,45 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   //this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
-}
+  
+  rm("-rf", "build/samsung/icons/default.icon")
+  rm("-rf", "build/samsung/samsung.zip")
+  this._zip("build/samsung", "build/samsung/samsung.zip");
+};
 
 OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {
   var template = fs.readFileSync(inputfile, "utf8");
   var s = mustache.render(template, data);
   fs.writeFileSync(outputfile, s);
-}
+};
 
 OrangeeJSBuildTask.prototype._build_index_html = function(inputfile, outputfile) {
   var header = fs.readFileSync(inputfile, "utf8");
   var body = fs.readFileSync("app/index.html", "utf8");;
   var footer = "\n</body>\n</html>"
   fs.writeFileSync(outputfile, header + body + footer);
-}
+};
+
+OrangeeJSBuildTask.prototype._zip = function(inputdir, zipfilename) {
+  var archiver = require('archiver');
+
+  var output = fs.createWriteStream(zipfilename);
+  var archive = archiver('zip');
+
+  output.on('close', function () {
+      console.log(archive.pointer() + ' total bytes');
+      console.log('archiver has been finalized and the output file descriptor has closed.');
+  });
+
+  archive.on('error', function(err){
+      throw err;
+  });
+
+  archive.pipe(output);
+  archive.bulk([
+      { expand: true, cwd: inputdir, src: ['**'], dest: ""}
+  ]);
+  archive.finalize();
+};
 
 module.exports = OrangeeJSBuildTask;
