@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp stat="ok">
+  <list>
+    <widget id="{{name}}">
+      <title>{{name}}</title>
+      <compression size="{{filesize}}" type="zip"/>
+      <description></description>
+      <download>{{{downloadurl}}}</download>
+    </widget>
+</list>
+</rsp>
