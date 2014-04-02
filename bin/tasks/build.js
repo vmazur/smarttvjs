@@ -23,14 +23,15 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   mkdir('-p', 'build/lg/WebContent')
-  mkdir('-p', 'build/lg/.settings')
   
   cp("-rf", 'app/', 'build/lg/WebContent');
   cp("-f", src + "/platforms/orangee.html5.js", "build/lg/WebContent/orangee.js");
   
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   this._transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
-  this._transform_template(src + "/platforms/lg/eclipse.settings.org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
+  cp("-rf", src + '/platforms/lg/eclipse.settings/', 'build/lg/.settings');
+  this._transform_template(src + "/platforms/lg/eclipse.settings/org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
+  rm("-rf", "build/lg/.settings/org.eclipse.wst.common.component.template")
 
   this._zip("build/lg/WebContent", "build/lg.zip");
 };
