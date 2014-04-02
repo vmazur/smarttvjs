@@ -22,12 +22,15 @@ OrangeeJSBuildTask.prototype.run = function(name) {
 OrangeeJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  mkdir('-p', 'build/lg')
+  mkdir('-p', 'build/lg/WebContent')
   
-  cp("-rf", 'app/', 'build/lg/');
-  cp("-f", src + "/platforms/orangee.html5.js", "build/samsung/orangee.js");
+  cp("-rf", 'app/', 'build/lg/WebContent');
+  cp("-f", src + "/platforms/orangee.html5.js", "build/lg/WebContent/orangee.js");
   
-  this._zip("build/lg", "build/lg.zip");
+  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  this._transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
+
+  this._zip("build/lg/WebContent", "build/lg.zip");
 };
 
 OrangeeJSBuildTask.prototype._build_vizio = function() {
