@@ -1,7 +1,9 @@
 Install
 ====
 install virtual pc 4.2 (lg does not support 4.3)
+
 install samsung smart tv sdk
+
 install lg smart tv sdk
 
 ```bash
@@ -28,7 +30,9 @@ orangeejs run lg
 ```
 
 Optional:
+
 in samsung sdk, import project from build/samsung 
+
 in lg sdk, import project from 
 
 
