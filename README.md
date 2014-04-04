@@ -7,7 +7,7 @@ install samsung smart tv sdk
 install lg smart tv sdk
 
 ```bash
-sudo npm install -g orangeejs
+sudo npm install -g cordova orangeejs
 brew install graphicsmagick
 ```
 

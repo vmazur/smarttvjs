@@ -10,12 +10,8 @@ OrangeeJSBuildTask.prototype.run = function(name) {
     this._build_samsung();
   } else if (name === 'lg') {
     this._build_lg();
-  } else if (name === 'vizio') {
-    this._build_vizio();
-  } else {
-    this._build_samsung();
-    this._build_lg();
-    this._build_vizio();
+  } else if (name === 'ios') {
+    this._build_ios();
   }
 };
 
@@ -36,9 +32,28 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   this._zip("build/lg/WebContent", "build/lg.zip");
 };
 
-OrangeeJSBuildTask.prototype._build_vizio = function() {
-  console.log("build vizio");
-  mkdir('-p', 'build/vizio')
+OrangeeJSBuildTask.prototype._build_ios = function() {
+  console.log("build ios");
+  if (!which('cordova')) {
+    echo('Please install cordova: "sudo npm install -g cordova"');
+    return;
+  }
+
+  fs.exists('build/ios', function(exists) {
+    if (!exists) {
+      var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+      exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
+    }
+    
+    cd('build/ios');
+    if (!exists) {
+      exec('cordova platform add ios', {async:false});
+    }
+    //TODO cp app
+    exec('cordova build ios');
+    cd("../../");
+ 
+  });
 };
 
 OrangeeJSBuildTask.prototype._build_samsung = function() {
