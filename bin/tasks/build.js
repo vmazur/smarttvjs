@@ -44,13 +44,17 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     if (!exists) {
       var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
       exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
+      rm("-rf", "build/ios/www/*")
     }
-    
+
+    cp("-rf", 'app/', 'build/ios/www');
+
     cd('build/ios');
     if (!exists) {
       exec('cordova platform add ios', {async:false});
     }
     //TODO cp app
+
     exec('cordova build ios');
     cd("../../");
  
