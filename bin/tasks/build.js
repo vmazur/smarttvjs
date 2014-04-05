@@ -34,6 +34,7 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 
 OrangeeJSBuildTask.prototype._build_ios = function() {
   console.log("build ios");
+  mkdir('-p', 'build');
   if (!which('cordova')) {
     echo('Please install cordova: "sudo npm install -g cordova"');
     return;
