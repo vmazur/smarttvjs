@@ -18,7 +18,7 @@ Create new project
 mkdir projectname
 cd projectname
 orangeejs init 
-orangeejs build
+orangeejs build samsung
 ```
 
 Run in emulator
@@ -36,5 +36,17 @@ in samsung sdk, import project from build/samsung
 in lg sdk, import project from 
 
 
+Known issues (TODO move this section to wiki)
+====
 
+When developing apps using orangeejs on smart tv, we found the following
+issues:
+
+Samsung:
+
+* element.classList does not support multiple parameters
+* Function.prototype.bind() does not work
+
+LG: 
+* window.scrollTo does not work
 

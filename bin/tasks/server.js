@@ -2,6 +2,7 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs");
+var OrangeeJSUtil = require('./tasks/util');
 
 function OrangeeJSServerTask() {
 };
@@ -38,23 +39,8 @@ OrangeeJSServerTask.prototype.run = function(port) {
   }).listen(parseInt(port, 10));
 
   console.log("Static file server running at");
-  console.log("  => http://" + this._getip() + (port == 80 ? '' : (":" + port)));
+  console.log("  => http://" + OrangeeJSUtil.getip() + (port == 80 ? '' : (":" + port)));
   console.log("CTRL + C to shutdown");
-};
-
-OrangeeJSServerTask.prototype._getip = function() {
-  var os=require('os');
-  var ifaces=os.networkInterfaces();
-  for (var dev in ifaces) {
-    for (var i = 0; i < ifaces[dev].length; i++) {
-      var details = ifaces[dev][i]; 
-      if (details.family=='IPv4' && details.address != "127.0.0.1") {
-        return details.address;
-        ++alias;
-      }
-    }
-  }
-  return "127.0.0.1";
 };
 
 module.exports = OrangeeJSServerTask;

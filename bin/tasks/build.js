@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mustache');
+var OrangeeJSUtil = require('./util');
 
 function OrangeeJSBuildTask() {
 };
@@ -24,12 +25,12 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   cp("-f", src + "/platforms/orangee.html5.js", "build/lg/WebContent/orangee.js");
   
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  this._transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
+  OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
   cp("-rf", src + '/platforms/lg/eclipse.settings/', 'build/lg/.settings');
-  this._transform_template(src + "/platforms/lg/eclipse.settings/org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
+  OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.settings/org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
   rm("-rf", "build/lg/.settings/org.eclipse.wst.common.component.template")
 
-  this._zip("build/lg/WebContent", "build/lg.zip");
+  OrangeeJSUtil.zip("build/lg/WebContent", "build/lg.zip");
 };
 
 OrangeeJSBuildTask.prototype._build_ios = function() {
@@ -73,27 +74,36 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   cp("-f", src + "/platforms/orangee.samsung.js", "build/samsung/orangee.js");
   
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  this._transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
-  this._transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
+  OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
+  OrangeeJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
   
   //this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
 
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
-  
-  rm("-rf", "build/samsung/icons/icon.png")
+ 
+  fs.exists('icon.png', function(exists) {
+    if (exists) {
+      var gm = require('gm');
+
+      [[115, 95], [106,87], [95, 78], [85, 70]].forEach(function(dim) {
+        if (!fs.existsSync('app/icons/icon_' + dim[0] + '.png')) {
+          gm('app/icons/icon.png').resize(dim[0], dim[1]).autoOrient().write('app/icons/icon_' + dim[0] + '.png', function(err) {
+            console.log(err ? err : 'app/icons/icon_' + dim[0] + '.png');
+          });
+        }
+      });
+    } else {
+      console.log('icon.png not found');
+    }
+  });
+ 
   rm("-rf", "build/samsung/samsung.zip")
   var self = this;
-  this._zip("build/samsung", "build/samsung.zip", function(size) {
+  OrangeeJSUtil.zip("build/samsung", "build/samsung.zip", function(size) {
     appdata['filesize'] = size;
-    appdata['downloadurl'] = "http://" + self._getip() + "/samsung.zip";
-    self._transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
+    appdata['downloadurl'] = "http://" + OrangeeJSUtil.getip() + "/samsung.zip";
+    OrangeeJSUtil.transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
   });
-};
-
-OrangeeJSBuildTask.prototype._transform_template = function(inputfile, outputfile, data) {
-  var template = fs.readFileSync(inputfile, "utf8");
-  var s = mustache.render(template, data);
-  fs.writeFileSync(outputfile, s);
 };
 
 /*
@@ -103,44 +113,5 @@ OrangeeJSBuildTask.prototype._build_index_html = function(inputfile, outputfile)
   var footer = "\n</body>\n</html>"
   fs.writeFileSync(outputfile, header + body + footer);
 };*/
-
-OrangeeJSBuildTask.prototype._zip = function(inputdir, zipfilename, callback) {
-  var archiver = require('archiver');
-
-  var output = fs.createWriteStream(zipfilename);
-  var archive = archiver('zip');
-
-  output.on('close', function () {
-    console.log(archive.pointer() + ' total bytes');
-    if (typeof callback === "function") {
-      callback(archive.pointer());
-    }
-  });
-
-  archive.on('error', function(err){
-    throw err;
-  });
-
-  archive.pipe(output);
-  archive.bulk([
-    { expand: true, cwd: inputdir, src: ['**'], dest: ""}
-  ]);
-  archive.finalize();
-};
-
-OrangeeJSBuildTask.prototype._getip = function() {
-  var os=require('os');
-  var ifaces=os.networkInterfaces();
-  for (var dev in ifaces) {
-    for (var i = 0; i < ifaces[dev].length; i++) {
-      var details = ifaces[dev][i]; 
-      if (details.family=='IPv4' && details.address != "127.0.0.1") {
-        return details.address;
-        ++alias;
-      }
-    }
-  }
-  return "127.0.0.1";
-};
 
 module.exports = OrangeeJSBuildTask;
