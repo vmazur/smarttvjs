@@ -44,6 +44,9 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     if (!exists) {
       var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
       exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
+      exec('cordova plugin add org.apache.cordova.device', {async:false});
+      exec('cordova plugin add org.apache.cordova.console', {async:false});
+      exec('cordova plugin add org.apache.cordova.statusbar', {async:false});
       rm("-rf", "build/ios/www/*")
     }
 
@@ -77,7 +80,7 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
 
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
   
-  rm("-rf", "build/samsung/icons/default.icon")
+  rm("-rf", "build/samsung/icons/icon.png")
   rm("-rf", "build/samsung/samsung.zip")
   var self = this;
   this._zip("build/samsung", "build/samsung.zip", function(size) {
