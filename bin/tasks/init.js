@@ -9,6 +9,7 @@ function OrangeeJSInitTask() {
 
 OrangeeJSInitTask.prototype.run = function() {
   mkdir('-p', 'app');
+  mkdir('-p', 'assets');
 
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var name = path.basename(process.cwd());
@@ -19,7 +20,7 @@ OrangeeJSInitTask.prototype.run = function() {
 
   cp("-f", src + "/platforms/orangee.html5.js", "app/orangee.js");
 
-  OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'icon.png');
+  OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'assets/icon.png');
   OrangeeJSUtil.copyUnlessExist(src + "/index.example.html", 'app/index.html');
 };
 

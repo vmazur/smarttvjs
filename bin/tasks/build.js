@@ -22,7 +22,7 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   mkdir('-p', 'build/lg/WebContent')
   
   cp("-rf", 'app/', 'build/lg/WebContent');
-  cp("-f", src + "/platforms/orangee.html5.js", "build/lg/WebContent/orangee.js");
+  cp("-f", src + "/platforms/orangee.lg.js", "build/lg/WebContent/orangee.js");
   
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
@@ -68,7 +68,8 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
 OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  mkdir('-p', 'build/samsung');
+  mkdir('-p', 'build/samsung/icons');
+  mkdir('-p', 'assets/samsung');
 
   cp("-rf", 'app/', 'build/samsung/');
   cp("-f", src + "/platforms/orangee.samsung.js", "build/samsung/orangee.js");
@@ -77,26 +78,29 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
   
-  //this._build_index_html(src + "/platforms/samsung/index.html.template", "build/samsung/index.html");
-
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
- 
-  fs.exists('icon.png', function(exists) {
-    if (exists) {
-      var gm = require('gm');
 
-      [[115, 95], [106,87], [95, 78], [85, 70]].forEach(function(dim) {
-        if (!fs.existsSync('app/icons/icon_' + dim[0] + '.png')) {
-          gm('app/icons/icon.png').resize(dim[0], dim[1]).autoOrient().write('app/icons/icon_' + dim[0] + '.png', function(err) {
-            console.log(err ? err : 'app/icons/icon_' + dim[0] + '.png');
-          });
-        }
+  var i = 0; 
+  var gm = require('gm');
+  var array =  [[115, 95], [106,87], [95, 78], [85, 70]];
+  array.forEach(function(dim) {
+    if (!fs.existsSync('assets/samsung/icon_' + dim[0] + '.png')) {
+      gm('assets/icon.png').resize(dim[0], dim[1]).autoOrient().write('assets/samsung/icon_' + dim[0] + '.png', function(err) {
+        console.log(err ? err : 'assets/samsung/icon_' + dim[0] + '.png');
+        i++;
       });
     } else {
-      console.log('icon.png not found');
+      i++;
     }
   });
- 
+
+  var sleep = require('sleep');
+  while (i != array.length) {
+    sleep.usleep(100);
+  }
+
+  cp("-rf", 'assets/samsung/', 'build/samsung/icons');
+
   rm("-rf", "build/samsung/samsung.zip")
   var self = this;
   OrangeeJSUtil.zip("build/samsung", "build/samsung.zip", function(size) {
@@ -104,14 +108,7 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
     appdata['downloadurl'] = "http://" + OrangeeJSUtil.getip() + "/samsung.zip";
     OrangeeJSUtil.transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
   });
-};
 
-/*
-OrangeeJSBuildTask.prototype._build_index_html = function(inputfile, outputfile) {
-  var header = fs.readFileSync(inputfile, "utf8");
-  var body = fs.readFileSync("app/index.html", "utf8");;
-  var footer = "\n</body>\n</html>"
-  fs.writeFileSync(outputfile, header + body + footer);
-};*/
+};
 
 module.exports = OrangeeJSBuildTask;

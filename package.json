@@ -1,6 +1,6 @@
 {
   "name": "orangeejs",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "",
   "bin": {
     "orangeejs": "bin/main.js"
@@ -19,11 +19,12 @@
   },
   "samsung_vm": "2013_Smart_TV_Emulator_4_5",
   "dependencies": {
-    "shelljs": "~0.2.6",
+    "archiver": "~0.8.0",
+    "gm": "~1.14.2",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
-    "gm": "~1.14.2",
-    "archiver": "~0.8.0"
+    "shelljs": "~0.2.6",
+    "sleep": "^1.1.4"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
