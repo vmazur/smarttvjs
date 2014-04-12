@@ -24,7 +24,6 @@
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
     "shelljs": "~0.2.6",
-    "sleep": "^1.1.4"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

@@ -33,6 +33,30 @@ OrangeeJSUtil.transform_template = function(inputfile, outputfile, data) {
   fs.writeFileSync(outputfile, s);
 };
 
+OrangeeJSUtil.resize_image = function(size_array, callback) {
+  var i = 0;
+  var gm = require('gm');
+
+  size_array.forEach(function(dim) {
+    if (!fs.existsSync(dim[3])) {
+      console.log("creating " + dim[3] + " using " + dim[0]);
+      gm(dim[0]).resize(dim[1], dim[2]).autoOrient().write(dim[3], function(err) {
+        console.log(err ? "error:" + err : dim[3]);
+        i++;
+        if (i == size_array.length) {
+          callback();
+        }
+      });
+    } else {
+      i++;
+      if (i == size_array.length) {
+        callback();
+      }
+    }
+  });
+
+};
+
 OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
   var archiver = require('archiver');
 

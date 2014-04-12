@@ -21,6 +21,8 @@ OrangeeJSInitTask.prototype.run = function() {
   cp("-f", src + "/platforms/orangee.html5.js", "app/orangee.js");
 
   OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'assets/icon.png');
+  OrangeeJSUtil.copyUnlessExist(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');
+  OrangeeJSUtil.copyUnlessExist(src + '/splash-landscape.example.png', 'assets/splash-landscape.png');
   OrangeeJSUtil.copyUnlessExist(src + "/index.example.html", 'app/index.html');
 };
 

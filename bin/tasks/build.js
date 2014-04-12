@@ -35,34 +35,52 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 
 OrangeeJSBuildTask.prototype._build_ios = function() {
   console.log("build ios");
-  mkdir('-p', 'build');
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
+  mkdir("-p", 'build/ios/www/res/icons/ios');
+  mkdir("-p", 'build/ios/www/res/screens/ios');
+  mkdir('-p', 'assets/ios');
   if (!which('cordova')) {
     echo('Please install cordova: "sudo npm install -g cordova"');
     return;
   }
 
-  fs.exists('build/ios', function(exists) {
-    if (!exists) {
-      var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-      exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
-      exec('cordova plugin add org.apache.cordova.device', {async:false});
-      exec('cordova plugin add org.apache.cordova.console', {async:false});
-      exec('cordova plugin add org.apache.cordova.statusbar', {async:false});
-      rm("-rf", "build/ios/www/*")
-    }
+  if (!fs.existsSync('build/ios')) {
+    var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+    exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
+    //exec('cordova plugin add org.apache.cordova.device', {async:false});
+    //exec('cordova plugin add org.apache.cordova.console', {async:false});
+    //exec('cordova plugin add org.apache.cordova.statusbar', {async:false});
+    cd('build/ios');
+    exec('cordova platform add ios', {async:false});
+    cd("../../");
+    rm("-rf", "build/ios/www/*");
+  }
 
+  OrangeeJSUtil.resize_image([
+    ['assets/icon.png',114,114, 'assets/ios/icon-57-2x.png'],
+    ['assets/icon.png',57 ,57,  'assets/ios/icon-57.png'],
+    ['assets/icon.png',144,144, 'assets/ios/icon-72-2x.png'],
+    ['assets/icon.png',72 ,72,  'assets/ios/icon-72.png'],
+    ['assets/splash-landscape.png',2048,1496,'assets/ios/screen-ipad-landscape-2x.png'],
+    ['assets/splash-landscape.png',1024,748, 'assets/ios/screen-ipad-landscape.png'],
+    ['assets/splash-landscape.png',960 ,640, 'assets/ios/screen-iphone-landscape-2x.png'],
+    ['assets/splash-landscape.png',480 ,320, 'assets/ios/screen-iphone-landscape.png'],
+    ['assets/splash-portrait.png',1536,2008,'assets/ios/screen-ipad-portrait-2x.png'],
+    ['assets/splash-portrait.png',768 ,1004,'assets/ios/screen-ipad-portrait.png'],
+    ['assets/splash-portrait.png',640 ,960, 'assets/ios/screen-iphone-portrait-2x.png'],
+    ['assets/splash-portrait.png',320 ,480, 'assets/ios/screen-iphone-portrait.png'],
+    ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
+  ], function() {
     cp("-rf", 'app/', 'build/ios/www');
+    cp("-f", src + "/platforms/orangee.html5.js", "build/samsung/orangee.js");
+    cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icons/ios');
+    cp("-rf", 'assets/ios/screen*', 'build/ios/www/res/screens/ios');
 
     cd('build/ios');
-    if (!exists) {
-      exec('cordova platform add ios', {async:false});
-    }
-    //TODO cp app
-
     exec('cordova build ios');
     cd("../../");
- 
   });
+
 };
 
 OrangeeJSBuildTask.prototype._build_samsung = function() {
@@ -80,24 +98,10 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
 
-  var i = 0; 
-  var gm = require('gm');
-  var array =  [[115, 95], [106,87], [95, 78], [85, 70]];
-  array.forEach(function(dim) {
-    if (!fs.existsSync('assets/samsung/icon_' + dim[0] + '.png')) {
-      gm('assets/icon.png').resize(dim[0], dim[1]).autoOrient().write('assets/samsung/icon_' + dim[0] + '.png', function(err) {
-        console.log(err ? err : 'assets/samsung/icon_' + dim[0] + '.png');
-        i++;
-      });
-    } else {
-      i++;
-    }
-  });
-
-  var sleep = require('sleep');
-  while (i != array.length) {
-    sleep.usleep(100);
-  }
+  OrangeeJSUtil.resize_image('assets/icon.png', [[115, 95, 'assets/samsung/icon_115.png'], 
+                             [106,87, 'assets/samsung/icon_106.png'], 
+                             [95, 78, 'assets/samsung/icon_9.png'], 
+                             [85, 70, 'assets/samsung/icon_85.png']]);
 
   cp("-rf", 'assets/samsung/', 'build/samsung/icons');
 
