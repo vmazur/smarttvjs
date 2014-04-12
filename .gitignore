@@ -1,4 +1,5 @@
 node_modules
 build
 app
+assets
 .DS_Store
