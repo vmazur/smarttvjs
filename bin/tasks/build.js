@@ -19,7 +19,7 @@ OrangeeJSBuildTask.prototype.run = function(name) {
 OrangeeJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  mkdir('-p', 'build/lg/WebContent')
+  mkdir('-p', 'build/lg/WebContent');
   
   cp("-rf", 'app/', 'build/lg/WebContent');
   cp("-f", src + "/platforms/orangee.lg.js", "build/lg/WebContent/orangee.js");
@@ -36,14 +36,11 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 OrangeeJSBuildTask.prototype._build_ios = function() {
   console.log("build ios");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  mkdir("-p", 'build/ios/www/res/icons/ios');
-  mkdir("-p", 'build/ios/www/res/screens/ios');
-  mkdir('-p', 'assets/ios');
   if (!which('cordova')) {
     echo('Please install cordova: "sudo npm install -g cordova"');
     return;
   }
-
+  
   if (!fs.existsSync('build/ios')) {
     var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
     exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
@@ -55,7 +52,10 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     cd("../../");
     rm("-rf", "build/ios/www/*");
   }
-
+  
+  mkdir('-p', 'assets/ios');
+  mkdir("-p", 'build/ios/www/res/icon/ios');
+  mkdir("-p", 'build/ios/www/res/screen/ios');
   OrangeeJSUtil.resize_image([
     ['assets/icon.png',114,114, 'assets/ios/icon-57-2x.png'],
     ['assets/icon.png',57 ,57,  'assets/ios/icon-57.png'],
@@ -73,8 +73,8 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
   ], function() {
     cp("-rf", 'app/', 'build/ios/www');
     cp("-f", src + "/platforms/orangee.html5.js", "build/samsung/orangee.js");
-    cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icons/ios');
-    cp("-rf", 'assets/ios/screen*', 'build/ios/www/res/screens/ios');
+    cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icon/ios');
+    cp("-rf", 'assets/ios/screen*', 'build/ios/www/res/screen/ios');
 
     cd('build/ios');
     exec('cordova build ios');

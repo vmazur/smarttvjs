@@ -23,7 +23,7 @@
     "gm": "~1.14.2",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
-    "shelljs": "~0.2.6",
+    "shelljs": "~0.2.6"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
