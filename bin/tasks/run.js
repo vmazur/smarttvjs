@@ -12,7 +12,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
   if (name === 'samsung') {
     //var vm = "2014_Smart_TV_Emulator_5_0";
     //var vm = "2013_Smart_TV_Emulator_4_5";
-    var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['samsung_vm'] || '2014_Smart_TV_Emulator_5_0';
+    var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['samsung_vm'];
     if (vm) {
       exec('VBoxManage controlvm ' + vm + ' poweroff');
       exec('VBoxManage sharedfolder remove '+ vm + ' -name Apps');

@@ -18,6 +18,13 @@
     "url": "https://github.com/orangeejs/orangeejs/issues"
   },
   "samsung_vm": "2013_Smart_TV_Emulator_4_5",
+  "cordova_plugins": [
+    "org.apache.cordova.device",
+    "org.apache.cordova.device-motion",
+    "org.apache.cordova.device-orientation",
+    "org.apache.cordova.geolocation",
+    "https://github.com/chrisekelley/AppPreferences/"
+  ],
   "dependencies": {
     "archiver": "~0.8.0",
     "gm": "~1.14.2",

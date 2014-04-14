@@ -1,5 +1,13 @@
 {
   "name": "{{name}}",
   "version": "0.0.0",
-  "description": ""
+  "description": "",
+  "samsung_vm": "2014_Smart_TV_Emulator_5_0",
+  "cordova_plugins": [
+    "org.apache.cordova.device",
+    "org.apache.cordova.device-motion",
+    "org.apache.cordova.device-orientation",
+    "org.apache.cordova.geolocation",
+    "https://github.com/chrisekelley/AppPreferences/"
+  ]
 }
