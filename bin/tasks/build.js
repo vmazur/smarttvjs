@@ -85,7 +85,7 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
   ], function() {
     cp("-rf", 'app/', 'build/ios/www');
-    cp("-f", src + "/platforms/orangee.html5.js", "build/samsung/orangee.js");
+    cp("-f", src + "/platforms/orangee.html5.js", "build/ios/www/orangee.js");
     
     //for phonegap build
     cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icon/ios');
