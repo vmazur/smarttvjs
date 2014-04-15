@@ -8,6 +8,7 @@
     "org.apache.cordova.device-motion",
     "org.apache.cordova.device-orientation",
     "org.apache.cordova.geolocation",
+    "org.apache.cordova.statusbar",
     "https://github.com/chrisekelley/AppPreferences/"
   ]
 }
