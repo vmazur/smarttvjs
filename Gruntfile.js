@@ -1,8 +1,8 @@
 module.exports = function(grunt) {
 
   var files = ['src/widgets/modal.js', 'src/widgets/button.js',
-    'src/widgets/popover.js', 'src/widgets/tab.js',
-    'src/vendor/snap.min.js'
+    // 'src/widgets/popover.js', 'src/widgets/tooltip.js', 'src/widgets/tab.js',
+    'src/vendor/snap.min.js', 'src/vendor/hello.min.js'
     ]
   // Project configuration.
   grunt.initConfig({
