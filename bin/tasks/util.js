@@ -7,6 +7,11 @@ require('shelljs/global');
 function OrangeeJSUtil() {
 };
 
+OrangeeJSUtil.sources = ['/widgets/modal.js', '/widgets/button.js',
+  //'/widgets/popover.js', '/widgets/tooltip.js', '/widgets/tab.js',
+  '/vendor/snap.min.js', '/vendor/hello.min.js'
+];
+
 OrangeeJSUtil.copyUnlessExist = function(src, dst) {
   if (!fs.existsSync(dst)) {
     cp(src, dst);
