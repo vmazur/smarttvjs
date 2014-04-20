@@ -6,6 +6,11 @@ var OrangeeJSUtil = require('./util');
 function OrangeeJSBuildTask() {
 };
 
+OrangeeJSBuildTask.sources = ['/widgets/modal.js', '/widgets/button.js',
+  //'/widgets/popover.js', '/widgets/tooltip.js', '/widgets/tab.js',
+  '/vendor/snap.min.js', '/vendor/hello.min.js'
+];
+
 OrangeeJSBuildTask.prototype.run = function(name) {
   if (name === 'samsung') {
     this._build_samsung();
@@ -22,8 +27,8 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   mkdir('-p', 'build/lg/WebContent');
   
   cp("-rf", 'app/', 'build/lg/WebContent');
-  cp("-f", src + "/platforms/orangee.lg.js", "build/lg/WebContent/orangee.js");
-  
+  OrangeeJSUtil.concat_js(src, OrangeeJSBuildTask.sources.concat("/platforms/orangee.lg.js"), "build/lg/WebContent/orangee.js");
+
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
   cp("-rf", src + '/platforms/lg/eclipse.settings/', 'build/lg/.settings');
@@ -85,7 +90,7 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
   ], function() {
     cp("-rf", 'app/', 'build/ios/www');
-    cp("-f", src + "/platforms/orangee.html5.js", "build/ios/www/orangee.js");
+    OrangeeJSUtil.concat_js(src, OrangeeJSBuildTask.sources.concat("/platforms/orangee.html5.js"), "build/ios/www/orangee.js");
     
     //for phonegap build
     cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icon/ios');
@@ -143,7 +148,7 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   mkdir('-p', 'assets/samsung');
 
   cp("-rf", 'app/', 'build/samsung/');
-  cp("-f", src + "/platforms/orangee.samsung.js", "build/samsung/orangee.js");
+  OrangeeJSUtil.concat_js(src, OrangeeJSBuildTask.sources.concat("/platforms/orangee.samsung.js"), "build/samsung/orangee.js");
   
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);

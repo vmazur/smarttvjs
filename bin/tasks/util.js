@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mustache');
+var UglifyJS = require("uglify-js");
 require('shelljs/global');
 
 function OrangeeJSUtil() {
@@ -80,5 +81,14 @@ OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
   ]);
   archive.finalize();
 };
+
+OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile) {
+  var new_sources = [];
+  source_files.forEach(function(x) {
+    new_sources = new_sources.concat(source_dir + x);
+  });
+  var result = UglifyJS.minify(new_sources, {mangle: false, compress: false});
+  fs.writeFileSync(outputfile, result.code);
+}
 
 module.exports = OrangeeJSUtil;

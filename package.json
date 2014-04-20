@@ -31,10 +31,12 @@
     "gm": "~1.14.2",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
-    "shelljs": "~0.2.6"
+    "shelljs": "~0.2.6",
+    "uglify-js": "^2.4.13"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
-    "grunt-contrib-uglify": "~0.4.0"
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsvalidate": "^0.2.2"
   }
 }

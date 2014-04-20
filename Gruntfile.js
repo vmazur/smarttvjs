@@ -1,30 +1,43 @@
 module.exports = function(grunt) {
+  'use strict';
 
-  var files = ['src/widgets/modal.js', 'src/widgets/button.js',
-    // 'src/widgets/popover.js', 'src/widgets/tooltip.js', 'src/widgets/tab.js',
-    'src/vendor/snap.min.js', 'src/vendor/hello.min.js'
-    ]
-  // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    uglify: {
+    jshint: {
       options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+        curly: true,
+        eqeqeq: true,
+        immed: true,
+        latedef: true,
+        newcap: true,
+        noarg: true,
+        sub: true,
+        undef: true,
+        boss: true,
+        eqnull: true,
+        node: true,
+        es5: true,
+        globals: {}
       },
-      // build: {
-      //   src: 'src/<%= pkg.name %>.js',
-      //   dest: 'build/<%= pkg.name %>.min.js'
-      // },
-      release: {
-        files: {'dest/<%= pkg.name %>.min.js': files }
+      all: ['Gruntfile.js', 'bin/**/*.js', 'src/**/*.js']
+    },
+    jsvalidate: {
+      options:{
+        globals: {},
+        esprimaOptions: {},
+        verbose: false
+      },
+      targetName:{
+        files:{
+          src:['<%=jshint.all%>']
+        }
       }
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-jsvalidate');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['jsvalidate', 'jshint']);
 
 };
