@@ -7,7 +7,7 @@ require('shelljs/global');
 function OrangeeJSUtil() {
 };
 
-OrangeeJSUtil.sources = ['/widgets/modal.js', '/widgets/button.js',
+OrangeeJSUtil.sources = [//'/widgets/modal.js', '/widgets/button.js',
   //'/widgets/popover.js', '/widgets/tooltip.js', '/widgets/tab.js',
   '/vendor/snap.min.js', '/vendor/hello.min.js'
 ];
