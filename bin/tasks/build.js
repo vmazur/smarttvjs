@@ -84,6 +84,7 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     ['assets/splash-portrait.png',320 ,480, 'assets/ios/screen-iphone-portrait.png'],
     ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
   ], function() {
+    cp("-f", 'config.ios.xml', 'build/ios/config.xml');
     cp("-rf", 'app/', 'build/ios/www');
     OrangeeJSUtil.concat_js(src, OrangeeJSUtil.sources.concat("/platforms/orangee.html5.js"), "build/ios/www/orangee.js");
     
