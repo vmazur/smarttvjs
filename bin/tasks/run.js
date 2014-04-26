@@ -21,9 +21,25 @@ OrangeeJSRunTask.prototype.run = function(name) {
     }
   } else if (name === 'lg') {
     exec('open -a LG_SMART_TV_Emulator_2013');
-  } else if (name === 'ios') {
+  } else if (name === 'ios' || name === 'iphone') {
     cd('build/ios')
-    exec('cordova emulate ios');
+    exec('cordova emulate ios');//cordova emulate emulate --target="iPhone"
+    cd('../..')
+  } else if (name === 'iphone5') {
+    cd('build/ios')
+    exec('cordova emulate emulate --target="iPhone (Retina 4-inch)"');
+    cd('../..')
+  } else if (name === 'iphone4') {
+    cd('build/ios')
+    exec('cordova emulate emulate --target="iPhone (Retina 3.5-inch)"');
+    cd('../..')
+  } else if (name === 'ipad') {
+    cd('build/ios')
+    exec('cordova emulate emulate --target="iPad"');
+    cd('../..')
+  } else if (name === 'ipad4') {
+    cd('build/ios')
+    exec('cordova emulate emulate --target="iPad (Retina)"');
     cd('../..')
   }
 };
