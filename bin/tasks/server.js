@@ -2,7 +2,7 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs");
-var OrangeeJSUtil = require('./tasks/util');
+var OrangeeJSUtil = require('./util');
 
 function OrangeeJSServerTask() {
 };
