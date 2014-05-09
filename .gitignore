@@ -1,6 +1,5 @@
 node_modules
 build
 app
-assets
 dest
 .DS_Store
