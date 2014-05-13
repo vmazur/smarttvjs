@@ -1,6 +1,6 @@
 {
   "name": "orangeejs",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "description": "",
   "bin": {
     "orangeejs": "bin/main.js"
