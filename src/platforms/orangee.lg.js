@@ -16,7 +16,7 @@ OrangeeJS.init = function(callback) {
     KEY_WHEELUP:1,
     KEY_ENTER:13,
     KEY_INFO:1,
-    KEY_EXIT:1,
+    KEY_EXIT:27,
     KEY_RED:1,
     KEY_GREEN:1,
     KEY_YELLOW:1,
@@ -62,4 +62,7 @@ OrangeeJS.init = function(callback) {
   if (typeof callback === "function") {
     callback();
   }
+};
+
+OrangeeJS.close = function() {
 };

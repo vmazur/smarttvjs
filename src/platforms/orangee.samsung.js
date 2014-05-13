@@ -16,6 +16,11 @@ OrangeeJS.init = function(callback) {
   });
 };
 
+OrangeeJS.close = function() {
+  var widgetAPI = new Common.API.Widget();
+  widgetAPI.sendExitEvent();
+}
+
 OrangeeJS._loadScript = function(srcs, callback) {
   var head = document.getElementsByTagName('head')[0];;
   var i = 0;
