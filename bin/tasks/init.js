@@ -18,7 +18,7 @@ OrangeeJSInitTask.prototype.run = function() {
       OrangeeJSUtil.transform_template(src + "/package.json.template", "package.json", {name: name});
   };
 
-  cp("-f", src + "/orangeejs.css", "app/orangeejs.css");
+  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.css_sources, "app/orangeejs.css");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.sources.concat("/platforms/orangee.html5.js"), "app/orangee.js");
 
   OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'assets/icon.png');

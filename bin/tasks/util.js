@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mustache');
-var UglifyJS = require("uglify-js");
 require('shelljs/global');
 
 function OrangeeJSUtil() {
@@ -10,6 +9,10 @@ function OrangeeJSUtil() {
 OrangeeJSUtil.sources = [//'/widgets/modal.js', '/widgets/button.js',
   //'/widgets/popover.js', '/widgets/tooltip.js', '/widgets/tab.js',
   '/vendor/snap.min.js', '/vendor/hello.min.js'
+];
+
+OrangeeJSUtil.css_sources = [
+  '/orangeejs.css', '/assets/stylesheets/bootstrap.css'
 ];
 
 OrangeeJSUtil.copyUnlessExist = function(src, dst) {
@@ -92,8 +95,19 @@ OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile) {
   source_files.forEach(function(x) {
     new_sources = new_sources.concat(source_dir + x);
   });
+  var UglifyJS = require("uglify-js");
   var result = UglifyJS.minify(new_sources, {mangle: false, compress: false});
   fs.writeFileSync(outputfile, result.code);
+}
+
+OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
+  var new_sources = [];
+  source_files.forEach(function(x) {
+    new_sources = new_sources.concat(source_dir + x);
+  });
+  var UglifyCSS = require("uglifycss");
+  var result = UglifyCSS.processFiles(new_sources, {maxLineLen: 500, expandVars: true});
+  fs.writeFileSync(outputfile, result);
 }
 
 module.exports = OrangeeJSUtil;

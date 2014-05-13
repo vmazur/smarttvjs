@@ -1,7 +1,7 @@
 var OrangeeJS = {
   PLATFORM: "samsung"
 };
-
+//http://www.samsungdforum.com/Guide/ref00006/index.html
 OrangeeJS.init = function(callback) {
   this._loadScript(['$MANAGER_WIDGET/Common/API/TVKeyValue.js', '$MANAGER_WIDGET/Common/API/Widget.js'], function() {
     var widgetAPI = new Common.API.Widget();
