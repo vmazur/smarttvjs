@@ -152,10 +152,10 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
 
-  OrangeeJSUtil.resize_image('assets/icon.png', [[115, 95, 'assets/samsung/icon_115.png'], 
-                             [106,87, 'assets/samsung/icon_106.png'], 
-                             [95, 78, 'assets/samsung/icon_9.png'], 
-                             [85, 70, 'assets/samsung/icon_85.png']]);
+  OrangeeJSUtil.resize_image([['assets/icon.png',115, 95, 'assets/samsung/icon_115.png'], 
+                             ['assets/icon.png', 106,87, 'assets/samsung/icon_106.png'], 
+                             ['assets/icon.png', 95, 78, 'assets/samsung/icon_9.png'], 
+                             ['assets/icon.png', 85, 70, 'assets/samsung/icon_85.png']]);
 
   cp("-rf", 'assets/samsung/', 'build/samsung/icons');
 
