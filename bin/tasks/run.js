@@ -29,7 +29,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
       
       var exec_command = require('child_process').exec;
       var command = '/opt/LG_Smart_TV_SDK/LG_Smart_TV_Emulator_2013/LG_Smart_TV_Emulator_2013_RCU.app/Contents/MacOS/JavaApplicationStub -b http://127.0.0.1:' + port;
-      cosnole.log(command);
+      console.log(command);
       exec_command(command, function (error, stdout, stderr) {
         if (error != null) {
             console.log('exec error: ' + error);
