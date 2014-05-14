@@ -7,11 +7,12 @@ var OrangeeJSUtil = require('./util');
 function OrangeeJSServerTask() {
 };
 
-OrangeeJSServerTask.prototype.run = function(port) {
+OrangeeJSServerTask.prototype.run = function(port, dir) {
+
   http.createServer(function(request, response) {
    
     var uri = url.parse(request.url).pathname
-      , filename = path.join(process.cwd(), uri);
+      , filename = path.join(dir, uri);
     
     fs.exists(filename, function(exists) {
       if(!exists) {
@@ -36,7 +37,9 @@ OrangeeJSServerTask.prototype.run = function(port) {
         response.end();
       });
     });
-  }).listen(parseInt(port, 10));
+  }).listen(parseInt(port, 10)).on('close', function() {
+    console.log("http server closed....");
+  });
 
   console.log("Static file server running at");
   console.log("  => http://" + OrangeeJSUtil.getip() + (port == 80 ? '' : (":" + port)));

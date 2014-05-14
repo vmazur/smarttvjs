@@ -8,7 +8,7 @@ if (argv._.length >= 1 && argv._[0] == 'init') {
   (new T()).run();
 } else if (argv._.length >= 1 && argv._[0] == 'server') {
   var T = require('./tasks/server');
-  (new T()).run(argv._[1] || 80);
+  (new T()).run(argv._[1] || 80, argv._[2] || process.cwd());
 } else if (argv._.length >= 2 && argv._[0] == 'build') {
   var T = require('./tasks/build');
   (new T()).run(argv._[1]);
