@@ -6,10 +6,19 @@ require('shelljs/global');
 function OrangeeJSUtil() {
 };
 
-OrangeeJSUtil.sources = ['/vendor/snap.min.js', '/vendor/iscroll.js'];
+OrangeeJSUtil.core_js_sources = [
+  'YoutubePlayer.js'
+];
 
-OrangeeJSUtil.css_sources = [
-  '/orangeejs.css', '/assets/stylesheets/bootstrap.css'
+OrangeeJSUtil.ui_js_sources = [
+  'vendor/snap.min.js', 
+  'vendor/iscroll.js',
+  'vendor/mason.js',
+  'vendor/spin.min.js',
+  'vendor/handlebars-v1.3.0.js'];
+
+OrangeeJSUtil.ui_css_sources = [
+  'orangeejs.css', 'assets/stylesheets/bootstrap.css'
 ];
 
 OrangeeJSUtil.copyUnlessExist = function(src, dst) {
@@ -90,7 +99,7 @@ OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
 OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile) {
   var new_sources = [];
   source_files.forEach(function(x) {
-    new_sources = new_sources.concat(source_dir + x);
+    new_sources = new_sources.concat(source_dir + '/' + x);
   });
   var UglifyJS = require("uglify-js");
   var result = UglifyJS.minify(new_sources, {mangle: false, compress: false});
@@ -100,7 +109,7 @@ OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile) {
 OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
   var new_sources = [];
   source_files.forEach(function(x) {
-    new_sources = new_sources.concat(source_dir + x);
+    new_sources = new_sources.concat(source_dir + '/' + x);
   });
   var UglifyCSS = require("uglifycss");
   var result = UglifyCSS.processFiles(new_sources, {maxLineLen: 500, expandVars: true});

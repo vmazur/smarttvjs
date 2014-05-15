@@ -18,8 +18,9 @@ OrangeeJSInitTask.prototype.run = function() {
       OrangeeJSUtil.transform_template(src + "/package.json.template", "package.json", {name: name});
   };
 
-  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.css_sources, "app/orangeejs.css");
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.sources.concat("/platforms/orangee.html5.js"), "app/orangee.js");
+  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangeejs-ui.min.css");
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.min.js");
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.min.js");
 
   OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'assets/icon.png');
   OrangeeJSUtil.copyUnlessExist(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');
