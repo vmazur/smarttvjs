@@ -7,7 +7,7 @@ function OrangeeJSUtil() {
 };
 
 OrangeeJSUtil.core_js_sources = [
-  'YoutubePlayer.js'
+  'ytplayer.js'
 ];
 
 OrangeeJSUtil.ui_js_sources = [

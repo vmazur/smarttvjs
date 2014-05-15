@@ -1,4 +1,4 @@
-var YoutubePlayer = {
+var OrangeeYTPlayer = {
 
   playlist: [],
   currentVideo: 0,
@@ -72,7 +72,7 @@ var YoutubePlayer = {
     }*/
     // Can not use this in callback
     if (event.data == 1) {//YT.PlayerState.PLAYING
-      app.history.add(YoutubePlayer.video_id);
+      app.history.add(OrangeeYTPlayer.video_id);
     }
   },
 
@@ -119,7 +119,7 @@ var YoutubePlayer = {
         playerVars: {
           'html5': 1,
           'start': this.lastPosition,
-          'autoplay': 1,
+          //'autoplay': 1,
           'controls': 1,
           'fs': 1,
           'autohide': 0,
