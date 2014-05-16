@@ -7,8 +7,11 @@ var OrangeeYTPlayer = {
   video_id: null,
 
   init: function(playlist, vid) {
-    this.playlist = playlist;
-    this.video_id = vid;
+    // This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   },
 
   createCookie: function(name,value,days) {
@@ -108,7 +111,10 @@ var OrangeeYTPlayer = {
 
   // This function is automatically called by the player once it loads
   //function onYouTubePlayerAPIReady(playerId) {
-  loadVideo: function(divid) {
+  loadVideo: function(playlist, vid, divid, options) {
+    this.playlist = playlist;
+    this.video_id = vid;
+
     if (this.ytplayer) {
       this.ytplayer.loadVideoById(this.playlist[this.currentVideo][1]);
     } else {
@@ -119,7 +125,7 @@ var OrangeeYTPlayer = {
         playerVars: {
           'html5': 1,
           'start': this.lastPosition,
-          //'autoplay': 1,
+          'autoplay':  options['autoplay'] || 0,
           'controls': 1,
           'fs': 1,
           'autohide': 0,
