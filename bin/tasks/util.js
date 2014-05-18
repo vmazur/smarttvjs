@@ -27,6 +27,11 @@ OrangeeJSUtil.copyUnlessExist = function(src, dst) {
   }
 };
 
+OrangeeJSUtil.exec = function(cmd) {
+  console.log(cmd);
+  exec(cmd, {async: false});
+};
+
 OrangeeJSUtil.getip = function() {
   var os=require('os');
   var ifaces=os.networkInterfaces();
@@ -70,6 +75,9 @@ OrangeeJSUtil.resize_image = function(size_array, callback) {
     }
   });
 
+  if (size_array.length == 0) {
+    callback();
+  }
 };
 
 OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {

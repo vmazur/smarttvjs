@@ -13,6 +13,8 @@ OrangeeJSBuildTask.prototype.run = function(name) {
     this._build_lg();
   } else if (name === 'ios') {
     this._build_ios();
+  } else if (name === 'android') {
+    this._build_android();
   }
 };
 
@@ -33,31 +35,17 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   OrangeeJSUtil.zip("build/lg/WebContent", "build/lg.zip");
 };
 
+OrangeeJSBuildTask.prototype._build_android = function() {
+  var resizes = [];
+  var icon_map = [];
+  var splash_map = [];
+
+  this._build_cordova('android', resizes, icon_map, splash_map);
+};
+
 OrangeeJSBuildTask.prototype._build_ios = function() {
-  console.log("build ios");
-  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  if (!which('cordova')) {
-    echo('Please install cordova: "sudo npm install -g cordova"');
-    return;
-  }
-  
-  if (!fs.existsSync('build/ios')) {
-    exec('cordova create build/ios ' + appdata['name'] + " " + appdata['name'], {async:false});
-    cd('build/ios');
-    exec('cordova platform add ios', {async:false});
-    appdata['cordova_plugins'].forEach(function(plugin) {
-      exec('cordova plugin add ' + plugin, {async:false});
-    });
-    cd("../../");
-    rm("-rf", "build/ios/www/*");
-  }
-  
-  mkdir('-p', 'assets/ios');
-  mkdir("-p", 'build/ios/www/res/icon/ios');
-  mkdir("-p", 'build/ios/www/res/screen/ios');
   //http://docs.appcelerator.com/titanium/3.0/#!/guide/Icons_and_Splash_Screens
-  OrangeeJSUtil.resize_image([
+  var resizes = [
     ['assets/icon.png',114,114, 'assets/ios/icon-57-2x.png'],
     ['assets/icon.png',57 ,57,  'assets/ios/icon-57.png'],
     ['assets/icon.png',144,144, 'assets/ios/icon-72-2x.png'],
@@ -83,55 +71,83 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     ['assets/splash-portrait.png',640 ,960, 'assets/ios/screen-iphone-portrait-2x.png'],
     ['assets/splash-portrait.png',320 ,480, 'assets/ios/screen-iphone-portrait.png'],
     ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
-  ], function() {
-    cp("-f", 'config.ios.xml', 'build/ios/config.xml');
-    cp("-rf", 'app/', 'build/ios/www');
-    OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "build/ios/www/orangee.js");
+  ];
+  var icon_map = [ 
+    ["icon-57.png", "icon.png"],
+    ["icon-57-2x.png", "icon@2x.png"],
+    ["icon-72.png", "icon-72.png"],
+    ["icon-72-2x.png", "icon-72@2x.png"],
+
+    ["appicon-40.png", "icon-40.png"],
+    ["appicon-40@2x.png", "icon-40@2x.png"],
+    ["appicon-50.png", "icon-50.png"],
+    ["appicon-50@2x.png", "icon-50@2x.png"],
+    ["appicon-60.png", "icon-60.png"],
+    ["appicon-60@2x.png", "icon-60@2x.png"],
+    ["appicon-76.png", "icon-76.png"],
+    ["appicon-76@2x.png", "icon-76@2x.png"],
+    ["appicon-small.png", "icon-small.png"],
+    ["appicon-small@2x.png", "icon-small@2x.png"],
+  ];
+  var splash_map = [
+    ["screen-iphone-portrait-568h-2x.png", "Default-568h@2x~iphone.png"],	
+    ["screen-ipad-landscape.png", "Default-Landscape~ipad.png"],	
+    ["screen-ipad-portrait.png", "Default-Portrait~ipad.png"],
+    ["screen-iphone-portrait.png", "Default~iphone.png"],
+    ["screen-ipad-landscape-2x.png", "Default-Landscape@2x~ipad.png"],
+    ["screen-ipad-portrait-2x.png", "Default-Portrait@2x~ipad.png"],
+    ["screen-iphone-portrait-2x.png", "Default@2x~iphone.png"]
+  ];
+
+  this._build_cordova('ios', resizes, icon_map, splash_map);
+};
+
+OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_map, splash_map) {
+  console.log("build " + os_name);
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
+  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  if (!which('cordova')) {
+    echo('Please install cordova: "sudo npm install -g cordova"');
+    return;
+  }
+  
+  if (!fs.existsSync('build/' + os_name)) {
+    OrangeeJSUtil.exec('cordova create build/' + os_name + ' ' + appdata['package'] + " " + appdata['name']);
+    cd('build/' + os_name);
+    OrangeeJSUtil.exec('cordova platform add ' + os_name);
+    appdata['cordova_plugins'].forEach(function(plugin) {
+      OrangeeJSUtil.exec('cordova plugin add ' + plugin);
+    });
+    cd("../../");
+    rm("-rf", "build/" + os_name + "/www/*");
+  }
+  
+  mkdir('-p', 'assets/' + os_name);
+  mkdir("-p", 'build/' + os_name + '/www/res/icon/' + os_name);
+  mkdir("-p", 'build/' + os_name + '/www/res/screen/' + os_name);
+  OrangeeJSUtil.resize_image(resizes, function() {
+    cp("-f", 'config.' + os_name + '.xml', 'build/' + os_name + '/config.xml');
+    cp("-rf", 'app/', 'build/' + os_name + '/www');
+    OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), 'build/' + os_name + '/www/orangee.js');
     
     //for phonegap build
-    cp("-rf", 'assets/ios/icon*', 'build/ios/www/res/icon/ios');
-    cp("-rf", 'assets/ios/screen*', 'build/ios/www/res/screen/ios');
+    cp("-rf", 'assets/' + os_name + '/icon*', 'build/' +os_name + '/www/res/icon/' + os_name);
+    cp("-rf", 'assets/' + os_name + '/screen*', 'build/' + os_name + '/www/res/screen/' + os_name);
 
     //to build locally
     //http://devgirl.org/2013/11/12/three-hooks-your-cordovaphonegap-project-needs/
     //http://stackoverflow.com/questions/17999766/app-icon-not-changing-to-custom-icon-using-cordova
-    var icon_map = [ 
-      ["icon-57.png", "icon.png"],
-      ["icon-57-2x.png", "icon@2x.png"],
-      ["icon-72.png", "icon-72.png"],
-      ["icon-72-2x.png", "icon-72@2x.png"],
-
-      ["appicon-40.png", "icon-40.png"],
-      ["appicon-40@2x.png", "icon-40@2x.png"],
-      ["appicon-50.png", "icon-50.png"],
-      ["appicon-50@2x.png", "icon-50@2x.png"],
-      ["appicon-60.png", "icon-60.png"],
-      ["appicon-60@2x.png", "icon-60@2x.png"],
-      ["appicon-76.png", "icon-76.png"],
-      ["appicon-76@2x.png", "icon-76@2x.png"],
-      ["appicon-small.png", "icon-small.png"],
-      ["appicon-small@2x.png", "icon-small@2x.png"],
-    ];
     icon_map.forEach(function(value) {
-      console.log('assets/ios/' + value[0] + "->"+ 'build/ios/platforms/ios/' + appdata['name'] + '/Resources/icons/' + value[1]);
-      cp("-rf", 'assets/ios/' + value[0], 'build/ios/platforms/ios/' + appdata['name'] + '/Resources/icons/' + value[1]);
+      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/icons/' + value[1]);
+      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/icons/' + value[1]);
     });
-    var splash_map = [
-      ["screen-iphone-portrait-568h-2x.png", "Default-568h@2x~iphone.png"],	
-      ["screen-ipad-landscape.png", "Default-Landscape~ipad.png"],	
-      ["screen-ipad-portrait.png", "Default-Portrait~ipad.png"],
-      ["screen-iphone-portrait.png", "Default~iphone.png"],
-      ["screen-ipad-landscape-2x.png", "Default-Landscape@2x~ipad.png"],
-      ["screen-ipad-portrait-2x.png", "Default-Portrait@2x~ipad.png"],
-      ["screen-iphone-portrait-2x.png", "Default@2x~iphone.png"]
-    ];
     splash_map.forEach(function(value) {
-      console.log('assets/ios/' + value[0] + "->"+ 'build/ios/platforms/ios/' + appdata['name'] + '/Resources/splash/' + value[1]);
-      cp("-rf", 'assets/ios/' + value[0], 'build/ios/platforms/ios/' + appdata['name'] + '/Resources/splash/' + value[1]);
+      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/splash/' + value[1]);
+      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/splash/' + value[1]);
     });
 
-    cd('build/ios');
-    exec('cordova build ios');
+    cd('build/' + os_name);
+    exec('cordova build ' + os_name);
     cd("../../");
   });
 

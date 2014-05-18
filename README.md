@@ -6,10 +6,17 @@ install samsung smart tv sdk
 
 install lg smart tv sdk
 
+For ios development, you need a mac computer with latest version of XCode.
+
+For android devlopment, make sure you have the latest Android SDK installed, 
+add "android" and "adb" command (inside the tools/ and platform-tools/ folder) to your PATH.
+Install Genymotion (a faster android emulator), and create a new device with it.
+
 ```bash
 npm install -g orangeejs
 npm install -g cordova (if you want to use it for ios/android development)
 brew install graphicsmagick
+brew install ant (for android)
 ```
 
 Create new project
@@ -34,7 +41,7 @@ Optional:
 
 in samsung sdk, import project from build/samsung 
 
-in lg sdk, import project from 
+in lg sdk, import project from buidl/lg
 
 
 Known issues (TODO move this section to wiki)

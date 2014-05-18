@@ -58,6 +58,10 @@ OrangeeJSRunTask.prototype.run = function(name) {
     cd('build/ios')
     exec('cordova emulate emulate --target="iPad (Retina)"');
     cd('../..')
+  } else if (name === 'android') {
+    cd('build/android')
+    exec('cordova run android');
+    cd('../..')
   }
 };
 

@@ -1,5 +1,6 @@
 {
   "name": "{{name}}",
+  "package": "com.orangeejs.{{name}}",
   "version": "0.0.0",
   "description": "",
   "samsung_vm": "2014_Smart_TV_Emulator_5_0",
@@ -8,7 +9,6 @@
     "org.apache.cordova.device-motion",
     "org.apache.cordova.device-orientation",
     "org.apache.cordova.geolocation",
-    "https://github.com/katzer/cordova-plugin-hidden-statusbar-overlay",
     "https://github.com/chrisekelley/AppPreferences/"
   ]
 }

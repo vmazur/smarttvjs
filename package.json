@@ -1,5 +1,6 @@
 {
   "name": "orangeejs",
+  "package": "com.orangeejs.orangeejs",
   "version": "0.0.47",
   "description": "",
   "bin": {
