@@ -32,6 +32,21 @@ OrangeeJSUtil.exec = function(cmd) {
   return exec(cmd, {async: false});
 };
 
+OrangeeJSUtil.exec_background = function(cmd) {
+  console.log(cmd);
+  return exec(cmd, {async: true});
+};
+//exec will block forerver if a app does not return
+/*OrangeeJSUtil.exec_background = function(cmd) {
+  var exec_command = require('child_process').exec;
+  console.log(cmd);
+  exec_command(cmd, function (error, stdout, stderr) {
+    if (error != null) {
+        console.log('exec_background error: ' + error);
+    }
+  });
+};*/
+
 OrangeeJSUtil.getip = function() {
   var os=require('os');
   var ifaces=os.networkInterfaces();

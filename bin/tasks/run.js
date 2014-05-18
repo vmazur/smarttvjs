@@ -29,15 +29,8 @@ OrangeeJSRunTask.prototype.run = function(name) {
       var port = JSON.parse(fs.readFileSync("package.json", "utf8"))['lg_port'] || 8088;
       var T = require('./server');
       (new T()).run(port, process.cwd() + '/build/lg/WebContent');
-      
-      var exec_command = require('child_process').exec;
-      var command = '/opt/LG_Smart_TV_SDK/LG_Smart_TV_Emulator_2013/LG_Smart_TV_Emulator_2013_RCU.app/Contents/MacOS/JavaApplicationStub -b http://127.0.0.1:' + port;
-      console.log(command);
-      exec_command(command, function (error, stdout, stderr) {
-        if (error != null) {
-            console.log('exec error: ' + error);
-        }
-      });
+
+      OrangeeJSUtil.exec_background('/opt/LG_Smart_TV_SDK/LG_Smart_TV_Emulator_2013/LG_Smart_TV_Emulator_2013_RCU.app/Contents/MacOS/JavaApplicationStub -b http://127.0.0.1:' + port);
     } else {
       console.log("we havn't implmenent this feature on your operating sysytem, please help us by contributing to orangeejs");
     }
@@ -67,7 +60,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
       //unliks samsung, genymotion allow us to replace exsiting app inside a running vm
       if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexOf('"' + vm + '"') == -1) {
         console.log("vm is not running launch one...");
-        OrangeeJSUtil.exec('/Applications/Genymotion.app/Contents/MacOS/player --vm-name " + vm + "');
+        OrangeeJSUtil.exec_background('/Applications/Genymotion.app/Contents/MacOS/player --vm-name "' + vm + '"');
       }
     } else {
       console.log('no android vum found, try to attach to exsiting one...');
