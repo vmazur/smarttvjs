@@ -36,16 +36,31 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 };
 
 OrangeeJSBuildTask.prototype._build_android = function() {
-  var resizes = [];
-  var icon_map = [];
+  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  var resizes = [
+    ['assets/icon.png',96,96, 'assets/android/icon-drawable.png'],
+    ['assets/icon.png',72 ,72,  'assets/android/icon-drawable-hdpi.png'],
+    ['assets/icon.png',36,36, 'assets/android/icon-drawable-ldpi.png'],
+    ['assets/icon.png',48 ,48,  'assets/android/icon-drawable-mdpi.png'],
+    //['assets/icon.png',96 ,96,  'assets/android/icon-drawable-xhdpi.png']
+    //['assets/icon.png',72 ,72,  'assets/android/icon-drawable-xxhdpi.png'],
+  ];
+  var icon_map = [
+    ['icon-drawable.png', 'res/drawable/icon.png'],
+    ['icon-drawable-hdpi.png', 'res/drawable-hdpi/icon.png'],
+    ['icon-drawable-ldpi.png', 'res/drawable-ldpi/icon.png'],
+    ['icon-drawable-mdpi.png', 'res/drawable-mdpi/icon.png']
+  ];
   var splash_map = [];
 
-  this._build_cordova('android', resizes, icon_map, splash_map);
+  this._build_cordova('android', resizes, icon_map, splash_map, appdata);
 };
 
 OrangeeJSBuildTask.prototype._build_ios = function() {
   //http://docs.appcelerator.com/titanium/3.0/#!/guide/Icons_and_Splash_Screens
+  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   var resizes = [
+    //phonegap build
     ['assets/icon.png',114,114, 'assets/ios/icon-57-2x.png'],
     ['assets/icon.png',57 ,57,  'assets/ios/icon-57.png'],
     ['assets/icon.png',144,144, 'assets/ios/icon-72-2x.png'],
@@ -73,39 +88,38 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
     ['assets/splash-portrait.png',640 ,1136,'assets/ios/screen-iphone-portrait-568h-2x.png']
   ];
   var icon_map = [ 
-    ["icon-57.png", "icon.png"],
-    ["icon-57-2x.png", "icon@2x.png"],
-    ["icon-72.png", "icon-72.png"],
-    ["icon-72-2x.png", "icon-72@2x.png"],
+    ["icon-57.png", appdata['name'] + "/Resources/icons/icon.png"],
+    ["icon-57-2x.png", appdata['name'] + "/Resources/icons/icon@2x.png"],
+    ["icon-72.png", appdata['name'] + "/Resources/icons/icon-72.png"],
+    ["icon-72-2x.png", appdata['name'] + "/Resources/icons/icon-72@2x.png"],
 
-    ["appicon-40.png", "icon-40.png"],
-    ["appicon-40@2x.png", "icon-40@2x.png"],
-    ["appicon-50.png", "icon-50.png"],
-    ["appicon-50@2x.png", "icon-50@2x.png"],
-    ["appicon-60.png", "icon-60.png"],
-    ["appicon-60@2x.png", "icon-60@2x.png"],
-    ["appicon-76.png", "icon-76.png"],
-    ["appicon-76@2x.png", "icon-76@2x.png"],
-    ["appicon-small.png", "icon-small.png"],
-    ["appicon-small@2x.png", "icon-small@2x.png"],
+    ["appicon-40.png", appdata['name'] + "/Resources/icons/icon-40.png"],
+    ["appicon-40@2x.png", appdata['name'] + "/Resources/icons/icon-40@2x.png"],
+    ["appicon-50.png", appdata['name'] + "/Resources/icons/icon-50.png"],
+    ["appicon-50@2x.png", appdata['name'] + "/Resources/icons/icon-50@2x.png"],
+    ["appicon-60.png", appdata['name'] + "/Resources/icons/icon-60.png"],
+    ["appicon-60@2x.png", appdata['name'] + "/Resources/icons/icon-60@2x.png"],
+    ["appicon-76.png", appdata['name'] + "/Resources/icons/icon-76.png"],
+    ["appicon-76@2x.png", appdata['name'] + "/Resources/icons/icon-76@2x.png"],
+    ["appicon-small.png", appdata['name'] + "/Resources/icons/icon-small.png"],
+    ["appicon-small@2x.png", appdata['name'] + "/Resources/icons/icon-small@2x.png"],
   ];
   var splash_map = [
-    ["screen-iphone-portrait-568h-2x.png", "Default-568h@2x~iphone.png"],	
-    ["screen-ipad-landscape.png", "Default-Landscape~ipad.png"],	
-    ["screen-ipad-portrait.png", "Default-Portrait~ipad.png"],
-    ["screen-iphone-portrait.png", "Default~iphone.png"],
-    ["screen-ipad-landscape-2x.png", "Default-Landscape@2x~ipad.png"],
-    ["screen-ipad-portrait-2x.png", "Default-Portrait@2x~ipad.png"],
-    ["screen-iphone-portrait-2x.png", "Default@2x~iphone.png"]
+    ["screen-iphone-portrait-568h-2x.png",  appdata['name'] + "/Resources/splash/Default-568h@2x~iphone.png"],	
+    ["screen-ipad-landscape.png", appdata['name'] + "/Resources/splash/Default-Landscape~ipad.png"],	
+    ["screen-ipad-portrait.png", appdata['name'] + "/Resources/splash/Default-Portrait~ipad.png"],
+    ["screen-iphone-portrait.png", appdata['name'] + "/Resources/splash/Default~iphone.png"],
+    ["screen-ipad-landscape-2x.png", appdata['name'] + "/Resources/splash/Default-Landscape@2x~ipad.png"],
+    ["screen-ipad-portrait-2x.png", appdata['name'] + "/Resources/splash/Default-Portrait@2x~ipad.png"],
+    ["screen-iphone-portrait-2x.png", appdata['name'] + "/Resources/splash/Default@2x~iphone.png"]
   ];
 
-  this._build_cordova('ios', resizes, icon_map, splash_map);
+  this._build_cordova('ios', resizes, icon_map, splash_map, appdata);
 };
 
-OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_map, splash_map) {
+OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_map, splash_map, appdata) {
   console.log("build " + os_name);
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
-  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   if (!which('cordova')) {
     echo('Please install cordova: "sudo npm install -g cordova"');
     return;
@@ -138,12 +152,12 @@ OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_ma
     //http://devgirl.org/2013/11/12/three-hooks-your-cordovaphonegap-project-needs/
     //http://stackoverflow.com/questions/17999766/app-icon-not-changing-to-custom-icon-using-cordova
     icon_map.forEach(function(value) {
-      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/icons/' + value[1]);
-      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/icons/' + value[1]);
+      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + value[1]);
+      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + value[1]);
     });
     splash_map.forEach(function(value) {
-      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/splash/' + value[1]);
-      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + appdata['name'] + '/Resources/splash/' + value[1]);
+      console.log('assets/' + os_name + '/' + value[0] + "->"+ 'build/' + os_name + '/platforms/' + os_name + '/' + value[1]);
+      cp("-rf", 'assets/' + os_name + '/' + value[0], 'build/' + os_name + '/platforms/' + os_name + '/' + value[1]);
     });
 
     cd('build/' + os_name);
@@ -184,8 +198,6 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
       OrangeeJSUtil.transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
     })
   });
-
-  ;
 
 };
 
