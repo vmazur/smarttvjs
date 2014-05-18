@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 require('shelljs/global');
+var OrangeeJSUtil = require('./util');
 
 function OrangeeJSRunTask() {
 };
@@ -14,12 +15,14 @@ OrangeeJSRunTask.prototype.run = function(name) {
     //var vm = "2013_Smart_TV_Emulator_4_5";
     var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['samsung_vm'];
     if (vm) {
-      console.log("OrangeeJS: trying to shutdown existing vm, you will see some warning if no vm is running, just ignore...");
-      exec('VBoxManage controlvm ' + vm + ' poweroff');
+      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexof('"' + vm + '"') > -1) {
+        console.log("OrangeeJS: trying to shutdown existing vm...");
+        OrangeeJSUtil.exec('VBoxManage controlvm ' + vm + ' poweroff');
+      }
       console.log("OrangeeJS: statring new vm...");
-      exec('VBoxManage sharedfolder remove '+ vm + ' -name Apps');
-      exec('VBoxManage sharedfolder add ' + vm + ' -name Apps -hostpath "' + process.cwd() + '/build" --automount');
-      exec('VBoxManage startvm ' + vm);
+      OrangeeJSUtil.exec('VBoxManage sharedfolder remove '+ vm + ' -name Apps');
+      OrangeeJSUtil.exec('VBoxManage sharedfolder add ' + vm + ' -name Apps -hostpath "' + process.cwd() + '/build" --automount');
+      OrangeeJSUtil.exec('VBoxManage startvm ' + vm);
     }
   } else if (name === 'lg') {
     if (process.platform === 'darwin') {
@@ -39,29 +42,39 @@ OrangeeJSRunTask.prototype.run = function(name) {
       console.log("we havn't implmenent this feature on your operating sysytem, please help us by contributing to orangeejs");
     }
   } else if (name === 'ios' || name === 'iphone') {
-    cd('build/ios')
-    exec('cordova emulate ios');//cordova emulate emulate --target="iPhone"
-    cd('../..')
+    cd('build/ios');
+    OrangeeJSUtil.exec('cordova emulate ios');//cordova emulate emulate --target="iPhone"
+    cd('../..');
   } else if (name === 'iphone5') {
-    cd('build/ios')
-    exec('cordova emulate emulate --target="iPhone (Retina 4-inch)"');
-    cd('../..')
+    cd('build/ios');
+    OrangeeJSUtil.exec('cordova emulate emulate --target="iPhone (Retina 4-inch)"');
+    cd('../..');
   } else if (name === 'iphone4') {
-    cd('build/ios')
-    exec('cordova emulate emulate --target="iPhone (Retina 3.5-inch)"');
-    cd('../..')
+    cd('build/ios');
+    OrangeeJSUtil.exec('cordova emulate emulate --target="iPhone (Retina 3.5-inch)"');
+    cd('../..');
   } else if (name === 'ipad') {
-    cd('build/ios')
-    exec('cordova emulate emulate --target="iPad"');
-    cd('../..')
+    cd('build/ios');
+    OrangeeJSUtil.exec('cordova emulate emulate --target="iPad"');
+    cd('../..');
   } else if (name === 'ipad4') {
-    cd('build/ios')
-    exec('cordova emulate emulate --target="iPad (Retina)"');
-    cd('../..')
+    cd('build/ios');
+    OrangeeJSUtil.exec('cordova emulate emulate --target="iPad (Retina)"');
+    cd('../..');
   } else if (name === 'android') {
-    cd('build/android')
-    exec('cordova run android');
-    cd('../..')
+    var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['android_vm'];
+    if (vm) {
+      //unliks samsung, genymotion allow us to replace exsiting app inside a running vm
+      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexof('"' + vm + '"') == -1) {
+        console.log("vm is not running launch one...");
+        OrangeeJSUtil.exec('/Applications/Genymotion.app/Contents/MacOS/player --vm-name " + vm + "');
+      }
+    } else {
+      console.log('no android vum found, try to attach to exsiting one...');
+    }
+    cd('build/android');
+    OrangeeJSUtil.exec('cordova run android');
+    cd('../..');
   }
 };
 

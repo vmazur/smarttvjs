@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "description": "",
   "samsung_vm": "2014_Smart_TV_Emulator_5_0",
+  //"android_vm": "create on with genymotion then add its name here"
   "cordova_plugins": [
     "org.apache.cordova.device",
     "org.apache.cordova.device-motion",
