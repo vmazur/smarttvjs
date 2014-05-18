@@ -59,11 +59,12 @@ OrangeeJSRunTask.prototype.run = function(name) {
     if (vm) {
       //unliks samsung, genymotion allow us to replace exsiting app inside a running vm
       if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexOf('"' + vm + '"') == -1) {
-        console.log("vm is not running launch one...");
-        OrangeeJSUtil.exec_background('/Applications/Genymotion.app/Contents/MacOS/player --vm-name "' + vm + '"');
+        console.log("!!!!vm is not running, please start one from genymotion first...");
+        //OrangeeJSUtil.exec_background('/Applications/Genymotion.app/Contents/MacOS/player --vm-name "' + vm + '"');
+        //TODO we can start with command above, but we need to find a way to wait for it finish starting 
       }
     } else {
-      console.log('no android vum found, try to attach to exsiting one...');
+      console.log('android vm found, try to attach to exsiting one...');
     }
     cd('build/android');
     OrangeeJSUtil.exec('cordova run android');
