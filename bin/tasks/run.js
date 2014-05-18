@@ -65,7 +65,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
     var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['android_vm'];
     if (vm) {
       //unliks samsung, genymotion allow us to replace exsiting app inside a running vm
-      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexof('"' + vm + '"') == -1) {
+      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexOf('"' + vm + '"') == -1) {
         console.log("vm is not running launch one...");
         OrangeeJSUtil.exec('/Applications/Genymotion.app/Contents/MacOS/player --vm-name " + vm + "');
       }
