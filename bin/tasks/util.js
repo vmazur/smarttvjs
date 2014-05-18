@@ -29,7 +29,7 @@ OrangeeJSUtil.copyUnlessExist = function(src, dst) {
 
 OrangeeJSUtil.exec = function(cmd) {
   console.log(cmd);
-  exec(cmd, {async: false});
+  return exec(cmd, {async: false});
 };
 
 OrangeeJSUtil.getip = function() {

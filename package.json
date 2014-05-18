@@ -1,7 +1,7 @@
 {
   "name": "orangeejs",
   "package": "com.orangeejs.orangeejs",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "description": "",
   "bin": {
     "orangeejs": "bin/main.js"
