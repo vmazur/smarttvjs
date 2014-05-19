@@ -38,18 +38,20 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 OrangeeJSBuildTask.prototype._build_android = function() {
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   var resizes = [
-    ['assets/icon.png',96,96, 'assets/android/icon-drawable.png'],
-    ['assets/icon.png',72 ,72,  'assets/android/icon-drawable-hdpi.png'],
-    ['assets/icon.png',36,36, 'assets/android/icon-drawable-ldpi.png'],
-    ['assets/icon.png',48 ,48,  'assets/android/icon-drawable-mdpi.png'],
-    //['assets/icon.png',96 ,96,  'assets/android/icon-drawable-xhdpi.png']
-    //['assets/icon.png',72 ,72,  'assets/android/icon-drawable-xxhdpi.png'],
+    ['assets/icon.png',96,96, 'assets/android/appicon-drawable.png'],
+    ['assets/icon.png',72 ,72,  'assets/android/appicon-drawable-hdpi.png'],
+    ['assets/icon.png',36,36, 'assets/android/appicon-drawable-ldpi.png'],
+    ['assets/icon.png',48 ,48,  'assets/android/appicon-drawable-mdpi.png'],
+    //['assets/icon.png',96 ,96,  'assets/android/icon-drawable-xhdpi.png'],
+    ['assets/icon.png',144,144,  'assets/android/icon-drawable-xxhdpi.png']
   ];
   var icon_map = [
-    ['icon-drawable.png', 'res/drawable/icon.png'],
-    ['icon-drawable-hdpi.png', 'res/drawable-hdpi/icon.png'],
-    ['icon-drawable-ldpi.png', 'res/drawable-ldpi/icon.png'],
-    ['icon-drawable-mdpi.png', 'res/drawable-mdpi/icon.png']
+    ['appicon-drawable.png', 'res/drawable/icon.png'],
+    ['appicon-drawable-hdpi.png', 'res/drawable-hdpi/icon.png'],
+    ['appicon-drawable-ldpi.png', 'res/drawable-ldpi/icon.png'],
+    ['appicon-drawable-mdpi.png', 'res/drawable-mdpi/icon.png'],
+    ['appicon-drawable.png', 'res/drawable-xhdpi/icon.png'],
+    ['appicon-drawable-xxhdpi.png', 'res/drawable-xxhdpi/icon.png']
   ];
   var splash_map = [];
 

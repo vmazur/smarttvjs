@@ -24,9 +24,7 @@
     "org.apache.cordova.device",
     "org.apache.cordova.device-motion",
     "org.apache.cordova.device-orientation",
-    "org.apache.cordova.geolocation",
-    "https://github.com/katzer/cordova-plugin-hidden-statusbar-overlay",
-    "https://github.com/chrisekelley/AppPreferences/"
+    "org.apache.cordova.geolocation"
   ],
   "dependencies": {
     "archiver": "~0.8.0",
