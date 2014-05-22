@@ -27,12 +27,6 @@ OrangeeJSUtil.ui_css_sources = [
   'assets/stylesheets/font-awesome.css'
 ];
 
-OrangeeJSUtil.copyUnlessExist = function(src, dst) {
-  if (!fs.existsSync(dst)) {
-    cp(src, dst);
-  }
-};
-
 OrangeeJSUtil.exec = function(cmd) {
   console.log(cmd);
   return exec(cmd, {async: false});

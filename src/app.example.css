@@ -28,7 +28,7 @@ body {
 	width: 100%;
 	height: 45px;
 	line-height: 45px;
-	background: #CD235C;
+	background: orange;
 	padding: 0;
 	color: #eee;
 	font-size: 20px;
@@ -46,6 +46,8 @@ body {
 	background: #444;
 	padding: 0;
 	border-top: 1px solid #444;
+	text-align: center;
+	color: #eee;
 }
 
 #wrapper {

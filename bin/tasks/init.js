@@ -24,12 +24,12 @@ OrangeeJSInitTask.prototype.run = function() {
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.min.js");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.min.js");
 
-  OrangeeJSUtil.copyUnlessExist(src + '/icon.example.png', 'assets/icon.png');
-  OrangeeJSUtil.copyUnlessExist(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');
-  OrangeeJSUtil.copyUnlessExist(src + '/splash-landscape.example.png', 'assets/splash-landscape.png');
-  OrangeeJSUtil.copyUnlessExist(src + "/index.example.html", 'app/index.html');
-  OrangeeJSUtil.copyUnlessExist(src + "/app.example.js", 'app/app.js');
-  OrangeeJSUtil.copyUnlessExist(src + "/app.example.css", 'app/app.css');
+  cp(src + '/icon.example.png', 'assets/icon.png');
+  cp(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');
+  cp(src + '/splash-landscape.example.png', 'assets/splash-landscape.png');
+  cp(src + "/index.example.html", 'app/index.html');
+  cp(src + "/app.example.js", 'app/app.js');
+  cp(src + "/app.example.css", 'app/app.css');
 };
 
 module.exports = OrangeeJSInitTask;
