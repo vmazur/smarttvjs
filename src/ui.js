@@ -5,3 +5,5 @@ orangee.render_template = function(target_id, template_id, json_data) {
 };
 
 orangee.scroller = IScroll;
+orangee.sidemenu = Snap;
+orangee.spinner = Spinner;
