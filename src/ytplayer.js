@@ -1,4 +1,4 @@
-var orangee.ytplayer = {
+orangee.ytplayer = {
 
   playlist: [],
   currentVideo: 0,

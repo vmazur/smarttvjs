@@ -28,6 +28,8 @@ OrangeeJSInitTask.prototype.run = function() {
   OrangeeJSUtil.copyUnlessExist(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');
   OrangeeJSUtil.copyUnlessExist(src + '/splash-landscape.example.png', 'assets/splash-landscape.png');
   OrangeeJSUtil.copyUnlessExist(src + "/index.example.html", 'app/index.html');
+  OrangeeJSUtil.copyUnlessExist(src + "/app.example.js", 'app/app.js');
+  OrangeeJSUtil.copyUnlessExist(src + "/app.example.css", 'app/app.css');
 };
 
 module.exports = OrangeeJSInitTask;
