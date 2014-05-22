@@ -1,8 +1,7 @@
-var OrangeeJS = {
-  PLATFORM: "samsung"
-};
+orangee.PLATFORM = "samsung";
+
 //http://www.samsungdforum.com/Guide/ref00006/index.html
-OrangeeJS.init = function(callback) {
+orangee.init = function(callback) {
   this._loadScript(['$MANAGER_WIDGET/Common/API/TVKeyValue.js', '$MANAGER_WIDGET/Common/API/Widget.js'], function() {
     var widgetAPI = new Common.API.Widget();
     widgetAPI.sendReadyEvent();
@@ -16,12 +15,12 @@ OrangeeJS.init = function(callback) {
   });
 };
 
-OrangeeJS.close = function() {
+orangee.close = function() {
   var widgetAPI = new Common.API.Widget();
   widgetAPI.sendExitEvent();
 }
 
-OrangeeJS._loadScript = function(srcs, callback) {
+orangee._loadScript = function(srcs, callback) {
   var head = document.getElementsByTagName('head')[0];;
   var i = 0;
   srcs.forEach(function(src) {

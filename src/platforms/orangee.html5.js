@@ -1,8 +1,6 @@
-var OrangeeJS = {
-    PLATFORM:  "html5"
-};
+orangee.PLATFORM = "html5";
 
-OrangeeJS.init = function(callback) {
+orangee.init = function(callback) {
   //http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
   this.KEYS = {
     KEY_TOOLS:1,
@@ -64,5 +62,5 @@ OrangeeJS.init = function(callback) {
   }
 };
 
-OrangeeJS.close = function() {
+orangee.close = function() {
 };
