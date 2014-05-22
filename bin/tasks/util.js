@@ -7,7 +7,8 @@ function OrangeeJSUtil() {
 };
 
 OrangeeJSUtil.core_js_sources = [
-  'ytplayer.js'
+  'ytplayer.js',
+  'storage.js'
 ];
 
 OrangeeJSUtil.ui_js_sources = [
