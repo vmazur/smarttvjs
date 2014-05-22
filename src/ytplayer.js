@@ -1,9 +1,9 @@
-var OrangeeYTPlayer = {
+var orangee.ytplayer = {
 
   playlist: [],
   currentVideo: 0,
   lastPosition: 0,
-  ytplayer: null,
+  player: null,
   video_id: null,
 
   init: function(playlist, vid) {
@@ -41,27 +41,27 @@ var OrangeeYTPlayer = {
 
 
   Start: function() {
-    this.ytplayer.playVideo();
+    this.player.playVideo();
   },
 
   Stop: function() {
-    this.ytplayer.pauseVideo();
+    this.player.pauseVideo();
   },
 
   updateStatus: function() {
-    //createCookie("youtube_progress_" + <%= @video.id %>, currentVideo + ":" + ytplayer.getCurrentTime(), 30);
+    //createCookie("youtube_progress_" + <%= @video.id %>, currentVideo + ":" + player.getCurrentTime(), 30);
   },
 
   switchVideo: function(index) {
-    if (this.ytplayer) {
+    if (this.player) {
       currentVideo = index;
-      this.ytplayer.loadVideoById(this.playlist[index][1]);
+      this.player.loadVideoById(this.playlist[index][1]);
       document.title = this.playlist[index][0];
     }
   },
 
   StopVideo: function() {
-    this.ytplayer.stopVideo();
+    this.player.stopVideo();
   },
 
   // This function is called when the player changes state
@@ -70,19 +70,19 @@ var OrangeeYTPlayer = {
       //document.getElementById('logs').innerHTML += currentVideo
       this.Next();
     } else if (event.data == 1 && this.lastPosition !=0) {
-      this.ytplayer.seekTo(this.lastPosition, true);
+      this.player.seekTo(this.lastPosition, true);
       this.lastPosition = 0;
     }*/
     // Can not use this in callback
     if (event.data == 1) {//YT.PlayerState.PLAYING
-      app.history.add(OrangeeYTPlayer.video_id);
+      app.history.add(Orangeeplayer.video_id);
     }
   },
 
   onPlayerReady: function(event) {
-    //ytplayer.setPlaybackQuality("hd720");
-    //ytplayer.setVolume(100);
-    //ytplayer.playVideo(); calling this will cause problem on iphone
+    //player.setPlaybackQuality("hd720");
+    //player.setVolume(100);
+    //player.playVideo(); calling this will cause problem on iphone
   },
 
   onPlayerError: function(event) {
@@ -115,10 +115,10 @@ var OrangeeYTPlayer = {
     this.playlist = playlist;
     this.video_id = vid;
 
-    if (this.ytplayer) {
-      this.ytplayer.loadVideoById(this.playlist[this.currentVideo][1]);
+    if (this.player) {
+      this.player.loadVideoById(this.playlist[this.currentVideo][1]);
     } else {
-      this.ytplayer = new YT.Player(divid, {
+      this.player = new YT.Player(divid, {
         width: '100%', //viewportwidth will not not consider the size of scroll bar
         height: Math.floor(screen.width * 9 / 16),
         videoId: this.playlist[this.currentVideo][1],

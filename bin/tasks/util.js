@@ -7,6 +7,7 @@ function OrangeeJSUtil() {
 };
 
 OrangeeJSUtil.core_js_sources = [
+  'core.js',
   'ytplayer.js',
   'storage.js'
 ];
@@ -16,7 +17,9 @@ OrangeeJSUtil.ui_js_sources = [
   'vendor/iscroll.js',
   'vendor/spin.min.js',
   'vendor/bootstrap-carousel.js',
-  'vendor/handlebars-v1.3.0.js'];
+  'vendor/handlebars-v1.3.0.js',
+  'ui.js'
+];
 
 OrangeeJSUtil.ui_css_sources = [
   'orangeejs.css', 

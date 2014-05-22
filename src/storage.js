@@ -1,4 +1,4 @@
-OrangeeStorage = {
+orangee.storage = {
     localStoreSupport: function() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
