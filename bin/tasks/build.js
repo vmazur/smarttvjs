@@ -7,6 +7,7 @@ function OrangeeJSBuildTask() {
 };
 
 OrangeeJSBuildTask.prototype.run = function(name) {
+  mkdir("-p", 'build');
   if (name === 'samsung') {
     this._build_samsung();
   } else if (name === 'lg') {
