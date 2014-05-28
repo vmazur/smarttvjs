@@ -15,7 +15,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
     //var vm = "2013_Smart_TV_Emulator_4_5";
     var vm = JSON.parse(fs.readFileSync("package.json", "utf8"))['samsung_vm'];
     if (vm) {
-      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexof('"' + vm + '"') > -1) {
+      if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexOf('"' + vm + '"') > -1) {
         console.log("OrangeeJS: trying to shutdown existing vm...");
         OrangeeJSUtil.exec('VBoxManage controlvm ' + vm + ' poweroff');
       }
@@ -61,7 +61,7 @@ OrangeeJSRunTask.prototype.run = function(name) {
       if (OrangeeJSUtil.exec('VBoxManage list runningvms').output.indexOf('"' + vm + '"') == -1) {
         console.log("!!!!vm is not running, please start one from genymotion first...");
         //OrangeeJSUtil.exec_background('/Applications/Genymotion.app/Contents/MacOS/player --vm-name "' + vm + '"');
-        //TODO we can start with command above, but we need to find a way to wait for it finish starting 
+        //TODO we can start with command above, but we need to find a way to wait for it finish starting
       }
     } else {
       console.log('android vm found, try to attach to exsiting one...');
