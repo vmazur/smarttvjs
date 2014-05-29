@@ -7,7 +7,7 @@ orangee.init = function(callback) {
     widgetAPI.sendReadyEvent();
 
     //https://www.samsungdforum.com/Guide/ref00006/common_module_tvkeyvalue_object.html
-    OrangeeJS.KEYS =  new Common.API.TVKeyValue();
+    orangee.KEYS =  new Common.API.TVKeyValue();
 
     if (typeof callback === "function") {
     	callback();
