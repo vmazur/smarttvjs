@@ -119,8 +119,8 @@ orangee.ytplayer = {
       this.player.loadVideoById(this.playlist[this.currentVideo][1]);
     } else {
       this.player = new YT.Player(divid, {
-        width: '100%', //viewportwidth will not not consider the size of scroll bar
-        height: Math.floor(screen.width * 9 / 16),
+        width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar
+        height: options['height'] || '100%',
         videoId: this.playlist[this.currentVideo][1],
         playerVars: {
           'html5': 1,
