@@ -1,3 +1,4 @@
+//http://stackoverflow.com/questions/4692245/html5-local-storage-fallback-solutions
 orangee.storage = {
     localStoreSupport: function() {
         try {
