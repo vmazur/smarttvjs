@@ -40,11 +40,11 @@ orangee.ytplayer = {
   },
 
 
-  Start: function() {
+  play: function() {
     this.player.playVideo();
   },
 
-  Stop: function() {
+  pause: function() {
     this.player.pauseVideo();
   },
 
@@ -60,7 +60,7 @@ orangee.ytplayer = {
     }
   },
 
-  StopVideo: function() {
+  stop: function() {
     this.player.stopVideo();
   },
 
