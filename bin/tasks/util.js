@@ -9,6 +9,7 @@ function OrangeeJSUtil() {
 OrangeeJSUtil.core_js_sources = [
   'core.js',
   'ytplayer.js',
+  'openfb.js',
   'storage.js'
 ];
 
