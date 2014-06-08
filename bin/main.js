@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 var argv = require('minimist')(process.argv.slice(2));
-//console.dir(argv);
+console.dir(argv);
 
 if (argv._.length >= 1 && argv._[0] == 'init') {
   var T = require('./tasks/init');
-  (new T()).run();
+  (new T()).run(argv.debug);
 } else if (argv._.length >= 1 && argv._[0] == 'server') {
   var T = require('./tasks/server');
   (new T()).run(argv._[1] || 80, argv._[2] || process.cwd());

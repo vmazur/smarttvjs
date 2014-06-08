@@ -3,22 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="orangee-ui.min.css" />
+  <link rel="stylesheet" type="text/css" href="orangee-ui.css" />
   <link rel="stylesheet" type="text/css" href="app.css" />
 </head>
 <body onload="orangee.init(app.init);">
-  <div id="header">header</div>
-  <div id="wrapper">
+  <div id="header">
     <div id="example_target"></div>
     <script id="example_template" type="text/x-handlebars-template">
-       <h1>hello {{name}}</h1>
+      hello {{name}}
+    </script>
+  </div>
+  <div id="wrapper">
+    <div id='player_target'></div>
+    
+    <div id="videos_target"></div>
+    <script id="videos_template" type="text/x-handlebars-template">
+      <ul class="scroller">
+      {{#data}}
+      <li><a href='#' onclick="app.switchVideo({{@index}})">{{name}}</a></li>
+      {{/data}}
+      </ul>
     </script>
   </div>
   <div id="footer">footer</div>
-  <h1>hello world</h1>
-  <script type="text/javascript" src="orangee.min.js"></script>
+  <script type="text/javascript" src="orangee.js"></script>
   <script type="text/javascript" src="jquery.min.js"></script>
-  <script type="text/javascript" src="orangee-ui.min.js"></script>
+  <script type="text/javascript" src="orangee-ui.js"></script>
   <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>

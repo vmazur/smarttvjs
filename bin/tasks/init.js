@@ -7,9 +7,13 @@ require('shelljs/global');
 function OrangeeJSInitTask() {
 };
 
-OrangeeJSInitTask.prototype.run = function() {
+OrangeeJSInitTask.prototype.run = function(debug) {
   mkdir('-p', 'app');
   mkdir('-p', 'assets');
+ 
+  if (debug) {
+    console.log("DEBUG: js will not be minified");
+  }
 
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var name = path.basename(process.cwd());
@@ -20,9 +24,9 @@ OrangeeJSInitTask.prototype.run = function() {
 
   cp(src + "/vendor/jquery.min.js", "app/jquery.min.js");
   cp("-r", src + "/assets/fonts", "app/");
-  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangee-ui.min.css");
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.min.js");
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.min.js");
+  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangee-ui.css");
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.js", debug);
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.js");
 
   cp(src + '/icon.example.png', 'assets/icon.png');
   cp(src + '/splash-portrait.example.png',  'assets/splash-portrait.png');

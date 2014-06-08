@@ -31,6 +31,7 @@
     "gm": "~1.14.2",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
+    "node-minify": "^0.10.3",
     "shelljs": "~0.2.6",
     "uglify-js": "^2.4.13",
     "uglifycss": "0.0.8"

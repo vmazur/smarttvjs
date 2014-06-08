@@ -9,6 +9,9 @@ function OrangeeJSUtil() {
 OrangeeJSUtil.core_js_sources = [
   'core.js',
   'ytplayer.js',
+  'connectplayer.js',
+  'html5player.js',
+  'videoplayer.js',
   'vendor/openfb.js',
   'storage.js'
 ];
@@ -120,15 +123,28 @@ OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
   archive.finalize();
 };
 
-OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile) {
+OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile, debug) {
   var new_sources = [];
   source_files.forEach(function(x) {
     new_sources = new_sources.concat(source_dir + '/' + x);
   });
-  var UglifyJS = require("uglify-js");
-  var result = UglifyJS.minify(new_sources, {mangle: false, compress: false});
-  fs.writeFileSync(outputfile, result.code);
-}
+
+  if (debug) {
+    var compressor = require('node-minify');
+    new compressor.minify({
+      type: 'no-compress',
+      fileIn: new_sources,
+      fileOut: outputfile,
+      callback: function(err, min){
+          console.log(err);
+      }
+    });
+  } else {
+    var UglifyJS = require("uglify-js");
+    var result = UglifyJS.minify(new_sources, {mangle: false, compress: false});
+    fs.writeFileSync(outputfile, result.code);
+  }
+};
 
 OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
   var new_sources = [];
