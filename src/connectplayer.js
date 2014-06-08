@@ -3,6 +3,19 @@ orangee.connectplayer = function(device) {
 };
 
 orangee.connectplayer.init = function() {
+  /*
+  var videoFilter = new ConnectSDK.CapabilityFilter([
+     "MediaPlayer.Display.Video", 
+     "MediaControl.Any", 
+      "VolumeControl.UpDown" 
+  ]);
+
+  var imageFilter = new ConnectSDK.CapabilityFilter([
+      "MediaPlayer.Display.Image"
+  ]);
+
+  ConnectSDK.discoveryManager.setCapabilityFilters([videoFilter, imageFilter]);
+  */
   ConnectSDK.discoveryManager.startDiscovery();
 };
 

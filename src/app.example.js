@@ -1,6 +1,5 @@
 //your script here
 
-
 var app = {
   videoplayer: new orangee.videoplayer()
 };
@@ -12,7 +11,7 @@ app.init = function() {
     {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
     {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"}
   ];
-  app.videoplayer.load(playlist, 0, 'player_target', {width: 400, height: 300})
+  app.videoplayer.load(playlist, 0, 'player_target', {width: 560, height: 349})
 
   orangee.render_template("#videos_target", "#videos_template", {data: playlist});
 };

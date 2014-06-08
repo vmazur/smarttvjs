@@ -24,7 +24,6 @@ orangee.html5player.prototype.load = function(url, lastPosition, divid, options)
     this.video = document.createElement("video");
     this.video.controls = true;
     this.video.width = options['width'] || '100%';
-    this.video.height = options['height'] || '100%';
     this.video.id = divid;
 
     var div = document.getElementById(divid);
