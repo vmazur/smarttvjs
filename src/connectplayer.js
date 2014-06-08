@@ -1,16 +1,13 @@
-orangee.connectplayer = function() {
-  this.device = null;
+orangee.connectplayer = function(device) {
+  this.device = device;
 };
 
-orangee.connectplayer.prototype.init = function() {
+orangee.connectplayer.init = function() {
   ConnectSDK.discoveryManager.startDiscovery();
 };
 
-orangee.connectplayer.prototype.showDevicePicker = function (callback) {
-  ConnectSDK.discoveryManager.pickDevice().success(function() {
-    this.device = device;
-    this.device.connect();
-  });
+orangee.connectplayer.showDevicePicker = function() {
+  return ConnectSDK.discoveryManager.pickDevice();
 };
 
 orangee.connectplayer.prototype.isReady = function() {

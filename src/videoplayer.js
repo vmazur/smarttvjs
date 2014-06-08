@@ -3,58 +3,22 @@ orangee.videoplayer = function() {
   this.playlist = [];
   this.currentVideo = 0;
   this.lastPosition = 0;
-  this.ytplayer = new orangee.ytplayer();
-  this.connectplayer = new orangee.connectplayer();
-  this.html5player = new orangee.html5player();
+  this.currentplayer = null;
   this.STATUS = {YOUTUBE : 0, HTML5 : 1, CONNECTSDK : 2};
   this.status = null;
   this.div = null;
 };
 
-orangee.videoplayer.prototype.init_connectsdk = function() {
-  this.connectplayer.init();
-};
-
 orangee.videoplayer.prototype.play = function() {
-  switch (this.status) {
-    case this.STATUS.YOUTUBE:
-      this.ytplayer.play();
-      break;
-    case this.STATUS.HTML5:
-      this.html5player.play();
-      break;
-    case this.STATUS.CONNECTSDK:
-      this.connectplayer.play();
-      break;
-  }
+  this.currentplayer.play();
 };
 
 orangee.videoplayer.prototype.stop = function() {
-  switch (this.status) {
-    case this.STATUS.YOUTUBE:
-      this.ytplayer.stop();
-      break;
-    case this.STATUS.HTML5:
-      this.html5player.stop();
-      break;
-    case this.STATUS.CONNECTSDK:
-      this.connectplayer.stop();
-      break;
-  }
+  this.currentplayer.stop();
 };
 
 orangee.videoplayer.prototype.pause = function() {
-  switch (this.status) {
-    case this.STATUS.YOUTUBE:
-      this.ytplayer.pause();
-      break;
-    case this.STATUS.HTML5:
-      this.html5player.pause();
-      break;
-    case this.STATUS.CONNECTSDK:
-      this.connectplayer.pause();
-      break;
-  }
+  this.currentplayer.pause();
 };
 
 orangee.videoplayer.prototype.load = function(playlist, currentVideo, divid, options) {
@@ -68,9 +32,10 @@ orangee.videoplayer.prototype.load = function(playlist, currentVideo, divid, opt
 
 orangee.videoplayer.prototype.switchVideo = function(index) {
   this.currentVideo = index;
-  
+ 
+  var old_status = this.status; 
   var url = this.playlist[this.currentVideo]['url'];
-  if (this.connectplayer.isReady()) {
+  if (this.device && this.device.isReady()) {
     this.status = this.STATUS.CONNECTSDK; 
   } else if (url.indexOf('youtube.com') > -1) {
     this.status = this.STATUS.YOUTUBE;
@@ -78,15 +43,28 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
     this.status = this.STATUS.HTML5;
   }
 
-  switch (this.status) {
-    case this.STATUS.YOUTUBE:
-      this.ytplayer.load(url, this.lastPosition, this.divid, this.options);
-      break;
-    case this.STATUS.HTML5:
-      this.html5player.load(url, this.lastPosition, this.divid, this.options);
-      break;
-    case this.STATUS.CONNECTSDK:
-      this.connectplayer.load(url);
-      break;
+  if (this.status != old_status) {
+    switch (this.status) {
+      case this.STATUS.YOUTUBE:
+        this.currentplayer = new orangee.ytplayer();
+        break;
+      case this.STATUS.HTML5:
+        this.currentplayer = new orangee.html5player();
+        break;
+      case this.STATUS.CONNECTSDK:
+        this.currentplayer = new orangee.connectplayer(this.device);
+        break;
+    }
   }
+
+  this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
+};
+
+orangee.videoplayer.prototype.showDevicePicker = function() {
+  var self = this;
+  orangee.connectplayer.init();
+  orangee.connectplayer.showDevicePicker().success(function(device) {
+    self.device = device;
+    device.connect();
+  });
 };
