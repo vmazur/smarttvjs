@@ -60,11 +60,21 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
   this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
 };
 
-orangee.videoplayer.prototype.showDevicePicker = function() {
-  var self = this;
+orangee.videoplayer.prototype.init_connectsdk = function() {
   orangee.connectplayer.init();
+};
+
+orangee.videoplayer.prototype.showDevicePicker = function(callback) {
+  var self = this;
   orangee.connectplayer.showDevicePicker().success(function(device) {
     self.device = device;
     device.connect();
+    if (typeof callback === "function") {
+      callback(device);
+    }
   });
+};
+
+orangee.videoplayer.prototype.disconnect = function() {
+  this.device.disconnect();
 };
