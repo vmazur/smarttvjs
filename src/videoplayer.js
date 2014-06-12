@@ -37,11 +37,15 @@ orangee.videoplayer.prototype.switchVideo = function(index, called_from_load) {
   this.currentVideo = index;
 
   var url = this.playlist[this.currentVideo]['url'];
-  if (url.indexOf('youtube.com') > -1 && 
-      (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name)) {
-    this.currentplayer = new orangee.ytplayer();
-  } else if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
-    this.currentplayer = new orangee.html5player();
+  console.log(this.playlist);
+  if (url.indexOf('youtube.com') > -1) {
+    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
+      this.currentplayer = new orangee.ytplayer();
+    }
+  } else {
+    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
+      this.currentplayer = new orangee.html5player();
+    }
   }
 
   this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
