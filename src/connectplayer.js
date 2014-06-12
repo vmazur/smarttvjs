@@ -23,8 +23,12 @@ orangee.connectplayer.showDevicePicker = function() {
   return ConnectSDK.discoveryManager.pickDevice();
 };
 
+orangee.connectplayer.prototype.disconnect = function(){
+  return this.device.disconnect();
+};
+
 orangee.connectplayer.prototype.isReady = function() {
-  return this.device && this.device.isReady();
+  return this.device.isReady();
 };
 
 orangee.connectplayer.prototype.play = function(device) {
@@ -44,7 +48,7 @@ orangee.connectplayer.prototype.currentTime = function() {
   return this.device.getMediaControl.getPosition();
 };
 
-orangee.connectplayer.prototype.load = function(url) {
+orangee.connectplayer.prototype.load = function(url, lastPosition, divid, options) {
   if (this.device && this.device.isReady()) {
     var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null; 
     if (ytid) {

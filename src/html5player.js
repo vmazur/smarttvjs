@@ -1,4 +1,4 @@
-orangee.html5player = function() {
+orangee.html5player = function _OrangeeJSHTML5Player() {
   this.video = null;
 };
 

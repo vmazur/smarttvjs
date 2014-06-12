@@ -1,5 +1,5 @@
 //it is better to wait until onYouTubePlayerAPIReady(playerId)
-orangee.ytplayer = function() {
+orangee.ytplayer = function _OrangeeJSYTPlayer() {
   this.player = null;
 };
 
@@ -23,7 +23,7 @@ orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
   var vid = url.split('watch?v=')[1];
 
   if (this.player) {
-    this.player.loadVideoById(vid);
+    this.player.loadVideoById(vid, lastPosition);
   } else {
     this.player = new YT.Player(divid, {
       width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar

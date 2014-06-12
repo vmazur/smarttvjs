@@ -1,24 +1,26 @@
 orangee.videoplayer = function() {
-  this.device = null;
   this.playlist = [];
   this.currentVideo = 0;
   this.lastPosition = 0;
   this.currentplayer = null;
-  this.STATUS = {YOUTUBE : 0, HTML5 : 1, CONNECTSDK : 2};
-  this.status = null;
+  this.connectplayer = null;//this player is special, other players can not coexist
   this.div = null;
 };
 
 orangee.videoplayer.prototype.play = function() {
-  this.currentplayer.play();
-};
-
-orangee.videoplayer.prototype.stop = function() {
-  this.currentplayer.stop();
+  if (this.connectplayer) {
+    this.connectplayer.play();
+  } else {
+    this.currentplayer.play();
+  }
 };
 
 orangee.videoplayer.prototype.pause = function() {
-  this.currentplayer.pause();
+  if (this.connectplayer) {
+    this.connectplayer.play();
+  } else {
+    this.currentplayer.pause();
+  }
 };
 
 orangee.videoplayer.prototype.load = function(playlist, currentVideo, divid, options) {
@@ -27,37 +29,25 @@ orangee.videoplayer.prototype.load = function(playlist, currentVideo, divid, opt
   this.options = options || {};
   this.divid = divid;
 
-  this.switchVideo(currentVideo);
+  this.switchVideo(currentVideo, true);
 };
 
-orangee.videoplayer.prototype.switchVideo = function(index) {
+orangee.videoplayer.prototype.switchVideo = function(index, called_from_load) {
+  called_from_load = (typeof called_from_load !== 'undefined') ? called_from_load : false;
   this.currentVideo = index;
- 
-  var old_status = this.status; 
-  var url = this.playlist[this.currentVideo]['url'];
-  if (this.device && this.device.isReady()) {
-    this.status = this.STATUS.CONNECTSDK; 
-  } else if (url.indexOf('youtube.com') > -1) {
-    this.status = this.STATUS.YOUTUBE;
-  } else {
-    this.status = this.STATUS.HTML5;
-  }
 
-  if (this.status != old_status) {
-    switch (this.status) {
-      case this.STATUS.YOUTUBE:
-        this.currentplayer = new orangee.ytplayer();
-        break;
-      case this.STATUS.HTML5:
-        this.currentplayer = new orangee.html5player();
-        break;
-      case this.STATUS.CONNECTSDK:
-        this.currentplayer = new orangee.connectplayer(this.device);
-        break;
-    }
+  var url = this.playlist[this.currentVideo]['url'];
+  if (url.indexOf('youtube.com') > -1 && 
+      (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name)) {
+    this.currentplayer = new orangee.ytplayer();
+  } else if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
+    this.currentplayer = new orangee.html5player();
   }
 
   this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
+  if (!called_from_load) {
+    this.connectlayer.load(url, this.lastPosition, this.divid, this.options);
+  }
 };
 
 orangee.videoplayer.prototype.init_connectsdk = function() {
@@ -67,14 +57,15 @@ orangee.videoplayer.prototype.init_connectsdk = function() {
 orangee.videoplayer.prototype.showDevicePicker = function(callback) {
   var self = this;
   orangee.connectplayer.showDevicePicker().success(function(device) {
-    self.device = device;
+    self.connectplayer = new orangee.connectplayer(device);
     device.connect();
     if (typeof callback === "function") {
-      callback(device);
+      callback(this.connectplayer);
     }
   });
 };
 
 orangee.videoplayer.prototype.disconnect = function() {
-  this.device.disconnect();
+  this.connectplayer.disconnect();
+  this.connectplayer = null;
 };
