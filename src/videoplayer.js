@@ -48,7 +48,9 @@ orangee.videoplayer.prototype.switchVideo = function(index, called_from_load) {
     }
   }
 
-  this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
+  if (called_from_load || !this.connectplayer) {
+    this.currentplayer.load(url, this.lastPosition, this.divid, this.options);
+  }
   if (!called_from_load && this.connectplayer) {
     this.connectplayer.load(url, this.lastPosition, this.divid, this.options);
   }
