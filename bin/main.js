@@ -4,8 +4,8 @@ var argv = require('minimist')(process.argv.slice(2));
 //console.dir(argv);
 
 if (argv.version) {
-  var fs = require('fs');
-  console.log(JSON.parse(fs.readFileSync("package.json", "utf8"))['version']);
+  var T = require('./tasks/util');
+  console.log(T.version());
 } else if (argv._.length >= 1 && argv._[0] == 'init') {
   var T = require('./tasks/init');
   (new T()).run(argv.debug);

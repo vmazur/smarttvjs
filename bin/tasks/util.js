@@ -156,4 +156,9 @@ OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
   fs.writeFileSync(outputfile, result);
 }
 
+OrangeeJSUtil.version = function() {
+  var file = path.join(path.dirname(fs.realpathSync(__filename)), '../../package.json');
+  return JSON.parse(fs.readFileSync(file, "utf8"))['version']
+}
+
 module.exports = OrangeeJSUtil;
