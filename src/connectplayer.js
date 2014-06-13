@@ -45,7 +45,7 @@ orangee.connectplayer.prototype.pause = function(device) {
 };
 
 orangee.connectplayer.prototype.currentTime = function() {
-  return this.device.getMediaControl.getPosition();
+  return this.device.getMediaControl().getPosition();
 };
 
 orangee.connectplayer.prototype.seek = function(second) {
