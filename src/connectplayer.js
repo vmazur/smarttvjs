@@ -76,6 +76,8 @@ orangee.connectplayer.prototype.load = function(url, lastPosition, divid, option
           options['onplaying']();
         } else if (state === 'paused' && options['onpause']) {
           options['onpause']();
+        } else if (state === 'finished' && options['onend']) {
+          options['onend']();
         }
       });
     });

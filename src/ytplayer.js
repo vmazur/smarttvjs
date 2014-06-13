@@ -23,11 +23,11 @@ orangee.ytplayer.prototype.seek = function(second) {
    return this.player.seekTo(second, true);
 };
 
-orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
+orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   var vid = url.split('watch?v=')[1];
 
   if (this.player) {
-    this.player.loadVideoById(vid, lastPosition);
+    this.player.cueVideoById(vid, startSeconds);
   } else {
     this.player = new YT.Player(divid, {
       width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar
@@ -35,7 +35,7 @@ orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
       videoId: vid,
       playerVars: {
         'html5': 1,
-        'start': lastPosition,
+        'start': startSeconds,
         'autoplay':  options['autoplay'] || 0,
         'playsinline': options['playsinline'] || 1,
         'controls': options['controls'] || 1,
@@ -58,6 +58,8 @@ orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
             options['onplaying']();
           } else if (event.data == YT.PlayerState.PAUSED && options['onpause']) {
             options['onpause']();
+          } else if (event.data == YT.PlayerState.PAUSED && options['onend']) {
+            options['onend']();
           }
           /*
            YT.PlayerState.ENDED

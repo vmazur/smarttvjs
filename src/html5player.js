@@ -40,6 +40,9 @@ orangee.html5player.prototype.load = function(url, lastPosition, divid, options)
   if (options['onpause']) {
     this.video.addEventListener("pause", options['onpause']);
   }
+  if (options['onend']) {
+    this.video.addEventListener("ended", options['onend']);
+  }
   //this.video.currentTime = lastPosition;
 };
 

@@ -11,7 +11,7 @@ app.init = function() {
     {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
     {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"}
   ];
-  app.videoplayer.load(playlist, 0, 'player_target', {
+  app.videoplayer.load(playlist, 'player_target', {
     width: 560,
     height: 315,
     onplaying: function() {
