@@ -16,7 +16,7 @@ orangee.html5player.prototype.stop = function() {
 };
 
 orangee.html5player.prototype.currentTime = function() {
-  return this.video.currentTime();
+  return this.video.currentTime;
 };
 
 orangee.html5player.prototype.load = function(url, lastPosition, divid, options) {
@@ -30,6 +30,12 @@ orangee.html5player.prototype.load = function(url, lastPosition, divid, options)
     div.parentNode.replaceChild(this.video, div);
   }
   this.video.src = url;
+  if (options['onplaying']) {
+    this.video.addEventListener("playing", options['onplaying']);
+  }
+  if (options['onpause']) {
+    this.video.addEventListener("pause", options['onpause']);
+  }
   //this.video.currentTime = lastPosition;
 };
 

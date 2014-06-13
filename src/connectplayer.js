@@ -49,13 +49,32 @@ orangee.connectplayer.prototype.currentTime = function() {
 };
 
 orangee.connectplayer.prototype.load = function(url, lastPosition, divid, options) {
+  var self = this;
   if (this.device && this.device.isReady()) {
-    var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null; 
+    var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null;
+    var command;
     if (ytid) {
-      this.device.getLauncher().launchYouTube(ytid);
+      command = this.device.getLauncher().launchYouTube(ytid);
     } else {
-      this.device.getMediaPlayer().playMedia(url, "video/mp4");
+      command = this.device.getMediaPlayer().playMedia(url, "video/mp4");
     }
+    command.success(function() {
+      self.device.getMediaControl().subscribePlayState().success(function(state) {
+        /*
+        "unknown"
+        "idle"
+        "playing"
+        "paused"
+        "buffering"
+        "finished"
+        */
+        if (state === 'playing' && options['onplaying']) {
+          options['onplaying']();
+        } else if (state === 'paused' && options['onpause']) {
+          options['onpause']();
+        }
+      });
+    });
   }
 };
 

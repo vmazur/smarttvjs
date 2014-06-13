@@ -16,7 +16,7 @@ orangee.ytplayer.prototype.stop = function() {
 };
 
 orangee.ytplayer.prototype.currentTime = function() {
-   this.player.getCurrentTime();
+   return this.player.getCurrentTime();
 };
 
 orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
@@ -48,10 +48,20 @@ orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
         },
         'onError': function() {
         },*/
+       // does not work on file://
         'onStateChange': function(event) {
           if (event.data == YT.PlayerState.PLAYING && options['onplaying']) {
             options['onplaying']();
+          } else if (event.data == YT.PlayerState.PAUSED && options['onpause']) {
+            options['onpause']();
           }
+          /*
+           YT.PlayerState.ENDED
+           YT.PlayerState.PLAYING
+           YT.PlayerState.PAUSED
+           YT.PlayerState.BUFFERING
+           YT.PlayerState.CUED
+           */
         }
       }
     });

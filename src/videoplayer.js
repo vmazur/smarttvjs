@@ -23,6 +23,14 @@ orangee.videoplayer.prototype.pause = function() {
   }
 };
 
+orangee.videoplayer.prototype.currentTime = function() {
+  if (this.connectplayer) {
+    return this.connectplayer.currentTime();
+  } else {
+    return this.currentplayer.currentTime();
+  }
+};
+
 orangee.videoplayer.prototype.load = function(playlist, currentVideo, divid, options) {
   this.playlist = playlist;
   this.lastPosition = 0;
@@ -37,7 +45,6 @@ orangee.videoplayer.prototype.switchVideo = function(index, called_from_load) {
   this.currentVideo = index;
 
   var url = this.playlist[this.currentVideo]['url'];
-  console.log(this.playlist);
   if (url.indexOf('youtube.com') > -1) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
       this.currentplayer = new orangee.ytplayer();
@@ -72,6 +79,7 @@ orangee.videoplayer.prototype.showDevicePicker = function(callback) {
 };
 
 orangee.videoplayer.prototype.disconnect = function() {
+  this.connectplayer.pause();
   this.connectplayer.disconnect();
   this.connectplayer = null;
 };

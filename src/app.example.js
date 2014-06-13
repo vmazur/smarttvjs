@@ -16,6 +16,9 @@ app.init = function() {
     height: 315,
     onplaying: function() {
       console.log('playing');
+    },
+    onpause: function() {
+      console.log('paused at ' + app.videoplayer.currentTime())
     }
   });
 
