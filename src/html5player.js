@@ -19,6 +19,10 @@ orangee.html5player.prototype.currentTime = function() {
   return this.video.currentTime;
 };
 
+orangee.html5player.prototype.seek = function(second) {
+  this.video.currentTime = second;
+};
+
 orangee.html5player.prototype.load = function(url, lastPosition, divid, options) {
   if (this.video == null) {
     this.video = document.createElement("video");

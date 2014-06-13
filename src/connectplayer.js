@@ -48,6 +48,10 @@ orangee.connectplayer.prototype.currentTime = function() {
   return this.device.getMediaControl.getPosition();
 };
 
+orangee.connectplayer.prototype.seek = function(second) {
+  this.device.getMediaControl.seek(second * 1000);
+};
+
 orangee.connectplayer.prototype.load = function(url, lastPosition, divid, options) {
   var self = this;
   if (this.device && this.device.isReady()) {

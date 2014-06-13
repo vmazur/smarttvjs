@@ -19,6 +19,10 @@ orangee.ytplayer.prototype.currentTime = function() {
    return this.player.getCurrentTime();
 };
 
+orangee.ytplayer.prototype.seek = function(second) {
+   return this.player.seekTo(second, true);
+};
+
 orangee.ytplayer.prototype.load = function(url, lastPosition, divid, options) {
   var vid = url.split('watch?v=')[1];
 
