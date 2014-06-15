@@ -5,6 +5,6 @@ orangee.render_template = function(target_id, template_id, json_data) {
   return rendered;
 };
 
-orangee.scroller = IScroll;
+orangee.scroller = IScrollHelper;
 orangee.sidemenu = Snap;
 orangee.spinner = Spinner;

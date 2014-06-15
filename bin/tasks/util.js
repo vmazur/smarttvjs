@@ -17,8 +17,9 @@ OrangeeJSUtil.core_js_sources = [
 ];
 
 OrangeeJSUtil.ui_js_sources = [
-  'vendor/snap.min.js', 
+  'vendor/snap.min.js',
   'vendor/iscroll.js',
+  'vendor/iscrollHelper.js',
   'vendor/spin.min.js',
   'vendor/bootstrap-carousel.js',
   'vendor/handlebars-v1.3.0.js',
@@ -26,7 +27,7 @@ OrangeeJSUtil.ui_js_sources = [
 ];
 
 OrangeeJSUtil.ui_css_sources = [
-  'orangeejs.css', 
+  'orangeejs.css',
   'assets/stylesheets/bootstrap.css',
   'assets/stylesheets/font-awesome.css'
 ];
