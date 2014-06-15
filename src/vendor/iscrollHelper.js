@@ -14,7 +14,7 @@ var IScrollHelper = {
       pullupLoadingMore = pullText && pullText['pullupLoadingMore'] ? pullText['pullupLoadingMore'] : 'Pull up load more ...',
       releaseToRefresh = pullText && pullText['releaseToRefresh'] ? pullText['releaseToRefresh'] : 'Release to refresh ...',
       releaseToLoading = pullText && pullText['releaseToLoading'] ? pullText['releaseToLoading'] : 'Release to loading ...',
-      loading = pullText && pullText['loading'] ? pullText['loading'] : '加载中...';
+      loading = pullText && pullText['loading'] ? pullText['loading'] : 'Loading ...';
 
     var $pulldown = $wrapper.find('#pulldown'),
       $pullup = $wrapper.find('#pullup'),
