@@ -25,6 +25,7 @@ orangee.ytplayer.prototype.seek = function(second) {
 
 orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   var vid = url.split('watch?v=')[1];
+  startSeconds = Math.round(startSeconds);// youtube api only takes positive integer
 
   if (this.player) {
     this.player.cueVideoById(vid, startSeconds);
