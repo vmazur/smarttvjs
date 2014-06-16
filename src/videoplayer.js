@@ -4,11 +4,16 @@ orangee.videoplayer = function() {
   this.currentplayer = null;
   this.connectplayer = null;//this player is special, other players can not coexist
   this.div = null;
+  this.device = null;
 };
 
 orangee.videoplayer.prototype.play = function() {
   if (this.connectplayer) {
     this.connectplayer.play();
+  } else if (this.device) {
+    this.connectplayer = new orangee.connectplayer(this.device);
+    var url = this.playlist[this.currentIndex]['url'];
+    this.connectplayer.load(url, 0, this.divid, this.options);
   } else {
     this.currentplayer.play();
   }
@@ -16,7 +21,7 @@ orangee.videoplayer.prototype.play = function() {
 
 orangee.videoplayer.prototype.pause = function() {
   if (this.connectplayer) {
-    this.connectplayer.play();
+    this.connectplayer.pause();
   } else {
     this.currentplayer.pause();
   }
@@ -54,7 +59,10 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url);
   
-  if (this.connectplayer) {
+  if (this.device) {
+    if (!this.connectplayer) {
+      this.connectplayer = new orangee.connectplayer(this.device);
+    }
     this.connectplayer.load(url, startSeconds, this.divid, this.options);
     //beamed video always play automatically
   } else {
@@ -82,16 +90,21 @@ orangee.videoplayer.prototype.init_connectsdk = function() {
 orangee.videoplayer.prototype.showDevicePicker = function(callback) {
   var self = this;
   orangee.connectplayer.showDevicePicker().success(function(device) {
-    self.connectplayer = new orangee.connectplayer(device);
+    self.device = device;
     device.connect();
     if (typeof callback === "function") {
-      callback(this.connectplayer);
+      callback(device);
     }
   });
 };
 
 orangee.videoplayer.prototype.disconnect = function() {
-  this.connectplayer.pause();
-  this.connectplayer.disconnect();
-  this.connectplayer = null;
+  if (this.connectplayer) {
+    this.connectplayer.pause();
+    this.connectplayer = null;
+  }
+  if (this.device) {
+    this.device.disconnect();
+    this.device = null;
+  }
 };

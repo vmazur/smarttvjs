@@ -23,10 +23,6 @@ orangee.connectplayer.showDevicePicker = function() {
   return ConnectSDK.discoveryManager.pickDevice();
 };
 
-orangee.connectplayer.prototype.disconnect = function(){
-  return this.device.disconnect();
-};
-
 orangee.connectplayer.prototype.isReady = function() {
   return this.device.isReady();
 };
@@ -49,7 +45,7 @@ orangee.connectplayer.prototype.currentTime = function() {
 };
 
 orangee.connectplayer.prototype.seek = function(second) {
-  this.device.getMediaControl.seek(second * 1000);
+  this.device.getMediaControl().seek(second * 1000);
 };
 
 orangee.connectplayer.prototype.load = function(url, lastPosition, divid, options) {
@@ -80,6 +76,8 @@ orangee.connectplayer.prototype.load = function(url, lastPosition, divid, option
           options['onend']();
         }
       });
+    }).error(function(e) {
+      console.log("Launched failed:" + e);
     });
   }
 };
