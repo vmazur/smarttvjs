@@ -59,8 +59,10 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
             options['onplaying']();
           } else if (event.data == YT.PlayerState.PAUSED && options['onpause']) {
             options['onpause']();
-          } else if (event.data == YT.PlayerState.PAUSED && options['onend']) {
+          } else if (event.data == YT.PlayerState.ENDED && options['onend']) {
             options['onend']();
+          //} else if (event.data == YT.PlayerState.CUED && options['onready']) {
+          //  options['onready']();
           }
           /*
            YT.PlayerState.ENDED
