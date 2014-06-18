@@ -9,11 +9,11 @@ app.init = function() {
 
   var playlist = [
     {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
-    {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"}
+    {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
+    {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ];
   app.videoplayer.load(playlist, 'player_target', {
-    width: 560,
-    height: 315,
+    playsinline: 1,
     onplaying: function() {
       console.log('playing');
     },

@@ -27,13 +27,17 @@ orangee.html5player.prototype.load = function(url, lastPosition, divid, options)
   if (this.video == null) {
     this.video = document.createElement("video");
     this.video.controls = true;
-    this.video.width = options['width'] || '100%';
+    //this.video.width = options['width'] || '100%';
+    if ((options['playsinline'] || 0) == 1) {
+      this.video.setAttribute("webkit-playsinline", "");
+    }
     this.video.id = divid;
 
     var div = document.getElementById(divid);
     div.parentNode.replaceChild(this.video, div);
   }
   this.video.src = url;
+  this.video.load();
   if (options['onplaying']) {
     this.video.addEventListener("playing", options['onplaying']);
   }

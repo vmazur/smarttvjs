@@ -31,16 +31,16 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
     this.player.cueVideoById(vid, startSeconds);
   } else {
     this.player = new YT.Player(divid, {
-      width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar
-      height: options['height'] || '100%',
+      //width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar
+      //height: options['height'] || '100%',
       videoId: vid,
       playerVars: {
         'html5': 1,
         'start': startSeconds,
         'autoplay':  options['autoplay'] || 0,
-        'playsinline': options['playsinline'] || 1,
+        'playsinline': options['playsinline'] || 0,
         'controls': options['controls'] || 1,
-        'fs': 1,
+        'fs': options['fs'] || 0,
         'autohide': 0,
         'enablejsapi': 1,
         'iv_load_policy': 3,
