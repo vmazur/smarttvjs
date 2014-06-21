@@ -1,5 +1,7 @@
 orangee.PLATFORM = 'lg';
 
+//http://developer.lgappstv.com/TV_HELP/topic/lge.tvsdk.developing.book/html/API/API/How%20to%20Use%20HTML5%20Video%20Player%20Framework.htm?path=1_3_15_0#_Toc358881075
+//src="../lge/framework/VideoPlayer/util/keycode.js"
 orangee.init = function(callback) {
   //http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
   this.KEYS = {
