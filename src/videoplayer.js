@@ -27,6 +27,14 @@ orangee.videoplayer.prototype.pause = function() {
   }
 };
 
+orangee.videoplayer.prototype.stop = function() {
+  if (this.connectplayer) {
+    this.connectplayer.stop();
+  } else {
+    this.currentplayer.stop();
+  }
+};
+
 orangee.videoplayer.prototype.currentTime = function() {
   if (this.connectplayer) {
     return this.connectplayer.currentTime();

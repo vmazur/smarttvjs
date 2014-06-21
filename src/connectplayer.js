@@ -1,5 +1,6 @@
 orangee.connectplayer = function(device) {
   this.device = device;
+  this.launchSession = null;
 };
 
 orangee.connectplayer.init = function() {
@@ -32,7 +33,11 @@ orangee.connectplayer.prototype.play = function(device) {
 };
 
 orangee.connectplayer.prototype.stop = function(device) {
-  this.device.getMediaControl().stop();
+  //this.device.getMediaControl().stop();
+  if (this.launchSession) {
+    this.launchSession.close();
+    this.launchSession = null;
+  }
 };
 
 orangee.connectplayer.prototype.pause = function(device) {
@@ -54,9 +59,13 @@ orangee.connectplayer.prototype.load = function(url, lastPosition, divid, option
     var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null;
     var command;
     if (ytid) {
-      command = this.device.getLauncher().launchYouTube(ytid);
+      command = this.device.getLauncher().launchYouTube(ytid).success(function(launchSession) {
+        self.launchSession = launchSession;
+      });
     } else {
-      command = this.device.getMediaPlayer().playMedia(url, "video/mp4");
+      command = this.device.getMediaPlayer().playMedia(url, "video/mp4").success(function(launchSession) {
+        self.launchSession = launchSession;
+      });
     }
     command.success(function() {
       self.device.getMediaControl().subscribePlayState().success(function(state) {
