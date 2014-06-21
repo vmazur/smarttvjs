@@ -23,8 +23,24 @@ app.init = function() {
   });
 
   orangee.render_template("#videos_target", "#videos_template", {data: playlist});
+
+  window.onkeydown = app.onkeydown;
 };
 
 app.switchVideo = function(index) {
   app.videoplayer.switchVideo(index);
+};
+
+app.onkeydown = function(index) {
+  switch (event.keyCode) {
+    case orangee.KEYS.KEY_RED:
+      app.switchVideo(0);
+      break;
+    case orangee.KEYS.KEY_GREEN:
+      app.switchVideo(1);
+      break;
+    case orangee.KEYS.KEY_YELLOW:
+      app.switchVideo(2);
+      break;
+  }
 };
