@@ -9,6 +9,7 @@
 	<autoUpdate>y</autoUpdate>
 
   <cpname>{{name}}</cpname>
+  <runTitle>{{name}}</runTitle>
 	<cpauthjs/>
 	<login>n</login>
 
