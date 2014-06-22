@@ -19,7 +19,6 @@ OrangeeJSUtil.core_js_sources = [
 OrangeeJSUtil.ui_js_sources = [
   'vendor/snap.min.js',
   'vendor/iscroll.js',
-  'vendor/iscrollHelper.js',
   'vendor/spin.min.js',
   'vendor/bootstrap-carousel.js',
   'vendor/handlebars-v1.3.0.js',
