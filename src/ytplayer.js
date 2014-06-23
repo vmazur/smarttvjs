@@ -30,11 +30,19 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   if (this.player) {
     this.player.cueVideoById(vid, startSeconds);
   } else {
-    this.player = new YT.Player(divid, {
-      //width: options['width'] || '100%', //viewportwidth will not not consider the size of scroll bar
-      //height: options['height'] || '100%',
-      videoId: vid,
-      playerVars: {
+    var e = document.createElement("iframe");
+    //e.width =  options['width'] || '100%'; //viewportwidth will not not consider the size of scroll bar
+    //e.height = options['height'] || '100%';
+    e.frameborder=0;
+    e.src = "https://www.youtube.com/embed/" + vid + "?enablejsapi=1&start=" +startSeconds;
+    if (typeof(options['playsinline']) != 'undefined') {
+      e.src += "&playsinline=" + options['playsinline'];
+    }
+    if (typeof(options['autoplay']) != 'undefined') {
+      e.src += "&autoplay=" + options['autoplay'];
+    }
+    /*
+    playerVars: {
         'html5': 1,
         'start': startSeconds,
         'autoplay':  options['autoplay'] || 0,
@@ -47,7 +55,13 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
         'rel': 0,
         'showinfo': 0,
         'hd': 1
-      },
+      },*/
+
+    e.id = divid;
+    var div = document.getElementById(divid);
+    div.parentNode.replaceChild(e, div);
+
+    this.player = new YT.Player(divid, {
       events: {
         /*'onReady': function() {
         },
