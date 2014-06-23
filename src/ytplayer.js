@@ -34,12 +34,15 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
     //e.width =  options['width'] || '100%'; //viewportwidth will not not consider the size of scroll bar
     //e.height = options['height'] || '100%';
     e.frameborder=0;
-    e.src = "https://www.youtube.com/embed/" + vid + "?enablejsapi=1&start=" +startSeconds;
+    e.src = "https://www.youtube.com/embed/" + vid + "?enablejsapi=1&fs=0&autohide=0&iv_load_policy=3&rel=0&showinfo=0&start=" +startSeconds;
     if (typeof(options['playsinline']) != 'undefined') {
       e.src += "&playsinline=" + options['playsinline'];
     }
     if (typeof(options['autoplay']) != 'undefined') {
       e.src += "&autoplay=" + options['autoplay'];
+    }
+    if (typeof(options['controls']) != 'undefined') {
+      e.src += "&controls=" + options['controls'];
     }
     /*
     playerVars: {
