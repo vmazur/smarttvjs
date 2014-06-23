@@ -42,5 +42,8 @@ app.onkeydown = function(index) {
     case orangee.KEYS.KEY_YELLOW:
       app.switchVideo(2);
       break;
+    case orangee.KEYS.KEY_ENTER:
+      app.videoplayer.play();
+      break
   }
 };

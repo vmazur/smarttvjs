@@ -39,7 +39,7 @@ video {
 	height: 100%;
 }
 
-#header {
+header {
 	position: absolute;
 	z-index: 2;
 	top: 0;
@@ -55,7 +55,7 @@ video {
 	font-weight: bold;
 }
 
-#footer {
+footer {
 	position: absolute;
 	z-index: 2;
 	bottom: 0;
