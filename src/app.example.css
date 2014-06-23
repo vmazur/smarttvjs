@@ -20,7 +20,7 @@ body {
 	overflow: hidden; /* this is important to prevent the whole page to bounce */
 }
 
-//http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
+/*http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php*/
 video {
   width: 100%    !important;
   height: auto   !important;
