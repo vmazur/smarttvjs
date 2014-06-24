@@ -1,10 +1,13 @@
-orangee.videoplayer = function() {
+orangee.videoplayer = function(options) {
   this.playlist = [];
   this.currentIndex = 0;
   this.currentplayer = null;
   this.connectplayer = null;//this player is special, other players can not coexist
   this.div = null;
   this.device = null;
+  options = options || {};
+  this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : 1;
+  this.translate_url = options['translate_url'];
 };
 
 orangee.videoplayer.prototype.play = function() {
@@ -57,6 +60,9 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url);
 
+  if (this.translate_url) {
+    url = this.translate_url(url);
+  }
   this.currentplayer.load(url, startSeconds, this.divid, this.options);
 };
 
@@ -74,13 +80,16 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
     this.connectplayer.load(url, startSeconds, this.divid, this.options);
     //beamed video always play automatically
   } else {
+    if (this.translate_url) {
+      url = this.translate_url(url);
+    }
     this.currentplayer.load(url, startSeconds, this.divid, this.options);
     this.currentplayer.play();
   }
 };
 
 orangee.videoplayer.prototype._buildPlayer = function(url) {
-  if (url.indexOf('youtube.com') > -1) {
+  if (this.support_youtube == 1 && url.indexOf('youtube.com') > -1) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
       this.currentplayer = new orangee.ytplayer();
     }
