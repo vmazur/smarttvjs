@@ -1,9 +1,15 @@
 orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.video = null;
+  this.url = null;
 };
 
 orangee.samsungplayer.prototype.play = function() {
-  this.video.Resume();
+  if (this.url != null) {
+    this.video.Play(this.url);
+    this.url = null;
+  } else {
+    this.video.Resume();
+  }
 };
 
 orangee.samsungplayer.prototype.pause = function() {
@@ -22,12 +28,12 @@ orangee.samsungplayer.prototype.seek = function(second) {
   this.video.currentTime = second;
 };
 
+//http://www.samsungdforum.com/Guide/API00005/Player_172.html
 orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, options) {
   if (this.video == null) {
 
     var objects = document.getElementsByTagName('object');
     for (var i =0; i < objects.length; i++) {
-      //alert(objects[i].getAttribute("classid"));
       if (objects[i].getAttribute("classid") === 'clsid:SAMSUNG-INFOLINK-PLAYER') {
         this.video = objects[i];
       }
@@ -37,16 +43,14 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
     //tvmw.SetMediaSource();
     
     var rect = document.getElementById(divid).getBoundingClientRect();
-    this.video.setAttribute('style', "position:absolute;z-index:99;left:" + rect.left + "px;top:" + rect.top+ "px;width:" + rect.width+ "px;height:" + rect.height + "px");
-    //alert(this.video.getAttribute('style'));
-    this.video.setAttribute('border', 0);
-    this.video.SetDisplayArea(rect.left, rect.top, rect.width, rect.height);
+    this.video.setAttribute('style', "position:absolute;z-index:99;left:" + 0 + "px;top:" + 0 + "px;width:" + rect.width + "px;height:" + rect.height + "px");
+    this.video.SetDisplayArea(0, 0, rect.width, rect.height);
     /*
       this.plugin.OnCurrentPlayTime = 'Player.setCurTime';
-          this.plugin.OnStreamInfoReady = 'Player.setTotalTime';
-              this.plugin.OnBufferingStart = 'Player.onBufferingStart';
-                  this.plugin.OnBufferingProgress = 'Player.onBufferingProgress';
-                      this.plugin.OnBufferingComplete = 'Player.onBufferingComplete';
+      this.plugin.OnStreamInfoReady = 'Player.setTotalTime';
+      this.plugin.OnBufferingStart = 'Player.onBufferingStart';
+      this.plugin.OnBufferingProgress = 'Player.onBufferingProgress';
+      this.plugin.OnBufferingComplete = 'Player.onBufferingComplete';
 
     if (options['onplaying']) {
       this.video.addEventListener("playing", options['onplaying']);
@@ -59,11 +63,16 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
     }*/
   }
 
-
+  //it is very strange that video may be hidden if the following is removed, may be we just need some delay
   this.video.SetInitialBuffer(640*1024);
-  this.video.SetPendingBuffer(640*1024); 
+  this.video.SetPendingBuffer(640*1024);
 
-  this.video.Play(url);
+  if ((options['autoplay'] || 0) == 1) {
+    this.video.Play(url);
+  } else {
+    //this.video.InitPlayer(url);
+    this.url = url;
+  }
 };
 
 
