@@ -3,6 +3,7 @@ orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.url = null;
   this.startSeconds = 0;
   this.onpause = null;
+  this.currentTime = 0;
 };
 
 orangee.samsungplayer.prototype.play = function() {
@@ -27,11 +28,11 @@ orangee.samsungplayer.prototype.stop = function() {
 };
 
 orangee.samsungplayer.prototype.currentTime = function() {
-  return this.video.currentTime;
+  return this.currentTime;
 };
 
 orangee.samsungplayer.prototype.seek = function(second) {
-  this.video.JumpForward(second);
+  this.video.JumpForward(this.currentTime + second);
   //JumpBackward
 };
 
@@ -63,6 +64,11 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
     if (options['onend']) {
       this.video.OnRenderingComplete = options['onend'];
     }
+
+    var self = this;
+    this.video.OnCurrentPlayTime = function(currentTime) {
+      self.currentTime = currentTime/1000;
+    };
   }
 
   //it is very strange that video may be hidden if the following is removed, may be we just need some delay
