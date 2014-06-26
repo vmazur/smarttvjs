@@ -10,7 +10,9 @@ function OrangeeJSServerTask() {
 OrangeeJSServerTask.prototype.run = function(port, dir) {
 
   http.createServer(function(request, response) {
-   
+    request.on('data', function(data) {
+      console.log(data.toString());
+    });
     var uri = url.parse(request.url).pathname
       , filename = path.join(dir, uri);
     
