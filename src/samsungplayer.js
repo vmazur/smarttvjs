@@ -2,6 +2,7 @@ orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.video = null;
   this.url = null;
   this.startSeconds = 0;
+  this.onpause = null;
 };
 
 orangee.samsungplayer.prototype.play = function() {
@@ -16,6 +17,9 @@ orangee.samsungplayer.prototype.play = function() {
 
 orangee.samsungplayer.prototype.pause = function() {
   this.video.Pause();
+  if (this.onpause) {
+    this.onpause();
+  }
 };
 
 orangee.samsungplayer.prototype.stop = function() {
@@ -49,22 +53,16 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
     var rect = document.getElementById(divid).getBoundingClientRect();
     this.video.setAttribute('style', "position:absolute;z-index:99;left:" + 0 + "px;top:" + 0 + "px;width:" + rect.width + "px;height:" + rect.height + "px");
     this.video.SetDisplayArea(0, 0, rect.width, rect.height);
-    /*
-      this.plugin.OnCurrentPlayTime = 'Player.setCurTime';
-      this.plugin.OnStreamInfoReady = 'Player.setTotalTime';
-      this.plugin.OnBufferingStart = 'Player.onBufferingStart';
-      this.plugin.OnBufferingProgress = 'Player.onBufferingProgress';
-      this.plugin.OnBufferingComplete = 'Player.onBufferingComplete';
-
+    
     if (options['onplaying']) {
-      this.video.addEventListener("playing", options['onplaying']);
+      this.video.OnBufferingComplete = options['onplaying'];
     }
     if (options['onpause']) {
-      this.video.addEventListener("pause", options['onpause']);
+      this.onpause = options['onpause'];
     }
     if (options['onend']) {
-      this.video.addEventListener("ended", options['onend']);
-    }*/
+      this.video.OnRenderingComplete = options['onend'];
+    }
   }
 
   //it is very strange that video may be hidden if the following is removed, may be we just need some delay
