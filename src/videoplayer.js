@@ -7,6 +7,7 @@ orangee.videoplayer = function(options) {
   this.device = null;
   options = options || {};
   this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : 1;
+  this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : 1;
   this.translate_url = options['translate_url'];
 };
 
@@ -63,6 +64,7 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   if (this.translate_url) {
     url = this.translate_url(url);
   }
+
   this.currentplayer.load(url, startSeconds, this.divid, this.options);
 };
 
@@ -89,7 +91,11 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
 };
 
 orangee.videoplayer.prototype._buildPlayer = function(url) {
-  if (this.support_youtube == 1 && url.indexOf('youtube.com') > -1) {
+  if (orangee.PLATFORM === 'samsung' && this.support_samsung != 0) {
+    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.samsungplayer.name) {
+      this.currentplayer = new orangee.samsungplayer();
+    }
+  } else if (this.support_youtube == 1 && url.indexOf('youtube.com') > -1) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
       this.currentplayer = new orangee.ytplayer();
     }
