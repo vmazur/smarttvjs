@@ -1,12 +1,14 @@
 orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.video = null;
   this.url = null;
+  this.startSeconds = 0;
 };
 
 orangee.samsungplayer.prototype.play = function() {
   if (this.url != null) {
-    this.video.Play(this.url);
+    this.video.ResumePlay(this.url, this.startSeconds);
     this.url = null;
+    this.startSeconds = 0;
   } else {
     this.video.Resume();
   }
@@ -25,9 +27,11 @@ orangee.samsungplayer.prototype.currentTime = function() {
 };
 
 orangee.samsungplayer.prototype.seek = function(second) {
-  this.video.currentTime = second;
+  this.video.JumpForward(second);
+  //JumpBackward
 };
 
+///Users/yong/Downloads/DeviceAPI\ Guide\[V2.10\].pdf
 //http://www.samsungdforum.com/Guide/API00005/Player_172.html
 orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, options) {
   if (this.video == null) {
@@ -68,10 +72,11 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
   this.video.SetPendingBuffer(640*1024);
 
   if ((options['autoplay'] || 0) == 1) {
-    this.video.Play(url);
+    this.video.ResumePlay(url, startSeconds);
   } else {
     //this.video.InitPlayer(url);
     this.url = url;
+    this.startSeconds = startSeconds;
   }
 };
 
