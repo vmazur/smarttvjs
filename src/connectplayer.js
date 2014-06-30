@@ -4,19 +4,11 @@ orangee.connectplayer = function(device) {
 };
 
 orangee.connectplayer.init = function() {
-  /*
-  var videoFilter = new ConnectSDK.CapabilityFilter([
-     "MediaPlayer.Display.Video", 
-     "MediaControl.Any", 
-      "VolumeControl.UpDown" 
+  ConnectSDK.discoveryManager.setCapabilityFilters([
+    new ConnectSDK.CapabilityFilter(["MediaPlayer.Display.Video", "MediaControl.Pause"]),
+    new ConnectSDK.CapabilityFilter(["Launcher.YouTube.Params"])
   ]);
-
-  var imageFilter = new ConnectSDK.CapabilityFilter([
-      "MediaPlayer.Display.Image"
-  ]);
-
-  ConnectSDK.discoveryManager.setCapabilityFilters([videoFilter, imageFilter]);
-  */
+  ConnectSDK.discoveryManager.setPairingLevel(ConnectSDK.PairingLevel.ON);
   ConnectSDK.discoveryManager.startDiscovery();
 };
 
