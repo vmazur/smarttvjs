@@ -26,10 +26,12 @@ orangee.connectplayer.prototype.play = function(device) {
 
 orangee.connectplayer.prototype.stop = function(device) {
   //this.device.getMediaControl().stop();
-  if (this.launchSession) {
+  /* on lg, have to close youtube app to launch a new one
+    if (this.launchSession) {
     this.launchSession.close();
     this.launchSession = null;
-  }
+  }*/
+  this.device.getKeyControl().home();
 };
 
 orangee.connectplayer.prototype.pause = function(device) {
