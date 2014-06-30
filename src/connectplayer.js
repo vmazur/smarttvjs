@@ -26,12 +26,12 @@ orangee.connectplayer.prototype.play = function(device) {
 
 orangee.connectplayer.prototype.stop = function(device) {
   //this.device.getMediaControl().stop();
-  /* on lg, have to close youtube app to launch a new one
-    if (this.launchSession) {
+  // on lg, have to close youtube app to launch a new one
+  if (this.launchSession) {
     this.launchSession.close();
     this.launchSession = null;
-  }*/
-  this.device.getKeyControl().home();
+  }
+  //this.device.getKeyControl().home();
 };
 
 orangee.connectplayer.prototype.pause = function(device) {
@@ -80,7 +80,7 @@ orangee.connectplayer.prototype.load = function(url, lastPosition, divid, option
         }
       });
     }).error(function(e) {
-      console.log("Launched failed:" + e);
+      console.log("Launched failed:" + e.message());
     });
   }
 };
