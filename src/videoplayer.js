@@ -13,7 +13,8 @@ orangee.videoplayer = function(options) {
 
 orangee.videoplayer.prototype.play = function() {
   if (this.connectplayer) {
-    this.connectplayer.play();
+    var url = this.playlist[this.currentIndex]['url'];
+    this.connectplayer.load(url, 0, this.divid, this.options);
   } else if (this.device) {
     this.connectplayer = new orangee.connectplayer(this.device);
     var url = this.playlist[this.currentIndex]['url'];
@@ -123,7 +124,7 @@ orangee.videoplayer.prototype.showDevicePicker = function(callback) {
 
 orangee.videoplayer.prototype.disconnect = function() {
   if (this.connectplayer) {
-    this.connectplayer.pause();
+    this.connectplayer.stop();
     this.connectplayer = null;
   }
   if (this.device) {
