@@ -47,13 +47,13 @@ orangee.connectplayer.prototype.seek = function(second) {
   this.device.getMediaControl().seek(second * 1000);
 };
 
-orangee.connectplayer.prototype.load = function(url, lastPosition, divid, options) {
+orangee.connectplayer.prototype.load = function(url, startSeconds, divid, options) {
   var self = this;
   if (this.device && this.device.isReady()) {
     var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null;
     var command;
     if (ytid) {
-      command = this.device.getLauncher().launchYouTube(ytid).success(function(launchSession) {
+      command = this.device.getLauncher().launchYouTube(ytid + "&t=" + startSeconds).success(function(launchSession) {
         self.launchSession = launchSession;
       });
     } else {

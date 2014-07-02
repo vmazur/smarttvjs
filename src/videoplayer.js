@@ -124,7 +124,6 @@ orangee.videoplayer.prototype.showDevicePicker = function(callback) {
 
 orangee.videoplayer.prototype.disconnect = function() {
   if (this.connectplayer) {
-    this.connectplayer.stop();
     this.connectplayer = null;
   }
   if (this.device) {
