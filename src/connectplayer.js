@@ -8,7 +8,7 @@ orangee.connectplayer.init = function() {
     new ConnectSDK.CapabilityFilter(["MediaPlayer.Display.Video", "MediaControl.Pause"]),
     new ConnectSDK.CapabilityFilter(["Launcher.YouTube.Params"])
   ]);
-  ConnectSDK.discoveryManager.setPairingLevel(ConnectSDK.PairingLevel.ON);
+  //ConnectSDK.discoveryManager.setPairingLevel(ConnectSDK.PairingLevel.ON);
   ConnectSDK.discoveryManager.startDiscovery();
 };
 
