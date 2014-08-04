@@ -16,6 +16,8 @@ OrangeeJSBuildTask.prototype.run = function(name) {
     this._build_ios();
   } else if (name === 'android') {
     this._build_android();
+  } else if (name === 'roku') {
+    this._build_roku();
   }
 };
 
@@ -169,6 +171,21 @@ OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_ma
   });
 
 };
+
+OrangeeJSBuildTask.prototype._build_roku = function() {
+  console.log("build roku");
+  mkdir('-p', 'assets/roku');
+
+  OrangeeJSUtil.resize_image([
+    ['assets/icon.png', 336,210, 'assets/roku/icon_focus_hd.png'], 
+    ['assets/icon.png', 248,140, 'assets/roku/icon_focus_sd.png'], 
+    ['assets/icon.png', 108, 69, 'assets/roku/icon_side_hd.png'], 
+    ['assets/icon.png', 80, 46, 'assets/roku/icon_side_sd.png'],
+    ['assets/splash-landscape.png',1028,720,'assets/roku/hd_splash.png'],
+    ['assets/splash-landscape.png',720,480, 'assets/roku/sd_splash.png']
+  ], function() {
+  });
+}
 
 OrangeeJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
