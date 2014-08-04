@@ -79,8 +79,8 @@ OrangeeJSUtil.resize_image = function(size_array, callback) {
 
   size_array.forEach(function(dim) {
     if (!fs.existsSync(dim[3])) {
-      console.log("creating " + dim[3] + " using " + dim[0]);
-      gm(dim[0]).resize(dim[1], dim[2]).autoOrient().write(dim[3], function(err) {
+      console.log("creating " + dim[3]  + " (" + dim[1] + "x" + dim[2] + ") using " + dim[0]);
+      gm(dim[0]).resize(dim[1], dim[2], "!").write(dim[3], function(err) {
         console.log(err ? "error:" + err : dim[3]);
         i++;
         if (i == size_array.length) {
