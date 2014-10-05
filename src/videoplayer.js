@@ -63,10 +63,13 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   this._buildPlayer(url);
 
   if (this.translate_url) {
-    url = this.translate_url(url);
+    var self= this;
+    this.translate_url(url, function(err, new_url) {
+      self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
+    });
+  } else {
+    this.currentplayer.load(url, startSeconds, this.divid, this.options);
   }
-
-  this.currentplayer.load(url, startSeconds, this.divid, this.options);
 };
 
 orangee.videoplayer.prototype.switchVideo = function(index) {
