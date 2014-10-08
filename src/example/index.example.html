@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="orangee-ui.css" />
   <link rel="stylesheet" type="text/css" href="app.css" />
 </head>
 <body onload="orangee.init(app.init);">
   <header>
-    <div id="example_target"></div>
-    <script id="example_template" type="text/x-handlebars-template">
-      hello {{name}}
-    </script>
+    <div id="header_target"></div>
   </header>
   <section id="wrapper" class="container-fluid">
     <div class="row">
@@ -24,21 +22,29 @@
     
       <div class="col-xs-6">
         <div id="videos_target"></div>
-        <script id="videos_template" type="text/x-handlebars-template">
-          <ul class="scroller">
-          {{#data}}
-          <li><a href='#' onclick="app.switchVideo({{@index}})">{{name}}</a></li>
-          {{/data}}
-          </ul>
-        </script>
       </div>
     </div>
   </section>
   <footer>footer</footer>
-  <script type="text/javascript" src="orangee.js"></script>
+
+  <script id="header_template" type="text/html">
+    hello <%= name %>
+  </script>
+  <script id="videos_template" type="text/html">
+    <ul class="scroller">
+    <% _.each(items, function(item, index){ %> 
+      <li><a href='#' onclick="app.switchVideo(<%= index %>)"><%= item.name %></a></li>
+    <% }); %>
+    </ul>
+  </script>
+
   <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript" src="underscore-min.js"></script>
+  <script type="text/javascript" src="backbone-min.js"></script>
+  <script type="text/javascript" src="backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+  <script type="text/javascript" src="orangee.js"></script>
   <script type="text/javascript" src="orangee-ui.js"></script>
   <script type="text/javascript" src="app.js"></script>
-  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>

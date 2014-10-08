@@ -1,18 +1,30 @@
 //your script here
 
-var app = {
+var app = new Backbone.Marionette.Application({
   videoplayer: new orangee.videoplayer()
-};
+});
+
+var HeaderView = Marionette.ItemView.extend({ 
+  template: '#header_template',
+  el: '#header_target',
+});
+
+var VideosView = Marionette.ItemView.extend({ 
+  template: '#videos_template',
+  el: '#videos_target',
+});
 
 app.init = function() {
-  orangee.render_template("#example_target", "#example_template", {name: orangee.PLATFORM});
+  var name = new Backbone.Model({name: orangee.PLATFORM});
+  new HeaderView({model: name}).render();
 
-  var playlist = [
+  var playlist = new Backbone.Collection([
     {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
     {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
-  ];
-  app.videoplayer.load(playlist, 'player_target', {
+  ]);
+
+  app.videoplayer.load(playlist.toJSON(), 'player_target', {
     playsinline: 1,
     onplaying: function() {
       console.log('playing');
@@ -22,7 +34,7 @@ app.init = function() {
     }
   });
 
-  orangee.render_template("#videos_target", "#videos_template", {data: playlist});
+  new VideosView({collection: playlist}).render();
 
   window.onkeydown = app.onkeydown;
 };

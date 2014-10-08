@@ -1,10 +1,19 @@
-orangee.render_template = function(target_id, template_id, json_data) {
-  var template = jQuery(template_id).html();
-  var rendered = Handlebars.compile(template)(json_data);
-  jQuery(target_id).html(rendered);
-  return rendered;
-};
+orangee.Scroller = IScroll;
+orangee.Sidemenu = Snap;
+orangee.Spinner = Spinner;
 
-orangee.scroller = IScroll;
-orangee.sidemenu = Snap;
-orangee.spinner = Spinner;
+var OrangeeXMLCollection = Backbone.Collection.extend({
+  fetch: function (options) {
+    options = options || {};
+    options.dataType = "html";
+    return Backbone.Collection.prototype.fetch.call(this, options);
+  },
+  parse: function(xml) {
+    //var response = {data: json.opml.body.outline.map(function(x) {return {name: x._title, standardPic: x._img, url: x._url}})}
+    return Orangee.xml2json(xml);
+  }
+});
+
+var OrangeeRSSCollection = OrangeeXMLCollection.extend();
+
+

@@ -12,23 +12,21 @@ OrangeeJSUtil.core_js_sources = [
   'connectplayer.js',
   'html5player.js',
   'videoplayer.js',
-  'vendor/openfb.js',
-  'vendor/xml2json.min.js',
+  'lib/openfb.js',
+  'lib/xml2json.min.js',
   'storage.js'
 ];
 
 OrangeeJSUtil.ui_js_sources = [
-  'vendor/snap.min.js',
-  'vendor/iscroll.js',
-  'vendor/spin.min.js',
-  'vendor/bootstrap-carousel.js',
-  'vendor/handlebars-v1.3.0.js',
+  'lib/snap.min.js',
+  'lib/iscroll.js',
+  'lib/spin.min.js',
+  'lib/bootstrap-carousel.js',
   'ui.js'
 ];
 
 OrangeeJSUtil.ui_css_sources = [
   'orangeejs.css',
-  'assets/stylesheets/bootstrap.css',
   'assets/stylesheets/font-awesome.css'
 ];
 
