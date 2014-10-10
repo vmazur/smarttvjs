@@ -2,7 +2,7 @@ orangee.Scroller = IScroll;
 orangee.Sidemenu = Snap;
 orangee.Spinner = Spinner;
 
-var OrangeeXMLCollection = Backbone.Collection.extend({
+Orangee.XMLCollection = Backbone.Collection.extend({
   fetch: function (options) {
     options = options || {};
     options.dataType = "html";
@@ -14,6 +14,6 @@ var OrangeeXMLCollection = Backbone.Collection.extend({
   }
 });
 
-var OrangeeRSSCollection = OrangeeXMLCollection.extend();
+Orangee.RSSCollection = Orangee.XMLCollection.extend();
 
 
