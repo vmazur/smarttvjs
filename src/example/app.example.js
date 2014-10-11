@@ -9,9 +9,12 @@ var HeaderView = Marionette.ItemView.extend({
   el: '#header_target',
 });
 
-var VideosView = Marionette.ItemView.extend({ 
+var ListView = Marionette.ItemView.extend({ 
   template: '#videos_template',
   el: '#videos_target',
+});
+
+var VideoView =  Marionette.ItemView.extend({
 });
 
 app.init = function() {
@@ -34,7 +37,7 @@ app.init = function() {
     }
   });
 
-  new VideosView({collection: playlist}).render();
+  new ListView({collection: playlist}).render();
 
   window.onkeydown = app.onkeydown;
 };
