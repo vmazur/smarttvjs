@@ -30,7 +30,7 @@ OrangeeJSInitTask.prototype.run = function(debug) {
   cp("-r", src + "/assets/fonts", "app/");
   OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangee-ui.css");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.js", debug);
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.js");
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.js", debug);
 
   cp(src + '/example/icon.example.png', 'assets/icon.png');
   cp(src + '/example/splash-portrait.example.png',  'assets/splash-portrait.png');

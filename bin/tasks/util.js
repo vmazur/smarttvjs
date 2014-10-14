@@ -135,7 +135,9 @@ OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile, debug) 
       fileIn: new_sources,
       fileOut: outputfile,
       callback: function(err, min){
+        if (err) {
           console.log(err);
+        }
       }
     });
   } else {
