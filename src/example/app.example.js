@@ -1,7 +1,5 @@
 //your script here
-
 var app = new Backbone.Marionette.Application({
-  videoplayer: new orangee.videoplayer()
 });
 
 var HeaderView = Marionette.ItemView.extend({ 
@@ -9,12 +7,36 @@ var HeaderView = Marionette.ItemView.extend({
   el: '#header_target',
 });
 
-var ListView = Marionette.ItemView.extend({ 
+var ListView = Orangee.ScrollView.extend({ 
   template: '#videos_template',
   el: '#videos_target',
 });
 
-var VideoView =  Marionette.ItemView.extend({
+/*
+app.videoplayer.load(playlist.toJSON(), 'player_target', {
+    playsinline: 1,
+    onplaying: function() {
+      console.log('playing');
+    },
+    onpause: function() {
+      console.log('paused at ' + app.videoplayer.currentTime())
+    }
+  }); 
+*/
+var VideoView =  Orangee.VideoView.extend({
+  el: "#player_target",
+  template: false,
+  /*events: {
+    'oge:playing': "onplaying",
+    'oge:paused' : "onpause"
+  },
+
+  onplaying: function() {
+    console.log('playing');
+  },
+  onpause: function() {
+    console.log('paused at ' + this.videoplayer.currentTime())
+  }*/
 });
 
 app.init = function() {
@@ -27,17 +49,14 @@ app.init = function() {
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ]);
 
-  app.videoplayer.load(playlist.toJSON(), 'player_target', {
-    playsinline: 1,
-    onplaying: function() {
-      console.log('playing');
-    },
-    onpause: function() {
-      console.log('paused at ' + app.videoplayer.currentTime())
-    }
-  });
+  new VideoView({collection: playlist}).render();
 
-  new ListView({collection: playlist}).render();
+  new ListView({
+    collection: playlist,
+    options: {
+      playsinline: 1,
+    }
+  }).render();
 
   window.onkeydown = app.onkeydown;
 };

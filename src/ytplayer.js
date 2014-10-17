@@ -72,6 +72,8 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
         },*/
        // does not work on file://
         'onStateChange': function(event) {
+          console.log("onStateChange");
+          console.log(options);
           if (event.data == YT.PlayerState.PLAYING && options['onplaying']) {
             options['onplaying']();
           } else if (event.data == YT.PlayerState.PAUSED && options['onpause']) {
