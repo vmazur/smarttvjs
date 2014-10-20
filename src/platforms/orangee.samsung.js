@@ -7,7 +7,13 @@ orangee.init = function(callback) {
     widgetAPI.sendReadyEvent();
 
     //https://www.samsungdforum.com/Guide/ref00006/common_module_tvkeyvalue_object.html
-    orangee.KEYS =  new Common.API.TVKeyValue();
+    var keys =  new Common.API.TVKeyValue();
+    orangee.KEYS = {};
+    orangee.KEYS[keys.KEY_ENTER] = "enter";
+    orangee.KEYS[keys.KEY_LEFT] = "left";
+    orangee.KEYS[keys.KEY_RIGHT] = "right";
+    orangee.KEYS[keys.KEY_UP] = "up";
+    orangee.KEYS[keys.KEY_DOWN] = "down";
 
     if (typeof callback === "function") {
     	callback();

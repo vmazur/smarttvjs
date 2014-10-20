@@ -1,6 +1,5 @@
 //your script here
-var app = new Backbone.Marionette.Application({
-});
+var app = new Backbone.Marionette.Application();
 
 var HeaderView = Marionette.ItemView.extend({ 
   template: '#header_template',
@@ -12,36 +11,24 @@ var ListView = Orangee.ScrollView.extend({
   el: '#videos_target',
 });
 
-/*
-app.videoplayer.load(playlist.toJSON(), 'player_target', {
+var VideoView =  Orangee.VideoView.extend({
+  el: "#player_target",
+  template: false,
+  player: {
     playsinline: 1,
     onplaying: function() {
       console.log('playing');
     },
     onpause: function() {
-      console.log('paused at ' + app.videoplayer.currentTime())
+      console.log('paused at ' + this.videoplayer.currentTime())
     }
-  }); 
-*/
-var VideoView =  Orangee.VideoView.extend({
-  el: "#player_target",
-  template: false,
-  /*events: {
-    'oge:playing': "onplaying",
-    'oge:paused' : "onpause"
   },
-
-  onplaying: function() {
-    console.log('playing');
-  },
-  onpause: function() {
-    console.log('paused at ' + this.videoplayer.currentTime())
-  }*/
 });
 
 app.init = function() {
+  orangee.debug_enabled = true;
+
   var name = new Backbone.Model({name: orangee.PLATFORM});
-  new HeaderView({model: name}).render();
 
   var playlist = new Backbone.Collection([
     {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
@@ -49,14 +36,11 @@ app.init = function() {
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ]);
 
+  new HeaderView({model: name}).render();
+  
   new VideoView({collection: playlist}).render();
 
-  new ListView({
-    collection: playlist,
-    options: {
-      playsinline: 1,
-    }
-  }).render();
+  new ListView({collection: playlist}).render();
 
   window.onkeydown = app.onkeydown;
 };

@@ -14,6 +14,7 @@ OrangeeJSUtil.core_js_sources = [
   'videoplayer.js',
   'lib/openfb.js',
   'lib/xml2json.min.js',
+  'lib/keys.js',
   'storage.js'
 ];
 

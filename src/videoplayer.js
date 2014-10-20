@@ -9,6 +9,7 @@ orangee.videoplayer = function(options) {
   this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : 1;
   this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : 1;
   this.translate_url = options['translate_url'];
+  this.playing = false;
 };
 
 orangee.videoplayer.prototype.play = function() {
@@ -22,6 +23,15 @@ orangee.videoplayer.prototype.play = function() {
   } else {
     this.currentplayer.play();
   }
+  this.playing = true;
+};
+
+orangee.videoplayer.prototype.togglePlay = function() {
+  if (this.playing) {
+    this.pause();
+  } else {
+    this.play();
+  }
 };
 
 orangee.videoplayer.prototype.pause = function() {
@@ -30,6 +40,7 @@ orangee.videoplayer.prototype.pause = function() {
   } else {
     this.currentplayer.pause();
   }
+  this.playing = false;
 };
 
 orangee.videoplayer.prototype.stop = function() {
@@ -38,6 +49,7 @@ orangee.videoplayer.prototype.stop = function() {
   } else {
     this.currentplayer.stop();
   }
+  this.playing = false;
 };
 
 orangee.videoplayer.prototype.currentTime = function() {

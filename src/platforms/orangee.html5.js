@@ -1,8 +1,15 @@
 orangee.PLATFORM = "html5";
 
-orangee.init = function(callback) {
-  //http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-  this.KEYS = {
+//http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+orangee.KEYS = {
+  13: 'enter',
+  37: 'left',
+  39: 'right',
+  38: 'up',
+  40: 'down',
+};
+
+/*
     KEY_TOOLS:1,
     KEY_MUTE:1,
     KEY_RETURN:27,
@@ -21,10 +28,10 @@ orangee.init = function(callback) {
     KEY_BLUE:68,
     KEY_INFOLINK:1,
     KEY_RW:1,
-    KEY_PAUSE:1,
+    KEY_PAUSE:32,
     KEY_FF:1,
-    KEY_PLAY:1,
-    KEY_STOP:1,
+    KEY_PLAY:32,
+    KEY_STOP:32,
     KEY_1:49,
     KEY_2:50,
     KEY_3:51,
@@ -55,8 +62,9 @@ orangee.init = function(callback) {
     KEY_PANEL_SOURCE:1,
     KEY_PANEL_MENU:1,
     KEY_PANEL_POWER:1
-  };
+*/
 
+orangee.init = function(callback) {
   if (typeof callback === "function") {
     callback();
   }

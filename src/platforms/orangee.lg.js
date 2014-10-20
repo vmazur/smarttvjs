@@ -2,9 +2,15 @@ orangee.PLATFORM = 'lg';
 
 //http://developer.lgappstv.com/TV_HELP/topic/lge.tvsdk.developing.book/html/API/API/How%20to%20Use%20HTML5%20Video%20Player%20Framework.htm?path=1_3_15_0#_Toc358881075
 //src="../lge/framework/VideoPlayer/util/keycode.js"
-orangee.init = function(callback) {
-  //http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-  this.KEYS = {
+orangee.KEYS = {
+  13: 'enter',
+  37: 'left',
+  39: 'right',
+  38: 'up',
+  40: 'down',
+};
+
+/*
     KEY_TOOLS:1,
     KEY_MUTE:1,
     KEY_RETURN:27,
@@ -57,8 +63,9 @@ orangee.init = function(callback) {
     KEY_PANEL_SOURCE:1,
     KEY_PANEL_MENU:1,
     KEY_PANEL_POWER:1
-  };
+*/
 
+orangee.init = function(callback) {
   if (typeof callback === "function") {
     callback();
   }
