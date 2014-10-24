@@ -60,8 +60,32 @@ orangee.videoplayer.prototype.currentTime = function() {
   }
 };
 
+orangee.videoplayer.prototype.seek = function(second) {
+  if (this.connectplayer) {
+    return this.connectplayer.seek(second);
+  } else {
+    return this.currentplayer.seek(second);
+  }
+};
+
 orangee.videoplayer.prototype.currentVideo = function() {
   return this.playlist[this.currentIndex];
+};
+
+orangee.videoplayer.prototype.next = function() {
+  currentIndex++;
+  if (currentIndex >= this.playlist.length) {
+    currentIndex = this.playlist.length - 1;
+  }
+  this.switchVideo(currentIndex);
+};
+
+orangee.videoplayer.prototype.prev = function() {
+  currentIndex--;
+  if (currentIndex < 0) {
+    currentIndex = 0;
+  }
+  this.switchVideo(currentIndex);
 };
 
 orangee.videoplayer.prototype.load = function(playlist, divid, options, index, startSeconds) {

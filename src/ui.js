@@ -1,3 +1,5 @@
+'use strict';
+
 orangee.scroller = IScroll;
 orangee.sidemenu = Snap;
 orangee.spinner = Spinner;
@@ -10,10 +12,9 @@ HotKeysBehavior = Marionette.Behavior.extend({
     onRender: function() {
         HotKeys.bind(this.view.keyEvents, this.view, this.view.cid);
     },
-
     onClose: function() {
         HotKeys.unbind(this.view.keyEvents, this.view, this.view.cid);
-    }
+    },
 });
 
 Orangee.XMLCollection = Backbone.Collection.extend({
@@ -30,7 +31,7 @@ Orangee.XMLCollection = Backbone.Collection.extend({
 
 Orangee.RSSCollection = Orangee.XMLCollection.extend();
 
-Orangee.VideoView = Backbone.Marionette.ItemView.extend({
+Orangee.VideoView = Marionette.ItemView.extend({
   initialize: function(options) {
     this.options = options || {};
     orangee.debug("Orangee.VideoView#init");
@@ -39,7 +40,8 @@ Orangee.VideoView = Backbone.Marionette.ItemView.extend({
   onRender: function() {
     var self = this;
     orangee.debug("Orangee.VideoView#onRender");
-    this.videoplayer.load(this.collection.toJSON(), this.el.id, this.options['player']);
+    orangee.debug(this.model.get('divid'));
+    this.videoplayer.load(this.model.get('playlist'), this.model.get('divid'), this.options['player']);
   },
   behaviors: {
     HotKeysBehavior: {}
@@ -50,20 +52,33 @@ Orangee.VideoView = Backbone.Marionette.ItemView.extend({
     'left' : 'onKeyLeft',
   },
   onKeyEnter: function() {
-    orangee.debug('enter was pressed!');
+    orangee.debug('Orangee.VideoView#onKeyEnter');
     this.videoplayer.togglePlay();
   },
   onKeyRight: function() {
-    orangee.debug('right was pressed!');
+    orangee.debug('Orangee.VideoView#onKeyRight');
     this.videoplayer.seek(60);
   },
   onKeyLeft: function() {
-    orangee.debug('right was pressed!');
+    orangee.debug('Orangee.VideoView#onKeyLeft');
     this.videoplayer.seek(-60);
-  }
+  },
 });
 
-Orangee.ScrollView = Backbone.Marionette.ItemView.extend({
+Orangee.ScrollItemView = Marionette.ItemView.extend({
+  events: {
+    'click': 'onClick',
+    'mouseover': 'onMouseOver',
+  },
+  onClick: function() {
+    orangee.debug('Orangee.ScrollItemView onClick');
+  },
+  onMouseOver: function() {
+    orangee.debug('Orangee.ScrollItemView onMouseOver');
+  },
+});
+
+Orangee.ScrollView = Marionette.CollectionView.extend({
   initialize: function(options) {
     this.options = options || {};
     orangee.debug("Orangee.ScrollView#init");
@@ -71,6 +86,25 @@ Orangee.ScrollView = Backbone.Marionette.ItemView.extend({
   onRender: function() {
     orangee.debug("Orangee.ScrollView#onRender");
     this.scroll = new orangee.scroller(this.el, this.options);
+  },
+  behaviors: {
+    HotKeysBehavior: {}
+  },
+  keyEvents: {
+    'enter': 'onKeyEnter',
+    'up': 'onKeyUp',
+    'down' : 'onKeyDown',
+  },
+  onKeyEnter: function() {
+    orangee.debug('Orangee.ScrollView#onKeyEnter');
+  },
+  onKeyUp: function() {
+    orangee.debug('Orangee.ScrollView#onKeyUp');
+    this.videoplayer.prev();
+  },
+  onKeyDown: function() {
+    orangee.debug('Orangee.ScrollView@onKeyDown');
+    this.videoplayer.next();
   },
 });
 
