@@ -1,5 +1,13 @@
 //your script here
 'use strict';
+var app = new Marionette.Application();
+
+var HeaderModel = Backbone.Model.extend();
+var VideoModel = Backbone.Model.extend();
+var ListItemModel = Backbone.Model.extend();
+var ListCollection = Backbone.Collection.extend({
+  model: ListItemModel,
+});
 
 var HeaderView = Marionette.ItemView.extend({
   template: '#header_template',
@@ -8,6 +16,13 @@ var HeaderView = Marionette.ItemView.extend({
 
 var ListItemView = Orangee.ScrollItemView.extend({
   template: '#listitem_template',
+  onClick: function() {
+    orangee.log('clicked');
+    console.log(this.model);
+    var index = this.model.collection.indexOf(this.model);
+    console.log(index);
+    app.videoView.switchVideo(index);
+  },
 });
 
 var ListView = Orangee.ScrollView.extend({
@@ -27,9 +42,11 @@ var VideoView =  Orangee.VideoView.extend({
       orangee.log('paused at ' + this.videoplayer.currentTime())
     },
   },
+  switchVideo: function(index) {
+    this.videoplayer.switchVideo(index);
+  },
 });
 
-var app = new Marionette.Application();
 app.init = function(options){
   orangee.debug_enabled = true;
   Backbone.history.start();
@@ -42,8 +59,8 @@ app.init = function(options){
   ];
   var video = {divid: 'video_id', playlist: playlist};
 
-  new HeaderView({model: new Backbone.Model(name)}).render();
-  new VideoView({model: new Backbone.Model(video)}).render();
-  new ListView({collection: new Backbone.Collection(playlist)}).render();
+  new HeaderView({model: new HeaderModel(name)}).render();
+  app.videoView = new VideoView({model: new VideoModel(video)}).render();
+  new ListView({collection: new ListCollection(playlist)}).render();
 };
 

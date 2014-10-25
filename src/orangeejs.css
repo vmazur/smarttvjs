@@ -1,3 +1,8 @@
+/*http://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php*/
+video {
+  width: 100%;
+  height: auto;
+}
 
 /* snap.js */
 .snap-content {
