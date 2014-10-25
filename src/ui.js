@@ -71,10 +71,12 @@ Orangee.ScrollItemView = Marionette.ItemView.extend({
     'mouseover': 'onMouseOver',
   },
   onClick: function() {
-    orangee.debug('Orangee.ScrollItemView onClick');
+    orangee.debug('Orangee.ScrollItemView#onClick');
   },
   onMouseOver: function() {
-    orangee.debug('Orangee.ScrollItemView onMouseOver');
+    this.trigger('oge:hideothers');
+    this.$('li').toggleClass('active');
+    orangee.debug('Orangee.ScrollItemView#onMouseOver');
   },
 });
 
@@ -103,8 +105,15 @@ Orangee.ScrollView = Marionette.CollectionView.extend({
     this.videoplayer.prev();
   },
   onKeyDown: function() {
-    orangee.debug('Orangee.ScrollView@onKeyDown');
+    orangee.debug('Orangee.ScrollView#onKeyDown');
     this.videoplayer.next();
+  },
+  childEvents: {
+    'oge:hideothers': 'onHideOthers',
+  },
+  onHideOthers: function() {
+    orangee.debug('Orangee.ScrollView oge:hideothers');
+    this.$('li.active').removeClass('active');
   },
 });
 

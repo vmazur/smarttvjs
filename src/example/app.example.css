@@ -2,8 +2,8 @@
 
 body { 
   background: #ccc;
-  padding-top: 45px;
-  padding-bottom: 48px;
+  padding-top: 50px;
+  padding-bottom: 38px;
   margin: 0;
   border: 0;
 }
@@ -12,14 +12,17 @@ body {
   background: orange;
   color: #eee;
   text-align: center;
-  height: 45px;
+  height: 50px;
 }
 
 .navbar-fixed-bottom {
   text-align: center;
-  height: 48px;
+  height: 38px;
   background: #444;
   color: #eee;
 }
 
-
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}

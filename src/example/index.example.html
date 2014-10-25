@@ -15,12 +15,12 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xs-6">
-        <div id="video_view" class="oge-videowrapper"></div>
+      <div class="col-xs-6 nopadding">
+        <div id="video_view" class="embed-responsive embed-responsive-16by9"></div>
       </div>
 
-      <div class="col-xs-6">
-        <ul id="list_view"></ul>
+      <div class="col-xs-6 nopadding">
+        <ul class="list-group" id="list_view"></ul>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
   </script>
 
   <script type="text/html" id="listitem_template">
-    <li><%= name %></li>
+    <li class="list-group-item"><%= name %></li>
   </script>
 
   <!-- An id is required for video tag to use youtube -->
