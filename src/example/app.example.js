@@ -3,7 +3,6 @@
 var app = new Marionette.Application();
 
 var HeaderModel = Backbone.Model.extend();
-var VideoModel = Backbone.Model.extend();
 var ListItemModel = Backbone.Model.extend();
 var ListCollection = Backbone.PageableCollection.extend({
   model: ListItemModel,
@@ -33,13 +32,15 @@ var ListView = Orangee.ScrollView.extend({
 var VideoView =  Orangee.VideoView.extend({
   template: '#video_template',
   el: '#video_view',
+  divid: 'myvideo',
   player: {
     playsinline: 1,
     onplaying: function() {
       orangee.log('playing');
     },
     onpause: function() {
-      orangee.log('paused at ' + this.videoplayer.currentTime())
+      console.log(this);
+      orangee.log('paused at ' + this.videoplayer.currentTime());
     },
   },
   switchVideo: function(index) {
@@ -58,9 +59,10 @@ app.init = function(options){
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ];
   var video = {divid: 'video_id', playlist: playlist};
+  var list = new ListCollection(playlist);
 
   new HeaderView({model: new HeaderModel(name)}).render();
-  app.videoView = new VideoView({model: new VideoModel(video)}).render();
-  new ListView({collection: new ListCollection(playlist)}).render();
+  app.videoView = new VideoView({collection: list}).render();
+  new ListView({collection: list}).render();
 };
 

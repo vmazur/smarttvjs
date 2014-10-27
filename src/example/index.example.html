@@ -37,10 +37,10 @@
     <li class="list-group-item"><%= name %></li>
   </script>
 
-  <!-- An id is required for video tag to use youtube -->
+  <!-- An id is required for video tag to use youtube. object is used for youtube -->
   <script type="text/html" id="video_template">
-    <video id='<%= divid %>'></video>
-    <object classid="clsid:SAMSUNG-INFOLINK-PLAYER"></object>
+    <video id='myvideo'></video>
+    <object classid="clsid:SAMSUNG-INFOLINK-PLAYER" style="display:none"></object>
   </script>
 
   <script type="text/javascript" src="jquery.min.js"></script>
