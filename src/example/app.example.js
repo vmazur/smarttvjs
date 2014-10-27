@@ -5,7 +5,7 @@ var app = new Marionette.Application();
 var HeaderModel = Backbone.Model.extend();
 var VideoModel = Backbone.Model.extend();
 var ListItemModel = Backbone.Model.extend();
-var ListCollection = Backbone.Collection.extend({
+var ListCollection = Backbone.PageableCollection.extend({
   model: ListItemModel,
 });
 
