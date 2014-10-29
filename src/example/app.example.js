@@ -33,15 +33,15 @@ var VideoView =  Orangee.VideoView.extend({
   template: '#video_template',
   el: '#video_view',
   divid: 'myvideo',
-  player: {
-    playsinline: 1,
-    onplaying: function() {
-      orangee.log('playing');
-    },
-    onpause: function() {
-      console.log(this);
-      orangee.log('paused at ' + this.videoplayer.currentTime());
-    },
+  playerVars: {
+    playsinline: 1
+  },
+  onPlaying: function() {
+    orangee.log('playing');
+  },
+  onPause: function() {
+    orangee.log(this);
+    orangee.log('paused at ' + this.videoplayer.currentTime());
   },
   switchVideo: function(index) {
     this.videoplayer.switchVideo(index);

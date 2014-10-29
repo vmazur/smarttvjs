@@ -36,7 +36,16 @@ Orangee.VideoView = Marionette.ItemView.extend({
     orangee.debug("Orangee.VideoView#onRender");
     //orangee.debug(this.getOption('player'));
     this.videoplayer = new orangee.videoplayer();
-    this.videoplayer.load(this.collection.toJSON(), this.getOption('divid'), this.getOption('player'));
+    var onplaying = this.getOption('onPlaying');
+    var onpause = this.getOption('onPause');
+    var onend = this.getOption('onEnd');
+    this.videoplayer.load(this.collection.toJSON(),
+                          this.getOption('divid'),
+                          _.extend({
+                            onplaying: onplaying ? onplaying.bind(this) : onplaying,
+                            onpause: onpause ? onpause.bind(this): onpause,
+                            onend:  onend ? onend.bind(this) : onend,
+                          }, this.getOption('playerVars')));
   },
   behaviors: {
     HotKeysBehavior: {}
