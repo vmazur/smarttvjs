@@ -2,9 +2,9 @@
 'use strict';
 var app = new Marionette.Application();
 
-var HeaderModel = Backbone.Model.extend();
-var ListItemModel = Backbone.Model.extend();
-var ListCollection = Backbone.PageableCollection.extend({
+var HeaderModel = Orangee.Model.extend();
+var ListItemModel = Orangee.Model.extend();
+var ListCollection = Orangee.Collection.extend({
   model: ListItemModel,
 });
 

@@ -28,6 +28,7 @@ OrangeeJSInitTask.prototype.run = function(debug) {
   cp(src + "/assets/javascripts/backbone-min.js", "app/backbone-min.js");
   cp(src + "/assets/javascripts/backbone.marionette.min.js", "app/backbone.marionette.min.js");
   cp(src + "/assets/javascripts/backbone.paginator.min.js", "app/backbone.paginator.min.js");
+  cp(src + "/assets/javascripts/backbone.select.min.js", "app/backbone.select.min.js");
   cp("-r", src + "/assets/fonts", "app/");
   OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangee-ui.css");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.js", debug);
