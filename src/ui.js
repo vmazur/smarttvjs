@@ -115,6 +115,7 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   modelEvents: {
     'selected': 'onSelect',
     'deselected': 'onDeselect',
+    'clicked': 'onClick',
   },
   onClick: function() {
     orangee.debug('Orangee.ScrollItemView#onClick');
@@ -146,6 +147,7 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
   },
   onKeyEnter: function() {
     orangee.debug('Orangee.ScrollView#onKeyEnter');
+    this.collection.selected.trigger('clicked');
   },
   onKeyUp: function() {
     orangee.debug('Orangee.ScrollView#onKeyUp');
