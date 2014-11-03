@@ -126,7 +126,6 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
       url = this.translate_url(url);
     }
     this.currentplayer.load(url, startSeconds, this.divid, this.options);
-    this.currentplayer.play();
   }
 };
 

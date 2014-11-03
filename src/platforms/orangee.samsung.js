@@ -14,6 +14,7 @@ orangee.init = function(callback) {
     orangee.KEYS[keys.KEY_RIGHT] = "right";
     orangee.KEYS[keys.KEY_UP] = "up";
     orangee.KEYS[keys.KEY_DOWN] = "down";
+    orangee.KEYS[keys.KEY_PLAY] = "play";
 
     if (typeof callback === "function") {
     	callback();

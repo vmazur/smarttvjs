@@ -89,11 +89,11 @@ Orangee.VideoView = Orangee.ItemView.extend({
                           }, this.getOption('playerVars')));
   },
   keyEvents: {
-    'enter': 'onKeyEnter',
     'right': 'onKeyRight',
     'left' : 'onKeyLeft',
+    'play' : 'onKeyPlay',
   },
-  onKeyEnter: function() {
+  onKeyPlay: function() {
     orangee.debug('Orangee.VideoView#onKeyEnter');
     this.videoplayer.togglePlay();
   },

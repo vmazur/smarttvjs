@@ -7,6 +7,7 @@ orangee.KEYS = {
   39: 'right',
   38: 'up',
   40: 'down',
+  32: 'play',
 };
 
 /*

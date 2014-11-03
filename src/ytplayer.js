@@ -28,8 +28,10 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   startSeconds = Math.round(startSeconds);// youtube api only takes positive integer
 
   if (this.player) {
+    orangee.debug("orangee.ytplayer#load cueVideoById");
     this.player.cueVideoById(vid, startSeconds);
   } else {
+    orangee.debug("orangee.ytplayer#load new iframe");
     var e = document.createElement("iframe");
     //e.width =  options['width'] || '100%'; //viewportwidth will not not consider the size of scroll bar
     //e.height = options['height'] || '100%';
