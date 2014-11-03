@@ -16,10 +16,7 @@ var HeaderView = Marionette.ItemView.extend({
 var ListItemView = Orangee.ScrollItemView.extend({
   template: '#listitem_template',
   onClick: function() {
-    orangee.log('clicked');
-    console.log(this.model);
     var index = this.model.collection.indexOf(this.model);
-    console.log(index);
     app.videoView.switchVideo(index);
   },
 });
@@ -64,5 +61,6 @@ app.init = function(options){
   new HeaderView({model: new HeaderModel(name)}).render();
   app.videoView = new VideoView({collection: list}).render();
   new ListView({collection: list}).render();
+  list.select(list.models[0]);
 };
 

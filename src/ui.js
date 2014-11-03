@@ -25,7 +25,7 @@ Orangee.Model = Backbone.Model.extend({
 });
 
 Orangee.Collection = Backbone.PageableCollection.extend({
-  currentSelection: 0,
+  currentSelection: 0,//TODO the value will mess up with mouse click
   initialize: function(models, options) {
     // Applies the mixin:
     Backbone.Select.One.applyTo(this, models, options);
@@ -86,7 +86,8 @@ Orangee.VideoView = Orangee.ItemView.extend({
                             onplaying: onplaying ? onplaying.bind(this) : onplaying,
                             onpause: onpause ? onpause.bind(this): onpause,
                             onend:  onend ? onend.bind(this) : onend,
-                          }, this.getOption('playerVars')));
+                          }, this.getOption('playerVars'))
+                         );
   },
   keyEvents: {
     'right': 'onKeyRight',
@@ -122,7 +123,6 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onMouseOver: function() {
     orangee.debug('Orangee.ScrollItemView#onMouseOver');
-    console.log(this);
     this.model.select();
   },
   onSelect: function(model) {
