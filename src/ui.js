@@ -24,6 +24,17 @@ Orangee.Model = Backbone.Model.extend({
   },
 });
 
+Orangee.XMLModel = Orangee.Model.extend({
+  fetch: function(options) {
+    options = options || {};
+    options.dataType = "html";
+    return Backbone.Model.prototype.fetch.call(this, options);
+  },
+  parse: function(xml) {
+    return Orangee.xml2json(xml);
+  },
+});
+
 Orangee.Collection = Backbone.PageableCollection.extend({
   currentSelection: 0,//TODO the value will mess up with mouse click
   initialize: function(models, options) {
@@ -59,7 +70,7 @@ Orangee.CollectionView = Marionette.CollectionView.extend({
 });
 
 Orangee.XMLCollection = Orangee.Collection.extend({
-  fetch: function (options) {
+  fetch: function(options) {
     options = options || {};
     options.dataType = "html";
     return Backbone.Collection.prototype.fetch.call(this, options);
