@@ -8,7 +8,7 @@ function OrangeeJSInitTask() {
 };
 
 OrangeeJSInitTask.prototype.run = function(debug) {
-  mkdir('-p', 'app');
+  mkdir('-p', 'app/lib');
   mkdir('-p', 'assets');
  
   if (debug) {
@@ -22,17 +22,17 @@ OrangeeJSInitTask.prototype.run = function(debug) {
       OrangeeJSUtil.transform_template(src + "/example/package.json.template", "package.json", {name: name});
   };
 
-  cp(src + "/assets/stylesheets/bootstrap.min.css", "app/bootstrap.min.css");
-  cp(src + "/assets/javascripts/jquery.min.js", "app/jquery.min.js");
-  cp(src + "/assets/javascripts/underscore-min.js", "app/underscore-min.js");
-  cp(src + "/assets/javascripts/backbone-min.js", "app/backbone-min.js");
-  cp(src + "/assets/javascripts/backbone.marionette.min.js", "app/backbone.marionette.min.js");
-  cp(src + "/assets/javascripts/backbone.paginator.min.js", "app/backbone.paginator.min.js");
-  cp(src + "/assets/javascripts/backbone.select.min.js", "app/backbone.select.min.js");
+  cp(src + "/assets/stylesheets/bootstrap.min.css", "app/lib/bootstrap.min.css");
+  cp(src + "/assets/javascripts/jquery.min.js", "app/lib/jquery.min.js");
+  cp(src + "/assets/javascripts/underscore-min.js", "app/lib/underscore-min.js");
+  cp(src + "/assets/javascripts/backbone-min.js", "app/lib/backbone-min.js");
+  cp(src + "/assets/javascripts/backbone.marionette.min.js", "app/lib/backbone.marionette.min.js");
+  cp(src + "/assets/javascripts/backbone.paginator.min.js", "app/lib/backbone.paginator.min.js");
+  cp(src + "/assets/javascripts/backbone.select.min.js", "app/lib/backbone.select.min.js");
   cp("-r", src + "/assets/fonts", "app/");
-  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/orangee-ui.css");
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/orangee.js", debug);
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/orangee-ui.js", debug);
+  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/lib/orangee-ui.css");
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/lib/orangee.js", debug);
+  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/lib/orangee-ui.js", debug);
 
   cp(src + '/example/icon.example.png', 'assets/icon.png');
   cp(src + '/example/splash-portrait.example.png',  'assets/splash-portrait.png');
