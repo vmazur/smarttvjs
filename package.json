@@ -1,8 +1,8 @@
 {
   "name": "orangeejs",
   "package": "com.orangeejs.orangeejs",
-  "version": "0.0.55",
-  "description": "",
+  "version": "0.1.0",
+  "description": "javascript framework for smart tv app",
   "bin": {
     "orangeejs": "bin/main.js"
   },
