@@ -81,6 +81,14 @@ Orangee.XMLCollection = Orangee.Collection.extend({
   },
 });
 
+Orangee.OPMLCollection = Orangee.XMLCollection.extend({
+  parse:function(xml) {
+    //orangee.debug(xml);
+    var json = orangee.xml2json(xml);
+    return json.opml.body.outline;
+  },
+});
+
 Orangee.RSSCollection = Orangee.XMLCollection.extend();
 
 Orangee.VideoView = Orangee.ItemView.extend({

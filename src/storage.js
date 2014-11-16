@@ -25,7 +25,7 @@ orangee.storage = {
     },
     get: function(name) {
         if( this.localStoreSupport() ) {
-            ret = localStorage.getItem(name);
+            var ret = localStorage.getItem(name);
             //console.log(typeof ret);
             switch (ret) {
               case 'true': 
@@ -43,7 +43,7 @@ orangee.storage = {
                 var c = ca[i];
                 while (c.charAt(0)==' ') c = c.substring(1,c.length);
                 if (c.indexOf(nameEQ) == 0) {
-                    ret = c.substring(nameEQ.length,c.length);
+                    var ret = c.substring(nameEQ.length,c.length);
                     switch (ret) {
                       case 'true': 
                           return true;

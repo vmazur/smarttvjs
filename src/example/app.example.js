@@ -8,7 +8,7 @@ var ListCollection = Orangee.Collection.extend({
   model: ListItemModel,
 });
 
-var HeaderView = Marionette.ItemView.extend({
+var HeaderView = Orangee.ItemView.extend({
   template: '#header_template',
   el: '#header_view',
 });
