@@ -6,7 +6,7 @@ orangee.init = function(callback) {
     var widgetAPI = new Common.API.Widget();
     widgetAPI.sendReadyEvent();
 
-    //https://www.samsungdforum.com/Guide/ref00006/common_module_tvkeyvalue_object.html
+    //http://www.samsungdforum.com/Guide/ref00006/TVKeyValue_Object.html
     var keys =  new Common.API.TVKeyValue();
     orangee.KEYS = {};
     orangee.KEYS[keys.KEY_ENTER] = "enter";
@@ -15,6 +15,7 @@ orangee.init = function(callback) {
     orangee.KEYS[keys.KEY_UP] = "up";
     orangee.KEYS[keys.KEY_DOWN] = "down";
     orangee.KEYS[keys.KEY_PLAY] = "play";
+    orangee.KEYS[keys.KEY_RETURN] = "back";
 
     if (typeof callback === "function") {
     	callback();
