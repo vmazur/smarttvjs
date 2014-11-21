@@ -31,7 +31,7 @@ Orangee.XMLModel = Orangee.Model.extend({
     return Backbone.Model.prototype.fetch.call(this, options);
   },
   parse: function(xml) {
-    return Orangee.xml2json(xml);
+    return orangee.xml2json(xml);
   },
 });
 
@@ -57,6 +57,29 @@ Orangee.Collection = Backbone.PageableCollection.extend({
   },
 });
 
+Orangee.XMLCollection = Orangee.Collection.extend({
+  fetch: function(options) {
+    options = options || {};
+    options.dataType = "html";
+    return Backbone.Collection.prototype.fetch.call(this, options);
+  },
+  parse: function(xml) {
+    var json = orangee.xml2json(xml);
+    return json.rss.channel.item;
+  },
+});
+
+Orangee.OPMLCollection = Orangee.XMLCollection.extend({
+  parse:function(xml) {
+    //orangee.debug(xml);
+    //var response = {data: json.opml.body.outline.map(function(x) {return {name: x._title, standardPic: x._img, url: x._url}})}
+    var json = orangee.xml2json(xml);
+    return json.opml.body.outline;
+  },
+});
+
+Orangee.RSSCollection = Orangee.XMLCollection.extend();
+
 Orangee.ItemView = Marionette.ItemView.extend({
   behaviors: {
     HotKeysBehavior: {}
@@ -68,28 +91,6 @@ Orangee.CollectionView = Marionette.CollectionView.extend({
     HotKeysBehavior: {}
   },
 });
-
-Orangee.XMLCollection = Orangee.Collection.extend({
-  fetch: function(options) {
-    options = options || {};
-    options.dataType = "html";
-    return Backbone.Collection.prototype.fetch.call(this, options);
-  },
-  parse: function(xml) {
-    //var response = {data: json.opml.body.outline.map(function(x) {return {name: x._title, standardPic: x._img, url: x._url}})}
-    return Orangee.xml2json(xml);
-  },
-});
-
-Orangee.OPMLCollection = Orangee.XMLCollection.extend({
-  parse:function(xml) {
-    //orangee.debug(xml);
-    var json = orangee.xml2json(xml);
-    return json.opml.body.outline;
-  },
-});
-
-Orangee.RSSCollection = Orangee.XMLCollection.extend();
 
 Orangee.VideoView = Orangee.ItemView.extend({
   onRender: function() {
