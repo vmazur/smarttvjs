@@ -36,24 +36,28 @@ Orangee.XMLModel = Orangee.Model.extend({
 });
 
 Orangee.Collection = Backbone.PageableCollection.extend({
-  currentSelection: 0,//TODO the value will mess up with mouse click
+  currentPosition: 0,
   initialize: function(models, options) {
     // Applies the mixin:
     Backbone.Select.One.applyTo(this, models, options);
   },
-  selectPrev: function() {
-    this.currentSelection--;
-    if (this.currentSelection >= this.length) {
-      this.currentSelection = this.length - 1;
+  selectPrev: function(offset) {
+    this.currentPosition -= (offset || 1);
+    if (this.currentPosition < 0) {
+      this.currentPosition = this.length - 1;
     }
-    this.select(this.at(this.currentSelection));
+    this.select(this.at(this.currentPosition));
   },
-  selectNext: function() {
-    this.currentSelection++;
-    if (this.currentSelection >= this.length) {
-      this.currentSelection = 0;
+  selectNext: function(offset) {
+    this.currentPosition += (offset || 1);
+    if (this.currentPosition >= this.length) {
+      this.currentPosition = 0;
     }
-    this.select(this.at(this.currentSelection));
+    this.select(this.at(this.currentPosition));
+  },
+  selectModel: function(model) {
+    this.currentPosition = this.indexOf(model);
+    this.select(model);
   },
 });
 
@@ -100,14 +104,16 @@ Orangee.VideoView = Orangee.ItemView.extend({
     var onplaying = this.getOption('onPlaying');
     var onpause = this.getOption('onPause');
     var onend = this.getOption('onEnd');
+    var startSeconds = this.getOption('startSeconds');
     this.videoplayer.load(this.collection.toJSON(),
                           this.getOption('divid'),
                           _.extend({
                             onplaying: onplaying ? onplaying.bind(this) : onplaying,
                             onpause: onpause ? onpause.bind(this): onpause,
                             onend:  onend ? onend.bind(this) : onend,
-                          }, this.getOption('playerVars'))
-                         );
+                          }, this.getOption('playerVars')),
+                          this.collection.currentPosition,
+                          startSeconds);
   },
   keyEvents: {
     'right': 'onKeyRight',
@@ -143,7 +149,7 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onMouseOver: function() {
     orangee.debug('Orangee.ScrollItemView#onMouseOver');
-    this.model.select();
+    this.model.collection.selectModel(this.model);
   },
   onSelect: function(model) {
     orangee.debug('Orangee.ScrollItemView#onSelect');
@@ -181,4 +187,34 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
   //},
 });
 
+Orangee.GridView = Orangee.ScrollView.extend({
+  numberOfColumns: 4,
+  keyEvents: {
+    'enter': 'onKeyEnter',
+    'up': 'onKeyUp',
+    'down' : 'onKeyDown',
+    'left' : 'onKeyLeft',
+    'right': 'onKeyRight',
+  },
+  onKeyEnter: function() {
+    orangee.debug('Orangee.ScrollView#onKeyEnter');
+    this.collection.selected.trigger('clicked');
+  },
+  onKeyLeft: function() {
+    orangee.debug('Orangee.GridView#onKeyLeft');
+    this.collection.selectPrev();
+  },
+  onKeyRight: function() {
+    orangee.debug('Orangee.GridView#onKeyRight');
+    this.collection.selectNext();
+  },
+  onKeyUp: function() {
+    orangee.debug('Orangee.GridView#onKeyUp');
+    this.collection.selectPrev(this.numberOfColumns);
+  },
+  onKeyDown: function() {
+    orangee.debug('Orangee.GridView#onKeyDown');
+    this.collection.selectNext(this.numberOfColumns);
+  },
+});
 

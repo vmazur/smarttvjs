@@ -6,6 +6,7 @@ body {
   padding-bottom: 38px;
   margin: 0;
   border: 0;
+  overflow: hidden;
 }
 
 .navbar-fixed-top {

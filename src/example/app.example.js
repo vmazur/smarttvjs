@@ -1,6 +1,6 @@
 //your script here
 'use strict';
-var App = new Marionette.Application();
+var app = new Marionette.Application();
 
 var HeaderModel = Orangee.Model.extend();
 var ListItemModel = Orangee.Model.extend();
@@ -17,7 +17,7 @@ var ListItemView = Orangee.ScrollItemView.extend({
   template: '#listitem_template',
   onClick: function() {
     var index = this.model.collection.indexOf(this.model);
-    App.videoView.switchVideo(index);
+    app.videoView.switchVideo(index);
   },
 });
 
@@ -45,7 +45,7 @@ var VideoView =  Orangee.VideoView.extend({
   },
 });
 
-App.init = function(options){
+app.init = function(options){
   orangee.debug_enabled = true;
   Backbone.history.start();
 
@@ -59,8 +59,9 @@ App.init = function(options){
   var list = new ListCollection(playlist);
 
   new HeaderView({model: new HeaderModel(name)}).render();
-  App.videoView = new VideoView({collection: list}).render();
+  app.videoView = new VideoView({collection: list}).render();
   new ListView({collection: list}).render();
-  list.select(list.models[0]);
+
+  list.selectModel(list.models[0]);
 };
 
