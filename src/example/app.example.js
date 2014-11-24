@@ -61,7 +61,5 @@ app.init = function(options){
   new HeaderView({model: new HeaderModel(name)}).render();
   app.videoView = new VideoView({collection: list}).render();
   new ListView({collection: list}).render();
-
-  list.selectModel(list.models[0]);
 };
 

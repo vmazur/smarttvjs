@@ -164,6 +164,7 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
 Orangee.ScrollView = Orangee.CollectionView.extend({
   onRender: function() {
     orangee.debug("Orangee.ScrollView#onRender");
+    this.collection.selectModel(this.collection.at(this.collection.currentPosition));
     this.scroll = new orangee.scroller(this.el, this.getOption('scroll'));
   },
   keyEvents: {
