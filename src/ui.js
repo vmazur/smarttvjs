@@ -143,9 +143,14 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
     'selected': 'onSelect',
     'deselected': 'onDeselect',
     'clicked': 'onClick',
+    'oge:keyentered': 'onKeyEnter',
   },
   onClick: function() {
     orangee.debug('Orangee.ScrollItemView#onClick');
+  },
+  onKeyEnter: function() {
+    orangee.debug('Orangee.ScrollItemView#onKeyEnter');
+    this.$('a')[0].click();
   },
   onMouseOver: function() {
     orangee.debug('Orangee.ScrollItemView#onMouseOver');
@@ -199,7 +204,7 @@ Orangee.GridView = Orangee.ScrollView.extend({
   },
   onKeyEnter: function() {
     orangee.debug('Orangee.ScrollView#onKeyEnter');
-    this.collection.selected.trigger('clicked');
+    this.collection.selected.trigger('oge:keyentered');
   },
   onKeyLeft: function() {
     orangee.debug('Orangee.GridView#onKeyLeft');
