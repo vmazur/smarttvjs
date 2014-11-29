@@ -35,6 +35,7 @@ Orangee.XMLModel = Orangee.Model.extend({
   },
 });
 
+//http://jaketrent.com/post/backbone-inheritance/
 Orangee.Collection = Backbone.PageableCollection.extend({
   currentPosition: 0,
   initialize: function(models, options) {
@@ -44,14 +45,14 @@ Orangee.Collection = Backbone.PageableCollection.extend({
   selectPrev: function(offset) {
     this.currentPosition -= (offset || 1);
     if (this.currentPosition < 0) {
-      this.currentPosition = this.length - 1;
+      this.currentPosition = 0;
     }
     this.select(this.at(this.currentPosition));
   },
   selectNext: function(offset) {
     this.currentPosition += (offset || 1);
     if (this.currentPosition >= this.length) {
-      this.currentPosition = 0;
+      this.currentPosition = this.length - 1;
     }
     this.select(this.at(this.currentPosition));
   },
@@ -88,11 +89,19 @@ Orangee.ItemView = Marionette.ItemView.extend({
   behaviors: {
     HotKeysBehavior: {}
   },
+  initialize: function(options) {
+    orangee.debug("Orangee.ItemView#initialize");
+    options = options || {};
+    this.collectionView = options.collectionView;
+  },
 });
 
 Orangee.CollectionView = Marionette.CollectionView.extend({
   behaviors: {
     HotKeysBehavior: {}
+  },
+  childViewOptions: function() {
+    return {collectionView: this};
   },
 });
 
@@ -135,6 +144,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
 });
 
 Orangee.ScrollItemView = Orangee.ItemView.extend({
+  tagName: "li",
   events: {
     'click': 'onClick',
     'mouseover': 'onMouseOver',
@@ -158,19 +168,24 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onSelect: function(model) {
     orangee.debug('Orangee.ScrollItemView#onSelect');
-    this.$('li').addClass('active');
+    console.log(this);
+    this.collectionView.scroll.scrollToElement(this.el);
+    this.$el.addClass('active');
   },
   onDeselect: function(model) {
     orangee.debug('Orangee.ScrollItemView#onDeselect');
-    this.$('li').removeClass('active');
+    this.$el.removeClass('active');
   },
 });
 
 Orangee.ScrollView = Orangee.CollectionView.extend({
-  onRender: function() {
-    orangee.debug("Orangee.ScrollView#onRender");
+  tagName: "ul",
+  onShow: function() {
+    orangee.debug("Orangee.ScrollView#onShow");
+    orangee.debug(this.getOption('scroll'));
+    orangee.debug(this.el.parentNode.parentNode);
+    this.scroll = new orangee.scroller(this.el.parentNode.parentNode, this.getOption('scroll'));
     this.collection.selectModel(this.collection.at(this.collection.currentPosition));
-    this.scroll = new orangee.scroller(this.el, this.getOption('scroll'));
   },
   keyEvents: {
     'enter': 'onKeyEnter',
@@ -179,7 +194,10 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
   },
   onKeyEnter: function() {
     orangee.debug('Orangee.ScrollView#onKeyEnter');
-    this.collection.selected.trigger('clicked');
+    this.collection.selected.trigger('oge:keyentered');
+    /*setTimeout(function () {
+      this.scroll.refresh();
+    }, 0);*/
   },
   onKeyUp: function() {
     orangee.debug('Orangee.ScrollView#onKeyUp');
@@ -203,8 +221,11 @@ Orangee.GridView = Orangee.ScrollView.extend({
     'right': 'onKeyRight',
   },
   onKeyEnter: function() {
-    orangee.debug('Orangee.ScrollView#onKeyEnter');
+    orangee.debug('Orangee.GridView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
+    /*setTimeout(function () {
+      this.scroll.refresh();
+    }, 0);*/
   },
   onKeyLeft: function() {
     orangee.debug('Orangee.GridView#onKeyLeft');
