@@ -160,7 +160,10 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onKeyEnter: function() {
     orangee.debug('Orangee.ScrollItemView#onKeyEnter');
-    this.$('a')[0].click();
+    var firstlink = this.$('a')[0];
+    orangee.debug(firstlink);
+    this.onClick();
+    Backbone.history.navigate(firstlink.href.split('#')[1], {trigger: true});
   },
   onMouseOver: function() {
     orangee.debug('Orangee.ScrollItemView#onMouseOver');
