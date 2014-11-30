@@ -31,6 +31,9 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     if ((options['playsinline'] || 0) == 1) {
       this.video.setAttribute("webkit-playsinline", "");
     }
+    if ((options['autoplay'] || 0) == 1) {
+      this.video.autoplay = true;
+    }
     this.video.id = divid;
 
     var div = document.getElementById(divid);

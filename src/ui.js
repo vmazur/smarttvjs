@@ -106,8 +106,8 @@ Orangee.CollectionView = Marionette.CollectionView.extend({
 });
 
 Orangee.VideoView = Orangee.ItemView.extend({
-  onRender: function() {
-    orangee.debug("Orangee.VideoView#onRender");
+  onShow: function() {
+    orangee.debug("Orangee.VideoView#onShow");
     //orangee.debug(this.getOption('player'));
     this.videoplayer = new orangee.videoplayer();
     var onplaying = this.getOption('onPlaying');
@@ -189,6 +189,12 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
     orangee.debug(this.el.parentNode.parentNode);
     this.scroll = new orangee.scroller(this.el.parentNode.parentNode, this.getOption('scroll'));
     this.collection.selectModel(this.collection.at(this.collection.currentPosition));
+  },
+  onDestroy: function() {
+    if (this.scroll) {
+      this.scroll.destroy();
+      this.scroll = null;
+    }
   },
   keyEvents: {
     'enter': 'onKeyEnter',
