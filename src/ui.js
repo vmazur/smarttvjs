@@ -109,7 +109,10 @@ Orangee.VideoView = Orangee.ItemView.extend({
   onShow: function() {
     orangee.debug("Orangee.VideoView#onShow");
     //orangee.debug(this.getOption('player'));
-    this.videoplayer = new orangee.videoplayer();
+    this.videoplayer = new orangee.videoplayer({
+      youtube: (orangee.PLATFORM === 'samsung') ? 0 : 1,
+      translate_url: (typeof(OrangeeTVPlugin) != 'undefined') ? OrangeeTVPlugin : null,
+    });
     var onplaying = this.getOption('onPlaying');
     var onpause = this.getOption('onPause');
     var onend = this.getOption('onEnd');
