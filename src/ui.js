@@ -224,7 +224,9 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
 });
 
 Orangee.GridView = Orangee.ScrollView.extend({
-  numberOfColumns: 4,
+  numberOfColumns: function() {
+    return 4;
+  },
   keyEvents: {
     'enter': 'onKeyEnter',
     'up': 'onKeyUp',
@@ -249,11 +251,11 @@ Orangee.GridView = Orangee.ScrollView.extend({
   },
   onKeyUp: function() {
     orangee.debug('Orangee.GridView#onKeyUp');
-    this.collection.selectPrev(this.numberOfColumns);
+    this.collection.selectPrev(this.numberOfColumns());
   },
   onKeyDown: function() {
     orangee.debug('Orangee.GridView#onKeyDown');
-    this.collection.selectNext(this.numberOfColumns);
+    this.collection.selectNext(this.numberOfColumns());
   },
 });
 
