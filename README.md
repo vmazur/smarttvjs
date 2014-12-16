@@ -43,6 +43,10 @@ in samsung sdk, import project from build/samsung
 
 in lg sdk, import project from buidl/lg
 
+Install on samsung as developer
+```bash
+sudo orangeejs server 80 build/
+```
 
 Known issues (TODO move this section to wiki)
 ====
