@@ -196,7 +196,19 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
 
   cp("-rf", 'app/', 'build/samsung/');
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("platforms/orangee.samsung.js", "samsungplayer.js"), "build/samsung/lib/orangee.js");
-  
+
+  var indexhtml = fs.readFileSync("build/samsung/index.html", "utf8");
+  indexhtml = indexhtml.replace("</head>",
+"<object id='pluginAudio' border=0 classid='clsid:SAMSUNG-INFOLINK-AUDIO'></object>\n" +
+"<object id='pluginObjectTVMW' border=0 classid='clsid:SAMSUNG-INFOLINK-TVMW'></object>\n" +
+"<object id='pluginObjectNNavi' border=0 classid='clsid:SAMSUNG-INFOLINK-NNAVI' style='opacity:0.0;background-color:#000000;width:0px;height:0px;'></object>\n" +
+"<object id='pluginWindow' classid='clsid:SAMSUNG-INFOLINK-WINDOW' style='visibility:hidden; position:absolute; width: 0; height: 0; opacity: 0;'></object>\n" +
+"<object id='pluginObjectNetwork' border='0' classid='clsid:SAMSUNG-INFOLINK-NETWORK'></object>\n" +
+"<object id='pluginObjectTV' border=0 classid='clsid:SAMSUNG-INFOLINK-TV' style='opacity:0.0;background-color:#000000;width:0px;height:0px;'></object>\n" +
+"<object id='pluginPlayer' border=0 classid='clsid:SAMSUNG-INFOLINK-PLAYER' style='visibility:hidden; position:absolute; width: 0; height: 0; opacity: 0;'></object>\n" +
+"</head>");
+  fs.writeFileSync("build/samsung/index.html", indexhtml);
+
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
