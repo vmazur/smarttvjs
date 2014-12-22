@@ -10,10 +10,15 @@ Marionette.Behaviors.behaviorsLookup = function() {
 
 HotKeysBehavior = Marionette.Behavior.extend({
   onRender: function() {
-    HotKeys.bind(this.view.keyEvents, this.view, this.view.cid);
+    if (this.view.keyEvents) {
+      HotKeys.bind(this.view.keyEvents, this.view, this.view.cid);
+    }
   },
-  onClose: function() {
-    HotKeys.unbind(this.view.keyEvents, this.view, this.view.cid);
+  onDestroy: function() {
+    if (this.view.keyEvents) {
+      orangee.debug("HotKeysBehavior#onDestroy");
+      HotKeys.unbind(this.view.keyEvents, this.view, this.view.cid);
+    }
   },
 });
 
@@ -22,13 +27,19 @@ Orangee.Model = Backbone.Model.extend({
     // Applies the mixin:
     Backbone.Select.Me.applyTo(this);
   },
+  toJSON: function() {
+    //http://stackoverflow.com/questions/15298449/cannot-get-the-cid-of-the-model-while-rendering-a-backbone-collection-over-a-tem
+    var json = Backbone.Model.prototype.toJSON.apply(this, arguments);
+    json.cid = this.cid;
+    return json;
+  },
 });
 
 Orangee.XMLModel = Orangee.Model.extend({
   fetch: function(options) {
     options = options || {};
     options.dataType = "html";
-    return Backbone.Model.prototype.fetch.call(this, options);
+    return Backbone.Model.prototype.fetch.apply(this, arguments);
   },
   parse: function(xml) {
     return orangee.xml2json(xml);
@@ -45,14 +56,18 @@ Orangee.Collection = Backbone.PageableCollection.extend({
   selectPrev: function(offset) {
     this.currentPosition -= (offset || 1);
     if (this.currentPosition < 0) {
-      this.currentPosition = 0;
+      //this.currentPosition = 0;
+      this.currentPosition += (offset || 1);
+      return;
     }
     this.select(this.at(this.currentPosition));
   },
   selectNext: function(offset) {
     this.currentPosition += (offset || 1);
     if (this.currentPosition >= this.length) {
-      this.currentPosition = this.length - 1;
+      //this.currentPosition = this.length - 1;
+      this.currentPosition -= (offset || 1);
+      return;
     }
     this.select(this.at(this.currentPosition));
   },
@@ -66,7 +81,7 @@ Orangee.XMLCollection = Orangee.Collection.extend({
   fetch: function(options) {
     options = options || {};
     options.dataType = "html";
-    return Backbone.Collection.prototype.fetch.call(this, options);
+    return Backbone.Collection.prototype.fetch.apply(this, arguments);
   },
   parse: function(xml) {
     var json = orangee.xml2json(xml);
@@ -174,7 +189,6 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onSelect: function(model) {
     orangee.debug('Orangee.ScrollItemView#onSelect');
-    console.log(this);
     this.$(':first-child').addClass('active');
   },
   onDeselect: function(model) {
@@ -186,17 +200,24 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
 Orangee.ScrollView = Orangee.CollectionView.extend({
   tagName: "ul",
   className: "list-unstyled",
+  scroll: {
+    click: true,
+    mouseWheel: true,
+    //keyBindings: true,
+  },
   onShow: function() {
     orangee.debug("Orangee.ScrollView#onShow");
     orangee.debug(this.getOption('scroll'));
-    orangee.debug(this.el.parentNode.parentNode);
-    this.scroll = new orangee.scroller(this.el.parentNode.parentNode, this.getOption('scroll'));
+    //orangee.debug(this.el.parentNode.parentNode);
+    this.scroller = new orangee.scroller(this.el.parentNode.parentNode, this.getOption('scroll'));
     this.collection.selectModel(this.collection.at(this.collection.currentPosition));
+    orangee.debug(this.children);
   },
   onDestroy: function() {
-    if (this.scroll) {
-      this.scroll.destroy();
-      this.scroll = null;
+    orangee.debug("Orangee.ScrollView#onDestroy");
+    if (this.scroller) {
+      this.scroller.destroy();
+      this.scroller = null;
     }
   },
   keyEvents: {
@@ -208,20 +229,20 @@ Orangee.ScrollView = Orangee.CollectionView.extend({
     orangee.debug('Orangee.ScrollView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
     /*setTimeout(function () {
-      this.scroll.refresh();
+      this.scroller.refresh();
     }, 0);*/
   },
   onKeyUp: function() {
     orangee.debug('Orangee.ScrollView#onKeyUp');
     this.collection.selectPrev();
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroll.scrollToElement(selectedChildView.el);
+    this.scroller.scrollToElement(selectedChildView.el);
   },
   onKeyDown: function() {
     orangee.debug('Orangee.ScrollView#onKeyDown');
     this.collection.selectNext();
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroll.scrollToElement(selectedChildView.el);
+    this.scroller.scrollToElement(selectedChildView.el);
   },
   //childEvents: {
   //},
@@ -240,7 +261,7 @@ Orangee.GridView = Orangee.ScrollView.extend({
     orangee.debug('Orangee.GridView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
     /*setTimeout(function () {
-      this.scroll.refresh();
+      this.scroller.refresh();
     }, 0);*/
   },
   onKeyLeft: function() {
@@ -253,15 +274,17 @@ Orangee.GridView = Orangee.ScrollView.extend({
   },
   onKeyUp: function() {
     orangee.debug('Orangee.GridView#onKeyUp');
+    orangee.debug(this.children);
     this.collection.selectPrev(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroll.scrollToElement(selectedChildView.el);
+    this.scroller.scrollToElement(selectedChildView.el);
   },
   onKeyDown: function() {
     orangee.debug('Orangee.GridView#onKeyDown');
+    orangee.debug(this.children);
     this.collection.selectNext(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroll.scrollToElement(selectedChildView.el);
+    this.scroller.scrollToElement(selectedChildView.el);
   },
 });
 

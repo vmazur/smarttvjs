@@ -45,7 +45,7 @@ body {
 }
 
 .oge-scroller {
-  height: 100%;/*helpful if there is few item to fill the screen*/
+  min-height: 100%; /*helpful if there is few item to fill the screen*/
 	position: absolute;
 	width: 100%;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
