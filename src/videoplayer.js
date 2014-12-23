@@ -7,7 +7,7 @@ orangee.videoplayer = function(options) {
   this.device = null;
   options = options || {};
   this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : 1;
-  this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : 1;
+  this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : 0;
   this.translate_url = options['translate_url'];
   this.playing = false;
 };

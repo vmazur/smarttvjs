@@ -15,7 +15,7 @@ OrangeeJSUtil.core_js_sources = [
   'lib/openfb.js',
   'lib/xml2json.min.js',
   'lib/keys.js',
-  'storage.js'
+  'storage.js',
 ];
 
 OrangeeJSUtil.ui_js_sources = [
@@ -23,7 +23,8 @@ OrangeeJSUtil.ui_js_sources = [
   'lib/iscroll.js',
   'lib/spin.min.js',
   'lib/bootstrap-carousel.js',
-  'ui.js'
+  'models.js',
+  'views.js',
 ];
 
 OrangeeJSUtil.ui_css_sources = [
