@@ -28,7 +28,7 @@ OrangeeScrollerBehavior = Marionette.Behavior.extend({
     orangee.debug(this.view.getOption('scroll'));
     //orangee.debug(this.el.parentNode.parentNode);
     orangee.debug(this.el);
-    this.view.scroller = new orangee.scroller(this.el.parentNode, this.view.getOption('scroll'));
+    this.view.scroller = new orangee.scroller(this.el, this.view.getOption('scroll'));
     this.view.collection.selectModel(this.view.collection.at(this.view.collection.currentPosition));
     //orangee.debug(this.view);
   },
