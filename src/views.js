@@ -28,13 +28,13 @@ OrangeeScrollerBehavior = Marionette.Behavior.extend({
     orangee.debug(this.view.getOption('scroll'));
     //orangee.debug(this.el.parentNode.parentNode);
     orangee.debug(this.el);
+    this.view.scroller = new orangee.scroller(this.el, this.view.getOption('scroll'));
     //http://stackoverflow.com/questions/11924711/how-to-make-iscroll-and-lazy-load-jquery-plugins-work-together
-    this.view.scroller = new orangee.scroller(this.el,
-                                              _.extend({
-                                                onScrollEnd: function () {
-                                                  this.el.trigger('scroll');
-                                                },
-                                              }, this.view.getOption('scroll')));
+    //http://www.cnblogs.com/MartinLi841538513/articles/3663638.html
+    //http://blog.rodneyrehm.de/archives/32-Updating-to-iScroll-5.html
+    this.view.scroller.on("scrollEnd", function() {
+      this.$el.trigger('scroll');
+    }.bind(this));
     this.view.collection.selectModel(this.view.collection.at(this.view.collection.currentPosition));
     //orangee.debug(this.view);
   },
@@ -47,10 +47,19 @@ OrangeeScrollerBehavior = Marionette.Behavior.extend({
   },
 });
 
+OrangeeLazyloadBehavior = Marionette.Behavior.extend({
+  onShow: function() {
+    this.view.$("img.lazy").lazyload({
+      effect : "fadeIn",
+      threshold : 400,
+    });
+  },
+});
+
 OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
   //http://stackoverflow.com/questions/14656068/turning-off-div-wrap-for-backbone-marionette-itemview
   onRender: function () {
-    orangee.debug("OrangeeNoExtraDivBehavior#onRender");
+    //orangee.debug("OrangeeNoExtraDivBehavior#onRender");
     // Get rid of that pesky wrapping-div.
     // Assumes 1 child element present in template.
     this.$el = this.$el.children();
@@ -67,7 +76,7 @@ Orangee.ItemView = Marionette.ItemView.extend({
     OrangeeNoExtraDivBehavior: {},
   },
   initialize: function(options) {
-    orangee.debug("Orangee.ItemView#initialize");
+    //orangee.debug("Orangee.ItemView#initialize");
     options = options || {};
     this.collectionView = options.collectionView;
   },
@@ -192,6 +201,7 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     OrangeeHotKeysBehavior: {},
     OrangeeNoExtraDivBehavior: {},
     OrangeeScrollerBehavior: {},
+    OrangeeLazyloadBehavior: {},
   },
   childViewContainer: "ul",
   scroll: {

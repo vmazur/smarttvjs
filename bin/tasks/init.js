@@ -24,6 +24,7 @@ OrangeeJSInitTask.prototype.run = function(debug) {
 
   cp(src + "/assets/stylesheets/bootstrap.min.css", "app/lib/bootstrap.min.css");
   cp(src + "/assets/javascripts/jquery.min.js", "app/lib/jquery.min.js");
+  cp(src + "/assets/javascripts/jquery.lazyload.min.js", "app/lib/jquery.lazyload.min.js");
   cp(src + "/assets/javascripts/underscore-min.js", "app/lib/underscore-min.js");
   cp(src + "/assets/javascripts/backbone-min.js", "app/lib/backbone-min.js");
   cp(src + "/assets/javascripts/backbone.marionette.min.js", "app/lib/backbone.marionette.min.js");
