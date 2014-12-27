@@ -24,6 +24,11 @@ orangee.html5player.prototype.seek = function(second) {
 };
 
 orangee.html5player.prototype.load = function(url, startSeconds, divid, options) {
+  orangee.debug(url);
+  if (orangee.PLATFORM === 'samsung' && url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
+    url = url + "?|COMPONENT=HLS";
+  }
+
   if (this.video == null) {
     this.video = document.createElement("video");
     this.video.controls = true;

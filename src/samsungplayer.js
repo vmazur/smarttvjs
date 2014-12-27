@@ -39,8 +39,12 @@ orangee.samsungplayer.prototype.seek = function(second) {
 ///Users/yong/Downloads/DeviceAPI\ Guide\[V2.10\].pdf
 //http://www.samsungdforum.com/Guide/API00005/Player_172.html
 orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, options) {
-  if (this.video == null) {
+  //http://djsiw1wjy8vi7.cloudfront.net/[SDK2.5]Documents_Tutorials/Tutorial/HAS%20Tutorial/HAS%20App%20Creation%20Tutorial/HAS%20App%20Creation%20Tutorial[V1.05].pdf
+  if (url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
+    url = url + "?|COMPONENT=HLS";
+  }
 
+  if (this.video == null) {
     var objects = document.getElementsByTagName('object');
     for (var i =0; i < objects.length; i++) {
       if (objects[i].getAttribute("classid") === 'clsid:SAMSUNG-INFOLINK-PLAYER') {
@@ -53,12 +57,14 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
 
     //http://stackoverflow.com/questions/22164496/how-to-overlay-another-div-on-the-video
     var rect = document.getElementById(divid).getBoundingClientRect();
-    if (rect.width > 960) {
+    /*if (rect.width > 960) {
       rect.width = 960;
     }
     if (rect.height > 540) {
       rect.height = 540;
-    }
+    }*/
+    rect.width = 960;
+    rect.height = 540;
     this.video.setAttribute('style', "position:absolute;z-index:99;left:" + 0 + "px;top:" + 0 + "px;width:" + rect.width + "px;height:" + rect.height + "px");
     this.video.SetDisplayArea(0, 0, rect.width, rect.height);
 

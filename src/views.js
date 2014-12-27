@@ -237,6 +237,14 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
   //},
 });
 
+Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
+  scroll: {
+    mouseWheel: true,
+    scrollX: true,
+    scrollY: false,
+  },
+});
+
 Orangee.GridView = Orangee.ScrollView.extend({
   numberOfColumns: 4,
   keyEvents: {
