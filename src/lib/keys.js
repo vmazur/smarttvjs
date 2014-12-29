@@ -64,6 +64,11 @@
     var onKeyup = function(e) {
         _.each(eventsNamespace, function(namespace) {
           _.each(namespace, function(callback) {
+            if (orangee.PLATFORM === 'samsung') {
+              if (orangee.KEYS[e.keyCode] === 'enter') {
+                orangee._samsungWidgetAPI.blockNavigation(e);
+              }
+            }
             callback(e);
           });
         });

@@ -1,6 +1,6 @@
 //your script here
 'use strict';
-var app = new Marionette.Application();
+var app = new Orangee.Application({youtube: true});
 
 var HeaderModel = Orangee.Model.extend();
 var ListItemModel = Orangee.Model.extend();
@@ -22,6 +22,7 @@ var ListItemView = Orangee.ScrollItemView.extend({
 });
 
 var ListView = Orangee.ScrollView.extend({
+  template: '#list_template',
   el: '#list_view',
   childView: ListItemView,
 });
@@ -45,7 +46,7 @@ var VideoView =  Orangee.VideoView.extend({
   },
 });
 
-app.init = function(options){
+app.on("start", function(options){
   orangee.debug_enabled = true;
   Backbone.history.start();
 
@@ -61,5 +62,5 @@ app.init = function(options){
   new HeaderView({model: new HeaderModel(name)}).render();
   app.videoView = new VideoView({collection: list}).render();
   new ListView({collection: list}).render();
-};
+});
 

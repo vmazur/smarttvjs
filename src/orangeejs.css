@@ -4,6 +4,18 @@ video {
   height: auto;
 }
 
+/*http://www.codesynthesis.co.uk/tutorials/html-5-full-screen-and-responsive-videos*/
+.oge-fullscreenvideo {
+    position:absolute;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+}
+.oge-fullscreenvideo video {
+    min-width: 100%;
+    min-height: 100%;
+}
+
 body {
   overflow: hidden;/* this is important to prevent the whole page to bounce */
 }
@@ -76,35 +88,35 @@ body {
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
   .img-responsive {
-    height: 210px;
+    height: 150px;
   }
 }
 
 /* Extra Small Devices, Phones */ 
 @media only screen and (min-width : 480px) {
   .img-responsive {
-    height: 210px;
+    height: 150px;
   }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
   .img-responsive {
-    height: 210px;
+    height: 150px;
   }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
   .img-responsive {
-    height: 210px;
+    height: 150px;
   }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width : 1200px) {
   .img-responsive {
-    height: 210px;
+    height: 150px;
   }
 }
 

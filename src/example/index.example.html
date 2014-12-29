@@ -42,9 +42,17 @@
     <li class="list-group-item"><%= name %></li>
   </script>
 
+  <script type="text/html" id="list_template">
+    <div class="oge-wrapper container-fluid">
+      <div class="oge-scroller row">
+        <ul class="list-unstyled"></ul>
+      </div>
+    </div>
+  </script>
+
   <!-- An id is required for video tag to used with youtube api. -->
   <script type="text/html" id="video_template">
-    <video id='myvideo'></video>
+    <video id='myvideo' class="embed-responsive-item"></video>
   </script>
 
   <script type="text/javascript" src="lib/jquery.min.js"></script>
@@ -54,16 +62,13 @@
   <script type="text/javascript" src="lib/backbone.marionette.min.js"></script>
   <script type="text/javascript" src="lib/backbone.paginator.min.js"></script>
   <script type="text/javascript" src="lib/backbone.select.min.js"></script>
-  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script><!-- Only if you want to use youtube -->
   <script type="text/javascript" src="lib/orangee.js"></script>
   <script type="text/javascript" src="lib/orangee-ui.js"></script>
   <script type="text/javascript" src="app.js"></script>
   <script>
     //wrap initialization code into this special function only if you want to use youtube
-    function onYouTubeIframeAPIReady() { 
-      $(function () {
-        orangee.init(App.init);
-      });
+    function onYouTubeIframeAPIReady() {
+      app.start();
     }
   </script>
 </body>

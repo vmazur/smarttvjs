@@ -1,5 +1,15 @@
 'use strict';
 
+Orangee.Application = Marionette.Application.extend({
+  initialize: function(options) {
+    //console.log("Orangee.Application#initialize");
+    orangee.init();
+    if (options && options['youtube']) {
+      orangee._loadYoutubeApi();
+    }
+  },
+});
+
 Orangee.Model = Backbone.Model.extend({
   initialize: function() {
     // Applies the mixin:

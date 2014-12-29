@@ -68,10 +68,5 @@ orangee.KEYS = {
 */
 
 orangee.init = function(callback) {
-  if (typeof callback === "function") {
-    callback();
-  }
 };
 
-orangee.close = function() {
-};
