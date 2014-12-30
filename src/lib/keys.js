@@ -61,23 +61,29 @@
         delete eventsNamespace[namespace];
     };
 
-    var onKeyup = function(e) {
+    var onKeydown = function() {
         _.each(eventsNamespace, function(namespace) {
           _.each(namespace, function(callback) {
             if (orangee.PLATFORM === 'samsung') {
-              if (orangee.KEYS[e.keyCode] === 'enter') {
-                orangee._samsungWidgetAPI.blockNavigation(e);
+              if (orangee.KEYS[event.keyCode] === 'back') {
+                orangee._samsungWidgetAPI.blockNavigation(event);//does not work with keyup
+              } else if (orangee.KEYS[event.keyCode] === 'exit') {
+                orangee._samsungWidgetAPI.blockNavigation(event);
+                orangee._samsungWidgetAPI.sendReturnEvent();
               }
             }
-            callback(e);
+            callback(event);
           });
         });
     };
 
-    $(document).on('keyup', onKeyup);
+    $(document).on('keydown', onKeydown);
+    //<a href="javascript:void(0);" id="orangeeKeyboardAnchor" onkeydown="HotKeys.onKeydown();"></a>
+    //document.getElementById("orangeeKeyboardAnchor").focus();
 
     root.HotKeys = {
         'bind': bind,
-        'unbind': unbind
+        'unbind': unbind,
+        //'onKeydown': onKeydown,
     };
 }(window, $))
