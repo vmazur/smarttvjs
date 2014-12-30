@@ -22,7 +22,6 @@ OrangeeJSUtil.ui_js_sources = [
   'lib/snap.min.js',
   'lib/iscroll.js',
   'lib/spin.min.js',
-  'lib/bootstrap-carousel.js',
   'models.js',
   'views.js',
 ];
