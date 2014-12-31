@@ -113,20 +113,20 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
   var startSeconds = 0;
   
   var url = this.playlist[this.currentIndex]['url'];
-  this._buildPlayer(url);
-  
-  if (this.device) {
-    if (!this.connectplayer) {
-      this.connectplayer = new orangee.connectplayer(this.device);
+  this._buildPlayer(url, function() {
+    if (this.device) {
+      if (!this.connectplayer) {
+        this.connectplayer = new orangee.connectplayer(this.device);
+      }
+      this.connectplayer.load(url, startSeconds, this.divid, this.options);
+      //beamed video always play automatically
+    } else {
+      if (this.translate_url) {
+        url = this.translate_url(url);
+      }
+      this.currentplayer.load(url, startSeconds, this.divid, this.options);
     }
-    this.connectplayer.load(url, startSeconds, this.divid, this.options);
-    //beamed video always play automatically
-  } else {
-    if (this.translate_url) {
-      url = this.translate_url(url);
-    }
-    this.currentplayer.load(url, startSeconds, this.divid, this.options);
-  }
+  }.bind(this));
 };
 
 orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
