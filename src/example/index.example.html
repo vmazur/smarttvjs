@@ -17,15 +17,14 @@
     </div>
   </nav>
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-6 nopadding">
+  <div class="container-fluid container-xs-height">
+    <div class="row row-xs-height">
+      <div class="col-xs-6 nopadding col-xs-height">
         <div id="video_view" class="embed-responsive embed-responsive-16by9"></div>
-        <div>OrangeeJS example app</div>
+        <div class="well well-lg">OrangeeJS example app</div>
       </div>
 
-      <div class="col-xs-6 nopadding">
-        <ul class="list-group" id="list_view"></ul>
+      <div class="col-xs-6 nopadding col-xs-height" id="list_view">
       </div>
     </div>
   </div>
@@ -43,9 +42,9 @@
   </script>
 
   <script type="text/html" id="list_template">
-    <div class="oge-wrapper container-fluid">
-      <div class="oge-scroller row">
-        <ul class="list-unstyled"></ul>
+    <div class="oge-wrapper">
+      <div class="oge-scroller">
+        <ul class="list-group"></ul>
       </div>
     </div>
   </script>
@@ -56,7 +55,7 @@
   </script>
 
   <script type="text/javascript" src="lib/jquery.min.js"></script>
-  <script type="text/javascript" src="lib/jquery.lazyload.min.js"></script>
+  <script type="text/javascript" src="lib/jquery.fullPage.min.js"></script>
   <script type="text/javascript" src="lib/underscore-min.js"></script>
   <script type="text/javascript" src="lib/backbone-min.js"></script>
   <script type="text/javascript" src="lib/backbone.marionette.min.js"></script>
@@ -67,9 +66,9 @@
   <script type="text/javascript" src="app.js"></script>
   <script>
     //wrap initialization code into this special function only if you want to use youtube
-    function onYouTubeIframeAPIReady() {
+    $(document).ready(function() {
       app.start();
-    }
+    });
   </script>
 </body>
 </html>

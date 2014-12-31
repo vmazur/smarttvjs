@@ -28,7 +28,23 @@ OrangeeJSUtil.ui_js_sources = [
 
 OrangeeJSUtil.ui_css_sources = [
   'orangeejs.css',
-  'assets/stylesheets/font-awesome.css'
+  'lib/snap.css',
+];
+
+OrangeeJSUtil.lib_js_sources = [
+  'jquery.min.js',
+  //'jquery.lazyload.min.js', //sluggish on samsung tv
+  'jquery.fullPage.min.js',
+  'underscore-min.js',
+  'backbone-min.js',
+  'backbone.marionette.min.js',
+  'backbone.paginator.min.js',
+  'backbone.select.min.js',
+];
+
+OrangeeJSUtil.lib_css_sources = [
+  'bootstrap.min.css',
+  'font-awesome.min.css',
 ];
 
 OrangeeJSUtil.exec = function(cmd) {

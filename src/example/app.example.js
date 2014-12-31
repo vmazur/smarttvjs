@@ -10,26 +10,23 @@ var ListCollection = Orangee.Collection.extend({
 
 var HeaderView = Orangee.ItemView.extend({
   template: '#header_template',
-  el: '#header_view',
 });
 
 var ListItemView = Orangee.ScrollItemView.extend({
   template: '#listitem_template',
   onClick: function() {
     var index = this.model.collection.indexOf(this.model);
-    app.videoView.switchVideo(index);
+    app.video.currentView.switchVideo(index);
   },
 });
 
 var ListView = Orangee.ScrollView.extend({
   template: '#list_template',
-  el: '#list_view',
   childView: ListItemView,
 });
 
 var VideoView =  Orangee.VideoView.extend({
   template: '#video_template',
-  el: '#video_view',
   divid: 'myvideo',
   playerVars: {
     playsinline: 1
@@ -46,6 +43,12 @@ var VideoView =  Orangee.VideoView.extend({
   },
 });
 
+app.addRegions({
+  header: "#header_view",
+  list: "#list_view",
+  video: "#video_view",
+});
+
 app.on("start", function(options){
   orangee.debug_enabled = true;
   Backbone.history.start();
@@ -56,11 +59,12 @@ app.on("start", function(options){
     {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ];
-  var video = {divid: 'video_id', playlist: playlist};
-  var list = new ListCollection(playlist);
 
-  new HeaderView({model: new HeaderModel(name)}).render();
-  app.videoView = new VideoView({collection: list}).render();
-  new ListView({collection: list}).render();
+  var list = new ListCollection(playlist);
+  var header = new HeaderModel(name);
+
+  app.header.show(new HeaderView({model: header}));
+  app.list.show(new ListView({collection: list}));
+  app.video.show(new VideoView({collection: list}));
 });
 

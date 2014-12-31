@@ -201,7 +201,7 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     OrangeeHotKeysBehavior: {},
     OrangeeNoExtraDivBehavior: {},
     OrangeeScrollerBehavior: {},
-    OrangeeLazyloadBehavior: {},
+    //OrangeeLazyloadBehavior: {},
   },
   childViewContainer: "ul",
   scroll: {
@@ -254,13 +254,10 @@ Orangee.GridView = Orangee.ScrollView.extend({
     'left' : 'onKeyLeft',
     'right': 'onKeyRight',
   },
-  onKeyEnter: function() {
+  /*onKeyEnter: function() {
     orangee.debug('Orangee.GridView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
-    /*setTimeout(function () {
-      this.scroller.refresh();
-    }, 0);*/
-  },
+  },*/
   onKeyLeft: function() {
     orangee.debug('Orangee.GridView#onKeyLeft');
     this.collection.selectPrev();

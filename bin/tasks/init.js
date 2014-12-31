@@ -22,15 +22,13 @@ OrangeeJSInitTask.prototype.run = function(debug) {
       OrangeeJSUtil.transform_template(src + "/example/package.json.template", "package.json", {name: name});
   };
 
-  cp(src + "/assets/stylesheets/bootstrap.min.css", "app/lib/bootstrap.min.css");
-  cp(src + "/assets/javascripts/jquery.min.js", "app/lib/jquery.min.js");
-  cp(src + "/assets/javascripts/jquery.lazyload.min.js", "app/lib/jquery.lazyload.min.js");
-  cp(src + "/assets/javascripts/underscore-min.js", "app/lib/underscore-min.js");
-  cp(src + "/assets/javascripts/backbone-min.js", "app/lib/backbone-min.js");
-  cp(src + "/assets/javascripts/backbone.marionette.min.js", "app/lib/backbone.marionette.min.js");
-  cp(src + "/assets/javascripts/backbone.paginator.min.js", "app/lib/backbone.paginator.min.js");
-  cp(src + "/assets/javascripts/backbone.select.min.js", "app/lib/backbone.select.min.js");
-  cp("-r", src + "/assets/fonts", "app/");
+  OrangeeJSUtil.lib_js_sources.forEach(function(value) {
+    cp(src + "/assets/javascripts/" + value, "app/lib/" + value);
+  });
+  OrangeeJSUtil.lib_css_sources.forEach(function(value) {
+    cp(src + "/assets/stylesheets/" + value, "app/lib/" + value);
+  });
+  cp("-r", src + "/assets/fonts", "app/lib/");
   OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/lib/orangee-ui.css");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/lib/orangee.js", debug);
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/lib/orangee-ui.js", debug);
