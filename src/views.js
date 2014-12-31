@@ -188,11 +188,13 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onSelect: function(model) {
     //orangee.debug('Orangee.ScrollItemView#onSelect');
-    this.$(':first-child').addClass('active');
+    //this.$(':first-child').addClass('active');
+    this.$el.addClass('active');
   },
   onDeselect: function(model) {
     //orangee.debug('Orangee.ScrollItemView#onDeselect');
-    this.$(':first-child').removeClass('active');
+    //this.$(':first-child').removeClass('active');
+    this.$el.removeClass('active');
   },
 });
 
@@ -209,44 +211,7 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     mouseWheel: true,
     //keyBindings: true,
   },
-  keyEvents: {
-    'enter': 'onKeyEnter',
-    'up': 'onKeyUp',
-    'down' : 'onKeyDown',
-  },
-  onKeyEnter: function() {
-    orangee.debug('Orangee.ScrollView#onKeyEnter');
-    this.collection.selected.trigger('oge:keyentered');
-    /*setTimeout(function () {
-      this.scroller.refresh();
-    }, 0);*/
-  },
-  onKeyUp: function() {
-    orangee.debug('Orangee.ScrollView#onKeyUp');
-    this.collection.selectPrev();
-    var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroller.scrollToElement(selectedChildView.el);
-  },
-  onKeyDown: function() {
-    orangee.debug('Orangee.ScrollView#onKeyDown');
-    this.collection.selectNext();
-    var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
-    this.scroller.scrollToElement(selectedChildView.el);
-  },
-  //childEvents: {
-  //},
-});
-
-Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
-  scroll: {
-    mouseWheel: true,
-    scrollX: true,
-    scrollY: false,
-  },
-});
-
-Orangee.GridView = Orangee.ScrollView.extend({
-  numberOfColumns: 4,
+  numberOfColumns: 1,
   keyEvents: {
     'enter': 'onKeyEnter',
     'up': 'onKeyUp',
@@ -259,26 +224,38 @@ Orangee.GridView = Orangee.ScrollView.extend({
     this.collection.selected.trigger('oge:keyentered');
   },*/
   onKeyLeft: function() {
-    orangee.debug('Orangee.GridView#onKeyLeft');
-    this.collection.selectPrev();
+    if (this.numberOfColumns > 1) {
+      orangee.debug('Orangee.ScrollView#onKeyLeft');
+      this.collection.selectPrev();
+    }
   },
   onKeyRight: function() {
-    orangee.debug('Orangee.GridView#onKeyRight');
-    this.collection.selectNext();
+    if (this.numberOfColumns > 1) {
+      orangee.debug('Orangee.ScrollView#onKeyRight');
+      this.collection.selectNext();
+    }
   },
   onKeyUp: function() {
-    orangee.debug('Orangee.GridView#onKeyUp');
+    orangee.debug('Orangee.ScrollView#onKeyUp');
     orangee.debug(this.children);
     this.collection.selectPrev(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
   },
   onKeyDown: function() {
-    orangee.debug('Orangee.GridView#onKeyDown');
+    orangee.debug('Orangee.ScrollView#onKeyDown');
     orangee.debug(this.children);
     this.collection.selectNext(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
+  },
+});
+
+Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
+  scroll: {
+    mouseWheel: true,
+    scrollX: true,
+    scrollY: false,
   },
 });
 
