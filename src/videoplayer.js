@@ -96,16 +96,16 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   startSeconds = (typeof startSeconds !== 'undefined') ? startSeconds : 0;
 
   var url = this.playlist[this.currentIndex]['url'];
-  this._buildPlayer(url);
-
-  if (this.translate_url) {
-    var self= this;
-    this.translate_url(url, function(err, new_url) {
-      self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
-    });
-  } else {
-    this.currentplayer.load(url, startSeconds, this.divid, this.options);
-  }
+  this._buildPlayer(url, function() {
+    if (this.translate_url) {
+      var self= this;
+      this.translate_url(url, function(err, new_url) {
+        self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
+      });
+    } else {
+      this.currentplayer.load(url, startSeconds, this.divid, this.options);
+    }
+  }.bind(this));
 };
 
 orangee.videoplayer.prototype.switchVideo = function(index) {
@@ -129,18 +129,29 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
   }
 };
 
-orangee.videoplayer.prototype._buildPlayer = function(url) {
+orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
   if (orangee.PLATFORM === 'samsung' && this.support_samsung != 0) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.samsungplayer.name) {
       this.currentplayer = new orangee.samsungplayer();
+      callback();
     }
   } else if (this.support_youtube == 1 && url.indexOf('youtube.com') > -1) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
-      this.currentplayer = new orangee.ytplayer();
+      if (orangee._youtubeReady) {
+        this.currentplayer = new orangee.ytplayer();
+        callback();
+      } else {
+        $(document).on('oge-youtubeready', function() {
+          orangee.debug('oge-youtubeready');
+          this.currentplayer = new orangee.ytplayer();
+          callback();
+        }.bind(this));
+      }
     }
   } else {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
       this.currentplayer = new orangee.html5player();
+      callback();
     }
   }
 };

@@ -24,8 +24,13 @@ orangee.debug = function(s) {
 
 //https://developers.google.com/youtube/iframe_api_reference
 orangee._loadYoutubeApi = function() {
-  var tag = document.createElement('script');
+  window.onYouTubeIframeAPIReady = function() {
+    orangee.debug("onYouTubeIframeAPIReady");
+    orangee._youtubeReady = true;
+    $(document).trigger("oge-youtubeready");
+  };
 
+  var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
