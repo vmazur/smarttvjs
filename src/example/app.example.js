@@ -63,7 +63,7 @@ app.on("start", function(options){
   var list = new ListCollection(playlist);
   var header = new HeaderModel(name);
 
-  //app.header.show(new HeaderView({model: header}));
+  app.header.show(new HeaderView({model: header}));
   app.list.show(new ListView({collection: list}));
   app.video.show(new VideoView({collection: list}));
 });

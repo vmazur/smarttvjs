@@ -62,6 +62,12 @@ OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
     //orangee.debug("OrangeeNoExtraDivBehavior#onRender");
     // Get rid of that pesky wrapping-div.
     // Assumes 1 child element present in template.
+    var children = this.$el.children();
+    if (children.length == 0) {
+      //template is string (no html tag). Can not remove div in this case.
+      return;
+    }
+
     this.$el = this.$el.children();
     // Unwrap the element to prevent infinitely 
     // nesting elements during re-render.
