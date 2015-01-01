@@ -154,7 +154,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
     'play' : 'onKeyPlay',
   },
   onKeyPlay: function() {
-    orangee.debug('Orangee.VideoView#onKeyEnter');
+    orangee.debug('Orangee.VideoView#onKeyPlay');
     this.videoplayer.togglePlay();
   },
   onKeyRight: function() {
