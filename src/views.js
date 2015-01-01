@@ -183,10 +183,13 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
   },
   onKeyEnter: function() {
     orangee.debug('Orangee.ScrollItemView#onKeyEnter');
-    var firstlink = this.$('a')[0];
-    orangee.debug(firstlink);
     this.onClick();
-    Backbone.history.navigate(firstlink.href.split('#')[1], {trigger: true});
+    var links = this.$('a');
+    if (links.length > 0) {
+      var firstlink = this.$('a')[0];
+      orangee.debug(firstlink);
+      Backbone.history.navigate(firstlink.href.split('#')[1], {trigger: true});
+    }
   },
   onMouseOver: function() {
     //orangee.debug('Orangee.ScrollItemView#onMouseOver');
@@ -225,10 +228,10 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     'left' : 'onKeyLeft',
     'right': 'onKeyRight',
   },
-  /*onKeyEnter: function() {
+  onKeyEnter: function() {
     orangee.debug('Orangee.GridView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
-  },*/
+  },
   onKeyLeft: function() {
     if (this.numberOfColumns > 1) {
       orangee.debug('Orangee.ScrollView#onKeyLeft');
