@@ -42,6 +42,7 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     this.video.id = divid;
 
     var div = document.getElementById(divid);
+    this.video.setAttribute("class", div.getAttribute("class"));
     div.parentNode.replaceChild(this.video, div);
 
     if (options['onplaying']) {

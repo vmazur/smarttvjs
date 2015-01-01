@@ -64,6 +64,7 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
 
     e.id = divid;
     var div = document.getElementById(divid);
+    e.setAttribute("class", div.getAttribute("class"));
     div.parentNode.replaceChild(e, div);
 
     this.player = new YT.Player(divid, {
