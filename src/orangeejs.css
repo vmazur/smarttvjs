@@ -19,9 +19,9 @@ video {
     position:absolute;
     height:100%;
     width:100%;
+    top: 0;/*important for samsung, otherwise some space on top*/
     /*margin: 0;
     padding: 0;
-    top: 0;
     left: 0;*/
     overflow: hidden;
 }
