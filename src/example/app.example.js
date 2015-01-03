@@ -55,8 +55,8 @@ app.on("start", function(options){
 
   var name = {name: orangee.PLATFORM};
   var playlist = [
-    {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
     {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
+    {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
     {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
   ];
 
