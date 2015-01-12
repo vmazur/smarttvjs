@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var needle = require('needle');
 require('shelljs/global');
 var OrangeeJSUtil = require('./util');
 
@@ -69,6 +70,31 @@ OrangeeJSRunTask.prototype.run = function(name) {
     cd('build/android');
     OrangeeJSUtil.exec('cordova run android');
     cd('../..');
+  } else if (name === 'roku') {
+    var roku = JSON.parse(fs.readFileSync("package.json", "utf8"))['roku'];
+    if (!roku) {
+      console.log("please config roku ip/password first");
+      return;
+    }
+    var data = {
+      mysubmit: "Install",
+      archive: {file: 'build/roku.zip'},
+    };
+    var options = {
+      multipart: true,
+      auth: 'digest',
+      username: 'rokudev',
+      password: roku['password'],
+    };
+
+    console.log('http://' + roku['ip'] + '/plugin_install');
+    console.log(options);
+    needle.post('http://' + roku['ip'] + '/plugin_install', data, options, function(err, resp, body) {
+      console.log(err);
+      console.log(body);
+    });
+  } else {
+    console.log("UNKNOWN: " + name);
   }
 };
 
