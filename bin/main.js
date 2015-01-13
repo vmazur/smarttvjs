@@ -18,6 +18,8 @@ if (argv.version) {
 } else if (argv._.length >= 2 && argv._[0] == 'run') {
   var T = require('./tasks/run');
   (new T()).run(argv._[1]);
+} else if (argv._.length >= 1 && argv._[0] == 'console') {
+  require('xconsole.io');
 } else {
   console.log("orangeejs init");
   console.log("orangeejs build samsung|lg|ios|roku");
