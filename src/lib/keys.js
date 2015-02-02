@@ -67,10 +67,10 @@
             if (orangee.PLATFORM === 'samsung') {
               if (orangee.KEYS[event.keyCode] === 'back') {
                 orangee._samsungWidgetAPI.blockNavigation(event);//does not work with keyup
-              } else if (orangee.KEYS[event.keyCode] === 'exit') {
+              } /*else if (orangee.KEYS[event.keyCode] === 'exit') {
                 orangee._samsungWidgetAPI.blockNavigation(event);
                 orangee._samsungWidgetAPI.sendReturnEvent();
-              }
+              }*/
             }
             callback(event);
           });
