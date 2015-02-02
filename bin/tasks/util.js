@@ -33,7 +33,7 @@ OrangeeJSUtil.ui_css_sources = [
 
 OrangeeJSUtil.lib_js_sources = [
   'jquery.min.js',
-  //'jquery.lazyload.min.js', //sluggish on samsung tv
+  'jquery.lazyload.min.js', //sluggish on samsung tv
   'jquery.fullPage.min.js',
   'underscore-min.js',
   'backbone-min.js',
