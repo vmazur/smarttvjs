@@ -27,7 +27,7 @@
     "org.apache.cordova.geolocation"
   ],
   "dependencies": {
-    "archiver": "~0.8.0",
+    "archiver": "^0.8.1",
     "gm": "~1.14.2",
     "minimist": "0.0.8",
     "mustache": "~0.8.1",
