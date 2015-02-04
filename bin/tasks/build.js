@@ -25,9 +25,17 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   mkdir('-p', 'build/lg/WebContent');
-  
+
+
   cp("-rf", 'app/', 'build/lg/WebContent');
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.lg.js"), "build/lg/WebContent/lib/orangee.js");
+
+    var indexhtml = fs.readFileSync("build/lg/WebContent/index.html", "utf8");
+  indexhtml = indexhtml.replace("</head>",
+"<object type='application/x-netcast-info' id='device' width='0' height='0'></object>" +
+"</head>");
+  fs.writeFileSync("build/lg/WebContent/index.html", indexhtml);
+
 
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);

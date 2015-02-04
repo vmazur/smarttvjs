@@ -49,22 +49,39 @@ app.addRegions({
   video: "#video_view",
 });
 
-app.on("start", function(options){
+var MyController = Orangee.Controller.extend({
+  index: function() {
+    var name = {
+      name: orangee.PLATFORM, 
+      status: orangee.hasNetwork(),
+    };
+    var playlist = [
+      {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
+      {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
+      {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"},
+    ];
+
+    var list = new ListCollection(playlist);
+    var header = new HeaderModel(name);
+
+    app.header.show(new HeaderView({model: header}));
+    app.list.show(new ListView({collection: list}));
+    app.video.show(new VideoView({collection: list}));
+  },
+});
+
+var MyRouter = Orangee.Router.extend({
+  appRoutes: {
+    "": "index",
+  },
+});
+
+app.on("before:start", function(options) {
   orangee.debug_enabled = true;
+});
+
+app.on("start", function(options){
+  new MyRouter({controller: new MyController()});
   Backbone.history.start();
-
-  var name = {name: orangee.PLATFORM};
-  var playlist = [
-    {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
-    {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
-    {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"}
-  ];
-
-  var list = new ListCollection(playlist);
-  var header = new HeaderModel(name);
-
-  app.header.show(new HeaderView({model: header}));
-  app.list.show(new ListView({collection: list}));
-  app.video.show(new VideoView({collection: list}));
 });
 

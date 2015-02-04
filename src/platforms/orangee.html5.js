@@ -69,3 +69,12 @@ orangee.KEYS = {
 orangee.init = function(callback) {
 };
 
+orangee.hasNetwork = function() {
+  if (navigator.connection) {
+    //https://github.com/apache/cordova-plugin-network-information/blob/master/doc/index.md
+    return navigator.connection.type != Connection.NONE
+  } else {
+    //do not know, just return true
+    return true;
+  }
+};

@@ -70,3 +70,7 @@ orangee.KEYS = {
 orangee.init = function(callback) {
 };
 
+orangee.hasNetwork = function() {
+  var device = document.getElementById("device");
+  return device.net_isConnected;
+};

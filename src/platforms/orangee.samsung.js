@@ -31,6 +31,18 @@ window.onShow = function (e) {
   pluginAPI.unregistKey(orangee._samsungKeys.KEY_MUTE);
 };
 
+orangee.hasNetwork = function() {
+  var networkPlugin = document.getElementById('pluginObjectNetwork');
+  var connType = networkPlugin.GetActiveType();
+  var phyConn = networkPlugin.CheckPhysicalConnection(connType);
+  var httpStatus = networkPlugin.CheckHTTP(connType);
+  if (phyConn != 1 || httpStatus != 1) {
+    return false;
+  } else {
+     return true;
+  }
+};
+
 //https://github.com/leahciMic/polyfill-function-prototype-bind/blob/master/bind.js
 // Taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
 if (!Function.prototype.bind) {

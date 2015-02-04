@@ -10,6 +10,9 @@ Orangee.Application = Marionette.Application.extend({
   },
 });
 
+Orangee.Controller = Marionette.Controller.extend({});
+Orangee.Router = Backbone.Marionette.AppRouter.extend({});
+
 Orangee.Model = Backbone.Model.extend({
   initialize: function() {
     // Applies the mixin:
