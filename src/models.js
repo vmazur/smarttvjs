@@ -100,15 +100,15 @@ Orangee.CSVCollection = Orangee.XMLCollection.extend({
       if (lines[i].indexOf('http') == 0) {
 	      var currentline=lines[i].split(",");
         var obj = {};
-        obj['_url'] = currentline[0].trim();
-        obj['_img'] = currentline[1].trim();
+        obj['_url'] = currentline[0] ? currentline[0].trim() : null;
+        obj['_img'] = currentline[1] ? currentline[1].trim() : null;
         if (!obj['_img']) {
           var ytid = orangee._findYoutubeId(obj['_url']);
           if (ytid) {
             obj['_img'] = "http://i.ytimg.com//vi/" + ytid + "/mqdefault.jpg";
           }
         }
-        obj['_title'] = currentline[2].trim();
+        obj['_title'] = currentline[2] ? currentline[2].trim() : null;
         result.push(obj);
       }
     }
