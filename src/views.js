@@ -27,7 +27,7 @@ OrangeeScrollerBehavior = Marionette.Behavior.extend({
     orangee.debug("OrangeeScrollerBehavior#onShow");
     orangee.debug(this.view.getOption('scroll'));
     //orangee.debug(this.el.parentNode.parentNode);
-    orangee.debug(this.el);
+    //orangee.debug(this.el);
     this.view.scroller = new orangee.scroller(this.el, this.view.getOption('scroll'));
     //http://stackoverflow.com/questions/11924711/how-to-make-iscroll-and-lazy-load-jquery-plugins-work-together
     //http://www.cnblogs.com/MartinLi841538513/articles/3663638.html

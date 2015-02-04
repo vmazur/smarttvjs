@@ -29,6 +29,10 @@ video {
     min-width: 100%;
     min-height: 100%;
 }
+.oge-fullscreenvideo iframe {
+    min-width: 100%;
+    min-height: 100%;
+}
 
 /*
 #oge-header {
