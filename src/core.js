@@ -35,3 +35,14 @@ orangee._loadYoutubeApi = function() {
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 };
+
+orangee._findYoutubeId = function(urlString) {
+  if (window.url('domain', urlString) === "youtube.com") {
+    return window.url('?v', urlString);
+  } else if (window.url('domain', urlString) === "youtu.be") {
+    window.url('file', urlString);
+  }
+
+  return null;
+};
+

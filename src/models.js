@@ -68,7 +68,8 @@ Orangee.Collection = Backbone.PageableCollection.extend({
 Orangee.XMLCollection = Orangee.Collection.extend({
   fetch: function(options) {
     options = options || {};
-    options.dataType = "html";
+    //options.dataType = "html";
+    options.dataType = "text";
     return Backbone.Collection.prototype.fetch.apply(this, arguments);
   },
   parse: function(xml) {
@@ -87,3 +88,29 @@ Orangee.OPMLCollection = Orangee.XMLCollection.extend({
 });
 
 Orangee.RSSCollection = Orangee.XMLCollection.extend();
+
+Orangee.CSVCollection = Orangee.XMLCollection.extend({
+  parse:function(csv) {
+    var lines=csv.split("\n");
+    var result = [];
+    for(var i=1;i<lines.length;i++) {
+      if (lines[i].indexOf('http') == 0) {
+	      var currentline=lines[i].split(",");
+        var obj = {};
+        obj['_url'] = currentline[0].trim();
+        obj['_img'] = currentline[1].trim();
+        if (!obj['_img']) {
+          var ytid = orangee._findYoutubeId(obj['_url']);
+          if (ytid) {
+            obj['_img'] = "http://i.ytimg.com//vi/" + ytid + "/mqdefault.jpg";
+          }
+        }
+        obj['_title'] = currentline[2].trim();
+        result.push(obj);
+      }
+    }
+    return result;
+  },
+});
+
+
