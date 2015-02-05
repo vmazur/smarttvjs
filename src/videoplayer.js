@@ -97,7 +97,7 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
 
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url, function() {
-    if (this.translate_url) {
+    if (this.currentplayer.support_translate && this.translate_url) {
       var self= this;
       this.translate_url(url, function(err, new_url) {
         self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
@@ -121,7 +121,7 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
       this.connectplayer.load(url, startSeconds, this.divid, this.options);
       //beamed video always play automatically
     } else {
-      if (this.translate_url) {
+      if (this.current_player.support_translate && this.translate_url) {
         var self= this;
         this.translate_url(url, function(err, new_url) {
           self.currentplayer.load(new_url, startSeconds, self.divid, self.options);

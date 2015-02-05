@@ -4,6 +4,7 @@ orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.startSeconds = 0;
   this.onpause = null;
   this.currentTime = 0;
+  this.support_translate = true;
 };
 
 orangee.samsungplayer.prototype.play = function() {

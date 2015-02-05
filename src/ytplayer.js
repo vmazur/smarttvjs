@@ -1,6 +1,7 @@
 //it is better to wait until onYouTubePlayerAPIReady(playerId)
 orangee.ytplayer = function _OrangeeJSYTPlayer() {
   this.player = null;
+  this.support_translate = false;
 };
 
 orangee.ytplayer.prototype.play = function() {

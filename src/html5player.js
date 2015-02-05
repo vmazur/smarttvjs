@@ -1,5 +1,6 @@
 orangee.html5player = function _OrangeeJSHTML5Player() {
   this.video = null;
+  this.support_translate = true;
 };
 
 orangee.html5player.prototype.play = function() {
