@@ -6,8 +6,8 @@ orangee.videoplayer = function(options) {
   this.div = null;
   this.device = null;
   options = options || {};
-  this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : 1;
-  this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : 0;
+  this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : true;
+  this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : false;
   this.translate_url = options['translate_url'];
   this.playing = false;
 };
@@ -111,7 +111,7 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
 orangee.videoplayer.prototype.switchVideo = function(index) {
   this.currentIndex = index;
   var startSeconds = 0;
-  
+
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url, function() {
     if (this.device) {
@@ -122,20 +122,24 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
       //beamed video always play automatically
     } else {
       if (this.translate_url) {
-        url = this.translate_url(url);
+        var self= this;
+        this.translate_url(url, function(err, new_url) {
+          self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
+        });
+      } else {
+        this.currentplayer.load(url, startSeconds, this.divid, this.options);
       }
-      this.currentplayer.load(url, startSeconds, this.divid, this.options);
     }
   }.bind(this));
 };
 
 orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
-  if (orangee.PLATFORM === 'samsung' && this.support_samsung != 0) {
+  if (orangee.PLATFORM === 'samsung' && this.support_samsung) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.samsungplayer.name) {
       this.currentplayer = new orangee.samsungplayer();
       callback();
     }
-  } else if (this.support_youtube == 1 && url.indexOf('youtube.com') > -1) {
+  } else if (this.support_youtube && url.indexOf('youtube.com') > -1) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
       if (orangee._youtubeReady) {
         this.currentplayer = new orangee.ytplayer();
