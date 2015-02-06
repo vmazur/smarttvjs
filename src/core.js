@@ -36,6 +36,19 @@ orangee._loadYoutubeApi = function() {
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 };
 
+orangee._loadDailymotionApi = function() {
+  window.dmAsyncInit = function() {
+    //DM.init({apiKey: 'your app id', status: true, cookie: true});
+    orangee.debug("onYouTubeIframeAPIReady");
+    orangee._dailymotionReady = true;
+    $(document).trigger("oge-dailymotionready");
+  };
+  var e = document.createElement('script'); e.async = true;
+  e.src = 'http://api.dmcdn.net/all.js';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(e, s);
+};
+
 orangee._findYoutubeId = function(urlString) {
   if (window.url('domain', urlString) === "youtube.com") {
     return window.url('?v', urlString);
@@ -46,3 +59,6 @@ orangee._findYoutubeId = function(urlString) {
   return null;
 };
 
+orangee._findDailymotionId = function(urlString) {
+  return window.url('file', urlString);
+};

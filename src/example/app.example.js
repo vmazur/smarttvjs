@@ -1,6 +1,6 @@
 //your script here
 'use strict';
-var app = new Orangee.Application({youtube: true});
+var app = new Orangee.Application({youtube: true, dailymotion: true});
 
 var HeaderModel = Orangee.Model.extend();
 var ListItemModel = Orangee.Model.extend();
@@ -58,6 +58,7 @@ var MyController = Orangee.Controller.extend({
     var playlist = [
       {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
       {url: "https://www.youtube.com/watch?v=2Zj_kxYBu1Y", name: "youtube video"},
+      {url: "http://www.dailymotion.com/video/x1dnbxj", name: "dailymotion video"},
       {url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8", name: "m3u8 video"},
     ];
 

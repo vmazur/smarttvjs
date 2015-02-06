@@ -7,6 +7,7 @@ orangee.videoplayer = function(options) {
   this.device = null;
   options = options || {};
   this.support_youtube = (typeof(options['youtube']) != 'undefined') ? options['youtube'] : true;
+  this.support_dailymotion = (typeof(options['dailymotion']) != 'undefined') ? options['dailymotion'] : true;
   this.support_samsung = (typeof(options['samsung']) != 'undefined') ? options['samsung'] : false;
   this.translate_url = options['translate_url'];
   this.playing = false;
@@ -121,7 +122,7 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
       this.connectplayer.load(url, startSeconds, this.divid, this.options);
       //beamed video always play automatically
     } else {
-      if (this.current_player.support_translate && this.translate_url) {
+      if (this.currentplayer.support_translate && this.translate_url) {
         var self= this;
         this.translate_url(url, function(err, new_url) {
           self.currentplayer.load(new_url, startSeconds, self.divid, self.options);
@@ -139,7 +140,7 @@ orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
       this.currentplayer = new orangee.samsungplayer();
       callback();
     }
-  } else if (this.support_youtube && url.indexOf('youtube.com') > -1) {
+  } else if (this.support_youtube && (url.indexOf('youtube.com') > -1 || url.indexOf('youtu.be') > -1)) {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
       if (orangee._youtubeReady) {
         this.currentplayer = new orangee.ytplayer();
@@ -148,6 +149,19 @@ orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
         $(document).on('oge-youtubeready', function() {
           orangee.debug('oge-youtubeready');
           this.currentplayer = new orangee.ytplayer();
+          callback();
+        }.bind(this));
+      }
+    }
+  } else if (this.support_dailymotion && url.indexOf('dailymotion.com') > -1) {
+    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.dmplayer.name) {
+      if (orangee._dailymotionReady) {
+        this.currentplayer = new orangee.dmplayer();
+        callback();
+      } else {
+        $(document).on('oge-dailymotionready', function() {
+          orangee.debug('oge-dailymotionready');
+          this.currentplayer = new orangee.dmplayer();
           callback();
         }.bind(this));
       }

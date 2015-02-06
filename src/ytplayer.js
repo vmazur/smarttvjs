@@ -1,4 +1,3 @@
-//it is better to wait until onYouTubePlayerAPIReady(playerId)
 orangee.ytplayer = function _OrangeeJSYTPlayer() {
   this.player = null;
   this.support_translate = false;
@@ -25,7 +24,7 @@ orangee.ytplayer.prototype.seek = function(second) {
 };
 
 orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
-  var vid = url.split('watch?v=')[1];
+  var vid = orangee._findYoutubeId(url);
   startSeconds = Math.round(startSeconds);// youtube api only takes positive integer
 
   if (this.player) {

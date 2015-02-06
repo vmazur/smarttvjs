@@ -9,6 +9,7 @@ function OrangeeJSUtil() {
 OrangeeJSUtil.core_js_sources = [
   'core.js',
   'ytplayer.js',
+  'dmplayer.js',
   'connectplayer.js',
   'html5player.js',
   'videoplayer.js',

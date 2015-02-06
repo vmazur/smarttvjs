@@ -61,8 +61,8 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
   this.video.load();
   var self = this;
   this.video.addEventListener("canplay",function() { 
-    self.video.currentTime = startSeconds;}
-  );
+    self.video.currentTime = startSeconds;
+  });
 };
 
 

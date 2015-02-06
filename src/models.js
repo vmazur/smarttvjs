@@ -7,6 +7,9 @@ Orangee.Application = Marionette.Application.extend({
     if (options && options['youtube']) {
       orangee._loadYoutubeApi();
     }
+    if (options && options['dailymotion']) {
+      orangee._loadDailymotionApi();
+    }
   },
 });
 
