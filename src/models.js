@@ -100,18 +100,30 @@ Orangee.CSVCollection = Orangee.XMLCollection.extend({
     var lines=csv.split("\n");
     var result = [];
     for(var i=1;i<lines.length;i++) {
-      if (lines[i].indexOf('http') == 0) {
-	      var currentline=lines[i].split(",");
+      if (lines[i].length > 0 && lines[i][0] != '#' && lines[i][0] != " ") {
+	      var currentline=lines[i].split(/[ ,]+/);
         var obj = {};
-        obj['_url'] = currentline[0] ? currentline[0].trim() : null;
-        obj['_img'] = currentline[1] ? currentline[1].trim() : null;
+        if (currentline[0].toLowerCase().indexOf('http') == 0) {
+          obj['_title'] = null;
+          obj['_url'] = currentline[0] ? currentline[0].trim() : null;
+          obj['_img'] = currentline[1] ? currentline[1].trim() : null;
+        } else {
+          obj['_title'] = currentline[0] ? currentline[0].trim() : null;
+          obj['_url'] = currentline[1] ? currentline[1].trim() : null;
+          obj['_img'] = currentline[2] ? currentline[2].trim() : null;
+        }
+
+        if (!obj['_url'] || obj['_url'].trim().length == 0) {
+          continue;
+        }
+
         if (!obj['_img']) {
           var ytid = orangee._findYoutubeId(obj['_url']);
           if (ytid) {
             obj['_img'] = "http://i.ytimg.com//vi/" + ytid + "/mqdefault.jpg";
           }
         }
-        obj['_title'] = currentline[2] ? currentline[2].trim() : null;
+
         result.push(obj);
       }
     }
