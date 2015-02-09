@@ -101,7 +101,12 @@ Orangee.CSVCollection = Orangee.XMLCollection.extend({
     var result = [];
     for(var i=1;i<lines.length;i++) {
       if (lines[i].length > 0 && lines[i][0] != '#' && lines[i][0] != " ") {
-	      var currentline=lines[i].split(/[ ,]+/);
+	      var currentline = [];
+        if (lines[i].indexOf(',') >= 0) {
+          currentline = lines[i].split(",");
+        } else {
+          currentline = lines[i].split(/[ ]+/);
+        }
         var obj = {};
         if (currentline[0].toLowerCase().indexOf('http') == 0) {
           obj['_title'] = null;
