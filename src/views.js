@@ -132,6 +132,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
     //orangee.debug(this.getOption('player'));
     this.videoplayer = new orangee.videoplayer({
       youtube: this.getOption('youtube'),
+      dailymotion: this.getOption('dailymotion'),
       translate_url: (typeof(OrangeeJSPlugin) != 'undefined') ? OrangeeJSPlugin : null,
     });
     var onplaying = this.getOption('onPlaying');
