@@ -53,7 +53,7 @@ orangee._findYoutubeId = function(urlString) {
   if (window.url('domain', urlString) === "youtube.com") {
     return window.url('?v', urlString);
   } else if (window.url('domain', urlString) === "youtu.be") {
-    window.url('file', urlString);
+    return window.url('file', urlString);
   }
 
   return null;
