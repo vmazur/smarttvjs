@@ -125,7 +125,7 @@ Orangee.CSVCollection = Orangee.XMLCollection.extend({
         if (!obj['_img']) {
           var ytid = orangee._findYoutubeId(obj['_url']);
           if (ytid) {
-            obj['_img'] = "http://i.ytimg.com//vi/" + ytid + "/mqdefault.jpg";
+            obj['_img'] = "http://i.ytimg.com/vi/" + ytid + "/mqdefault.jpg";
           }
         }
 
