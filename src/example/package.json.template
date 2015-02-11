@@ -2,6 +2,7 @@
   "name": "{{name}}",
   "package": "com.orangeejs.{{name}}",
   "version": "0.0.0",
+  "category": "videos",
   "description": "",
   "samsung_vm": "2014_Smart_TV_Emulator_5_0",
   "android_vm": "Samsung Galaxy S4 - 4.3 - API 18 - 1080x1920",

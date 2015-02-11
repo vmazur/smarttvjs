@@ -5,7 +5,7 @@
   <ListIcon>icons/icon_85.png</ListIcon>
   <BigListIcon>icons/icon_95.png</BigListIcon>
 	
-	<category>information</category>
+  <category>{{category}}</category>
 	<autoUpdate>y</autoUpdate>
 
   <cpname>{{name}}</cpname>
