@@ -29,6 +29,9 @@ window.onShow = function (e) {
   pluginAPI.unregistKey(orangee._samsungKeys.KEY_VOL_UP);
   pluginAPI.unregistKey(orangee._samsungKeys.KEY_VOL_DOWN);
   pluginAPI.unregistKey(orangee._samsungKeys.KEY_MUTE);
+
+  //http://www.samsungdforum.com/Guide/index.html?FolderName=tec00115&FileName=index.html
+  sf.service.setScreenSaver(false);
 };
 
 orangee.hasNetwork = function() {
