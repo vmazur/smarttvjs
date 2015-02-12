@@ -42,6 +42,7 @@ Orangee.XMLModel = Orangee.Model.extend({
 
 //http://jaketrent.com/post/backbone-inheritance/
 Orangee.Collection = Backbone.PageableCollection.extend({
+  model: Orangee.Model,
   initialize: function(models, options) {
     // Applies the mixin:
     Backbone.Select.One.applyTo(this, models, options);
@@ -78,10 +79,6 @@ Orangee.XMLCollection = Orangee.Collection.extend({
     options.dataType = "text";
     return Backbone.Collection.prototype.fetch.apply(this, arguments);
   },
-  parse: function(xml) {
-    var json = orangee.xml2json(xml);
-    return json.rss.channel.item;
-  },
 });
 
 Orangee.OPMLCollection = Orangee.XMLCollection.extend({
@@ -93,7 +90,12 @@ Orangee.OPMLCollection = Orangee.XMLCollection.extend({
   },
 });
 
-Orangee.RSSCollection = Orangee.XMLCollection.extend();
+Orangee.RSSCollection = Orangee.XMLCollection.extend({
+  parse: function(xml) {
+    var json = orangee.xml2json(xml);
+    return json.rss.channel.item;
+  },
+});
 
 Orangee.CSVCollection = Orangee.XMLCollection.extend({
   parse:function(csv) {
