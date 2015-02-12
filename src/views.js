@@ -151,8 +151,11 @@ Orangee.VideoView = Orangee.ItemView.extend({
   },
   keyEvents: {
     'right': 'onKeyRight',
+    'fastforward': 'onKeyRight',
     'left' : 'onKeyLeft',
+    'rewind': 'onKeyRight',
     'play' : 'onKeyPlay',
+    'pause' : 'onKeyPlay',
   },
   onKeyPlay: function() {
     orangee.debug('Orangee.VideoView#onKeyPlay');
