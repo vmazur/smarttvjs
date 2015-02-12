@@ -78,3 +78,9 @@ orangee.hasNetwork = function() {
     return true;
   }
 };
+
+orangee.disableScreenSaver = function() {
+};
+
+orangee.enableScreenSaver = function() {
+};

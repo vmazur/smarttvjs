@@ -74,3 +74,10 @@ orangee.hasNetwork = function() {
   var device = document.getElementById("device");
   return device.net_isConnected;
 };
+
+
+orangee.disableScreenSaver = function() {
+};
+
+orangee.enableScreenSaver = function() {
+};
