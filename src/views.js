@@ -155,11 +155,16 @@ Orangee.VideoView = Orangee.ItemView.extend({
     'left' : 'onKeyLeft',
     'rewind': 'onKeyRight',
     'play' : 'onKeyPlay',
-    'pause' : 'onKeyPlay',
+    'pause' : 'onKeyPause',
+    'stop' : 'onKeyPause',
   },
   onKeyPlay: function() {
     orangee.debug('Orangee.VideoView#onKeyPlay');
     this.videoplayer.togglePlay();
+  },
+  onKeyPause: function() {
+    orangee.debug('Orangee.VideoView#onKeyPause');
+    this.videoplayer.pause();
   },
   onKeyRight: function() {
     orangee.debug('Orangee.VideoView#onKeyRight');

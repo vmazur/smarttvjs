@@ -12,6 +12,7 @@ orangee.init = function(callback) {
   orangee.KEYS[orangee._samsungKeys.KEY_DOWN] = "down";
   orangee.KEYS[orangee._samsungKeys.KEY_PLAY] = "play";
   orangee.KEYS[orangee._samsungKeys.KEY_PAUSE] = "pause";
+  orangee.KEYS[orangee._samsungKeys.KEY_STOP] = "stop";
   orangee.KEYS[orangee._samsungKeys.KEY_RW] = "rewind";
   orangee.KEYS[orangee._samsungKeys.KEY_FF] = "fastforward";
   orangee.KEYS[orangee._samsungKeys.KEY_RETURN] = "back";
