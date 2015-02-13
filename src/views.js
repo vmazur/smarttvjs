@@ -8,7 +8,8 @@ Marionette.Behaviors.behaviorsLookup = function() {
   return window;
 }
 
-OrangeeHotKeysBehavior = Marionette.Behavior.extend({
+var OrangeeHotKeysBehavior = Marionette.Behavior.extend({
+  typeName: "OrangeeHotKeysBehavior",
   onRender: function() {
     if (this.view.keyEvents) {
       HotKeys.bind(this.view.keyEvents, this.view, this.view.cid);
@@ -22,7 +23,8 @@ OrangeeHotKeysBehavior = Marionette.Behavior.extend({
   },
 });
 
-OrangeeScrollerBehavior = Marionette.Behavior.extend({
+var OrangeeScrollerBehavior = Marionette.Behavior.extend({
+  typeName: "OrangeeScrollerBehavior",
   onShow: function() {
     orangee.debug("OrangeeScrollerBehavior#onShow");
     orangee.debug(this.view.getOption('scroll'));
@@ -47,7 +49,8 @@ OrangeeScrollerBehavior = Marionette.Behavior.extend({
   },
 });
 
-OrangeeLazyloadBehavior = Marionette.Behavior.extend({
+var OrangeeLazyloadBehavior = Marionette.Behavior.extend({
+  typeName: "OrangeeLazyloadBehavior",
   onShow: function() {
     this.view.$("img.lazy").lazyload({
       effect : "fadeIn",
@@ -56,7 +59,8 @@ OrangeeLazyloadBehavior = Marionette.Behavior.extend({
   },
 });
 
-OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
+var OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
+  typeName: "OrangeeNoExtraDivBehavior",
   //http://stackoverflow.com/questions/14656068/turning-off-div-wrap-for-backbone-marionette-itemview
   onRender: function () {
     //orangee.debug("OrangeeNoExtraDivBehavior#onRender");
@@ -77,6 +81,7 @@ OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
 });
 
 Orangee.ItemView = Marionette.ItemView.extend({
+  typeName: "Orangee.ItemView",
   behaviors: {
     OrangeeHotKeysBehavior: {},
     OrangeeNoExtraDivBehavior: {},
@@ -89,6 +94,7 @@ Orangee.ItemView = Marionette.ItemView.extend({
 });
 
 Orangee.CompositeView = Marionette.CompositeView.extend({
+  typeName: "Orangee.CompositeView",
   behaviors: {
     OrangeeHotKeysBehavior: {},
     OrangeeNoExtraDivBehavior: {},
@@ -99,6 +105,7 @@ Orangee.CompositeView = Marionette.CompositeView.extend({
 });
 
 Orangee.SpinnerView = Marionette.ItemView.extend({
+  typeName: "Orangee.SpinnerView",
   template: false,
   opts: {
     lines: 13, // The number of lines to draw
@@ -127,6 +134,7 @@ Orangee.SpinnerView = Marionette.ItemView.extend({
 });
 
 Orangee.VideoView = Orangee.ItemView.extend({
+  typeName: "Orangee.VideoView",
   onShow: function() {
     orangee.debug("Orangee.VideoView#onShow");
     //orangee.debug(this.getOption('player'));
@@ -177,6 +185,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
 });
 
 Orangee.ScrollItemView = Orangee.ItemView.extend({
+  typeName: "Orangee.ScrollItemView",
   events: {
     'click': 'onClick',
     'mouseover': 'onMouseOver',
@@ -217,6 +226,7 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
 });
 
 Orangee.ScrollView = Orangee.CompositeView.extend({
+  typeName: "Orangee.ScrollView",
   behaviors: {
     OrangeeHotKeysBehavior: {},
     OrangeeNoExtraDivBehavior: {},
@@ -271,6 +281,7 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
 });
 
 Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
+  typeName: "Orangee.HorizontalScrollView",
   scroll: {
     mouseWheel: true,
     scrollX: true,

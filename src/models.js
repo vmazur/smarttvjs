@@ -1,6 +1,7 @@
 'use strict';
 
 Orangee.Application = Marionette.Application.extend({
+  typeName: "Orangee.Application",
   initialize: function(options) {
     //console.log("Orangee.Application#initialize");
     orangee.init();
@@ -13,10 +14,16 @@ Orangee.Application = Marionette.Application.extend({
   },
 });
 
-Orangee.Controller = Marionette.Controller.extend({});
-Orangee.Router = Backbone.Marionette.AppRouter.extend({});
+Orangee.Controller = Marionette.Controller.extend({
+  typeName: "Orangee.Controller",
+});
+
+Orangee.Router = Backbone.Marionette.AppRouter.extend({
+  typeName: "Orangee.Router",
+});
 
 Orangee.Model = Backbone.Model.extend({
+  typeName: "Orangee.Model",
   initialize: function() {
     // Applies the mixin:
     Backbone.Select.Me.applyTo(this);
@@ -30,6 +37,7 @@ Orangee.Model = Backbone.Model.extend({
 });
 
 Orangee.XMLModel = Orangee.Model.extend({
+  typeName: "Orangee.XMLModel",
   fetch: function(options) {
     options = options || {};
     options.dataType = "html";
@@ -42,6 +50,7 @@ Orangee.XMLModel = Orangee.Model.extend({
 
 //http://jaketrent.com/post/backbone-inheritance/
 Orangee.Collection = Backbone.PageableCollection.extend({
+  typeName: "Orangee.Collection",
   model: Orangee.Model,
   initialize: function(models, options) {
     // Applies the mixin:
@@ -73,6 +82,7 @@ Orangee.Collection = Backbone.PageableCollection.extend({
 });
 
 Orangee.XMLCollection = Orangee.Collection.extend({
+  typeName: "Orangee.XMLCollection",
   fetch: function(options) {
     options = options || {};
     //options.dataType = "html";
@@ -82,6 +92,7 @@ Orangee.XMLCollection = Orangee.Collection.extend({
 });
 
 Orangee.OPMLCollection = Orangee.XMLCollection.extend({
+  typeName: "Orangee.OPMLCollection",
   parse:function(xml) {
     //orangee.debug(xml);
     //var response = {data: json.opml.body.outline.map(function(x) {return {name: x._title, standardPic: x._img, url: x._url}})}
@@ -91,6 +102,7 @@ Orangee.OPMLCollection = Orangee.XMLCollection.extend({
 });
 
 Orangee.RSSCollection = Orangee.XMLCollection.extend({
+  typeName: "Orangee.RSSCollection",
   parse: function(xml) {
     var json = orangee.xml2json(xml);
     return json.rss.channel.item;
@@ -98,6 +110,7 @@ Orangee.RSSCollection = Orangee.XMLCollection.extend({
 });
 
 Orangee.CSVCollection = Orangee.XMLCollection.extend({
+  typeName: "Orangee.CSVCollection",
   parse:function(csv) {
     var lines=csv.split("\n");
     var result = [];
