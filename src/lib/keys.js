@@ -1,5 +1,5 @@
 //https://raw.githubusercontent.com/Puppets/marionette-cookbook/master/recipes/hotkeys/util.js
-;(function(root, $) {
+(function(root, $) {
    var valid_modifiers = ['alt', 'ctrl', 'meta', 'shift'];
 
     var eventsNamespace = {};
@@ -86,4 +86,4 @@
         'unbind': unbind,
         //'onKeydown': onKeydown,
     };
-}(window, $))
+}(window, $));
