@@ -13,37 +13,38 @@ OrangeeJSUtil.core_js_sources = [
   'connectplayer.js',
   'html5player.js',
   'videoplayer.js',
+  'storage.js',
   'lib/openfb.js',
   'lib/xml2json.min.js',
   'lib/keys.js',
-  'storage.js',
-];
 
-OrangeeJSUtil.ui_js_sources = [
-  'lib/snap.min.js',
+  //'lib/snap.min.js',
   'lib/iscroll.js',
   'lib/spin.min.js',
-  'lib/url.min.js',
+  'lib/url.js',
+  //'lib/move.min.js',
+
+  'lib/jquery.lazyload.min.js', //sluggish on samsung tv
+  //'lib/jquery.fullPage.min.js',
+
+  'lib/backbone.marionette.min.js',
+  'lib/backbone.paginator.min.js',
+  'lib/backbone.select.min.js',
+  'lib/backbone.mutators.min.js',
+
   'models.js',
   'views.js',
 ];
 
-OrangeeJSUtil.ui_css_sources = [
+OrangeeJSUtil.core_css_sources = [
   'orangeejs.css',
   'lib/snap.css',
 ];
 
 OrangeeJSUtil.lib_js_sources = [
   'jquery.min.js',
-  'jquery.lazyload.min.js', //sluggish on samsung tv
-  'jquery.fullPage.min.js',
   'underscore-min.js',
   'backbone-min.js',
-  'backbone.marionette.min.js',
-  'backbone.paginator.min.js',
-  'backbone.select.min.js',
-  'backbone.mutators.min.js',
-  'move.min.js',
 ];
 
 OrangeeJSUtil.lib_css_sources = [

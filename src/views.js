@@ -1,7 +1,7 @@
 'use strict';
 
 orangee.scroller = IScroll;
-orangee.sidemenu = Snap;
+//orangee.sidemenu = Snap;
 orangee.spinner = Spinner;
 
 Marionette.Behaviors.behaviorsLookup = function() {

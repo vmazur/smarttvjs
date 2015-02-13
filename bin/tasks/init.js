@@ -29,9 +29,8 @@ OrangeeJSInitTask.prototype.run = function(debug) {
     cp(src + "/assets/stylesheets/" + value, "app/lib/" + value);
   });
   cp("-r", src + "/assets/fonts", "app/lib/");
-  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.ui_css_sources, "app/lib/orangee-ui.css");
+  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.core_css_sources, "app/lib/orangee.css");
   OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/lib/orangee.js", debug);
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.ui_js_sources, "app/lib/orangee-ui.js", debug);
 
   cp(src + '/example/icon.example.png', 'assets/icon.png');
   cp(src + '/example/splash-portrait.example.png',  'assets/splash-portrait.png');
