@@ -1,6 +1,11 @@
 //your script here
 'use strict';
-var app = new Orangee.Application({youtube: true, dailymotion: true});
+var app = new Orangee.Application({
+  options: {
+    youtube: true,
+    dailymotion: true,
+  },
+});
 
 var HeaderModel = Orangee.Model.extend();
 var ListItemModel = Orangee.Model.extend();
@@ -27,9 +32,11 @@ var ListView = Orangee.ScrollView.extend({
 
 var VideoView =  Orangee.VideoView.extend({
   template: '#video_template',
-  divid: 'myvideo',
-  playerVars: {
-    playsinline: 1
+  options: {
+    divid: 'myvideo',
+    playerVars: {
+      playsinline: 1
+    },
   },
   onPlaying: function() {
     orangee.log('playing');

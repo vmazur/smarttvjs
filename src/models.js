@@ -2,13 +2,13 @@
 
 Orangee.Application = Marionette.Application.extend({
   typeName: "Orangee.Application",
-  initialize: function(options) {
+  initialize: function() {
     //orangee.debug("Orangee.Application#initialize");
     orangee.init();
-    if (options && options['youtube']) {
+    if (this.getOption('youtube')) {
       orangee._loadYoutubeApi();
     }
-    if (options && options['dailymotion']) {
+    if (this.getOption('dailymotion')) {
       orangee._loadDailymotionApi();
     }
   },

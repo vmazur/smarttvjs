@@ -1,3 +1,12 @@
+OrangeeJS is a cross platform framework to developer smart tv apps. It
+is based upon html5 and other js libraries including backbone/marionette.
+
+Its command line interface is tested with Mac only, and some of them
+(when replying on external program) may not work with other OS.
+
+Example app build with orangeejs:
+https://github.com/orangeejs/orangeeplayer
+
 Install
 ====
 install virtual pc 4.2 (lg does not support 4.3)
@@ -37,7 +46,14 @@ orangeejs run samsung
 orangeejs run lg
 ```
 
+Debug
+====
+
+```bash
+orangeejs console
+
 Optional:
+```
 
 in samsung sdk, import project from build/samsung 
 

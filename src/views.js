@@ -234,11 +234,13 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     OrangeeLazyloadBehavior: {},
   },
   childViewContainer: "ul",
-  scroll: {
-    //click: true,
-    mouseWheel: true,
-    scrollbars: true,
-    //keyBindings: true,
+  options: {
+    scroll: {
+      //click: true,
+      mouseWheel: true,
+      scrollbars: true,
+      //keyBindings: true,
+    },
   },
   numberOfColumns: 1,
   keyEvents: {
@@ -282,10 +284,12 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
 
 Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
   typeName: "Orangee.HorizontalScrollView",
-  scroll: {
-    mouseWheel: true,
-    scrollX: true,
-    scrollY: false,
+  options: {
+    scroll: {
+      mouseWheel: true,
+      scrollX: true,
+      scrollY: false,
+    },
   },
 });
 
