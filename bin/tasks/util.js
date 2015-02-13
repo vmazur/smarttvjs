@@ -42,6 +42,7 @@ OrangeeJSUtil.lib_js_sources = [
   'backbone.marionette.min.js',
   'backbone.paginator.min.js',
   'backbone.select.min.js',
+  'backbone.mutators.min.js',
   'move.min.js',
 ];
 

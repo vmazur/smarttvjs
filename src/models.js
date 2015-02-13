@@ -101,11 +101,34 @@ Orangee.OPMLCollection = Orangee.XMLCollection.extend({
   },
 });
 
+Orangee.RSSItemModel = Orangee.Model.extend({
+  typeName: "Orangee.RSSItemModel",
+  mutators: {
+    thumbnail_url: function() {
+      if (this.get("thumbnail")) {
+        return this.get("thumbnail")._url;
+      } else if (this.collection) {
+        return this.collection.thumbnail_url;
+      } else {
+        return null;
+      }
+    },
+  },
+});
+
 Orangee.RSSCollection = Orangee.XMLCollection.extend({
   typeName: "Orangee.RSSCollection",
+  model: Orangee.RSSItemModel,
   parse: function(xml) {
     var json = orangee.xml2json(xml);
-    return json.rss.channel.item;
+    if (json.rss.channel.image) {
+      var image = json.rss.channel.image;
+      if (_.isArray(image)) {
+        image = image[0];
+      }
+      this.thumbnail_url = image.url || image._href;
+    }
+    return _.filter(json.rss.channel.item, function(x) {return x.enclosure;});
   },
 });
 
