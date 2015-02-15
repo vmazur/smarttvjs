@@ -27,10 +27,10 @@ var OrangeeScrollerBehavior = Marionette.Behavior.extend({
   typeName: "OrangeeScrollerBehavior",
   onShow: function() {
     orangee.debug("OrangeeScrollerBehavior#onShow");
-    orangee.debug(this.view.getOption('scroll'));
+    orangee.debug(this.view.getOption('options'));
     //orangee.debug(this.el.parentNode.parentNode);
     //orangee.debug(this.el);
-    this.view.scroller = new orangee.scroller(this.el, this.view.getOption('scroll'));
+    this.view.scroller = new orangee.scroller(this.el, this.view.getOption('options'));
     //http://stackoverflow.com/questions/11924711/how-to-make-iscroll-and-lazy-load-jquery-plugins-work-together
     //http://www.cnblogs.com/MartinLi841538513/articles/3663638.html
     //http://blog.rodneyrehm.de/archives/32-Updating-to-iScroll-5.html
@@ -107,7 +107,7 @@ Orangee.CompositeView = Marionette.CompositeView.extend({
 Orangee.SpinnerView = Marionette.ItemView.extend({
   typeName: "Orangee.SpinnerView",
   template: false,
-  opts: {
+  options: {
     lines: 13, // The number of lines to draw
     length: 20, // The length of each line
     width: 10, // The line thickness
@@ -115,7 +115,7 @@ Orangee.SpinnerView = Marionette.ItemView.extend({
     corners: 1, // Corner roundness (0..1)
     rotate: 0, // The rotation offset
     direction: 1, // 1: clockwise, -1: counterclockwise
-    color: '#000', // #rgb or #rrggbb or array of colors
+    color: '#FFF', // #rgb or #rrggbb or array of colors
     speed: 1, // Rounds per second
     trail: 60, // Afterglow percentage
     shadow: false, // Whether to render a shadow
@@ -126,7 +126,7 @@ Orangee.SpinnerView = Marionette.ItemView.extend({
     left: '50%' // Left position relative to parent
   },
   onShow: function() {
-    this.spinner = new orangee.spinner(this.getOption('opts')).spin(this.el);
+    this.spinner = new orangee.spinner(this.getOption('options')).spin(this.el);
   },
   onDestroy: function() {
     this.spinner.stop();
@@ -235,12 +235,8 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
   },
   childViewContainer: "ul",
   options: {
-    scroll: {
-      //click: true,
-      mouseWheel: true,
-      scrollbars: true,
-      //keyBindings: true,
-    },
+    mouseWheel: true,
+    scrollbars: true,
   },
   numberOfColumns: 1,
   keyEvents: {
@@ -285,11 +281,9 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
 Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
   typeName: "Orangee.HorizontalScrollView",
   options: {
-    scroll: {
-      mouseWheel: true,
-      scrollX: true,
-      scrollY: false,
-    },
+    mouseWheel: true,
+    scrollX: true,
+    scrollY: false,
   },
 });
 

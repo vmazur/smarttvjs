@@ -44,7 +44,11 @@ var VideoView =  Orangee.VideoView.extend({
   },
 });
 
-var MyController = Orangee.Controller.extend({
+var MyRouter = Orangee.Router.extend({
+  appRoutes: {
+    "": "index",
+  },
+
   index: function() {
     var name = {
       name: orangee.PLATFORM, 
@@ -66,12 +70,6 @@ var MyController = Orangee.Controller.extend({
   },
 });
 
-var MyRouter = Orangee.Router.extend({
-  appRoutes: {
-    "": "index",
-  },
-});
-
 var app = new Orangee.Application({
   options: {
     enable_debug: true,
@@ -83,5 +81,5 @@ var app = new Orangee.Application({
     list: "#list_view",
     video: "#video_view",
   },
-  router: new MyRouter({controller: new MyController()}),
+  router: new MyRouter(),
 });
