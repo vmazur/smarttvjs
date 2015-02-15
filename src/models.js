@@ -3,14 +3,19 @@
 Orangee.Application = Marionette.Application.extend({
   typeName: "Orangee.Application",
   initialize: function() {
+    orangee.enable_debug = this.getOption('enable_debug');
     //orangee.debug("Orangee.Application#initialize");
     orangee.init();
-    if (this.getOption('youtube')) {
+    if (this.getOption('youtube_api')) {
       orangee._loadYoutubeApi();
     }
-    if (this.getOption('dailymotion')) {
+    if (this.getOption('dailymotion_api')) {
       orangee._loadDailymotionApi();
     }
+  },
+  start: function(options) {
+    Marionette.Application.prototype.start.apply(this, arguments);
+    Backbone.history.start();
   },
 });
 

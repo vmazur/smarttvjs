@@ -1,11 +1,5 @@
 //your script here
 'use strict';
-var app = new Orangee.Application({
-  options: {
-    youtube: true,
-    dailymotion: true,
-  },
-});
 
 var HeaderModel = Orangee.Model.extend();
 var ListItemModel = Orangee.Model.extend();
@@ -50,12 +44,6 @@ var VideoView =  Orangee.VideoView.extend({
   },
 });
 
-app.addRegions({
-  header: "#header_view",
-  list: "#list_view",
-  video: "#video_view",
-});
-
 var MyController = Orangee.Controller.extend({
   index: function() {
     var name = {
@@ -84,12 +72,16 @@ var MyRouter = Orangee.Router.extend({
   },
 });
 
-app.on("before:start", function(options) {
-  orangee.debug_enabled = true;
+var app = new Orangee.Application({
+  options: {
+    enable_debug: true,
+    youtube_api: true,
+    dailymotion_api: true,
+  },
+  regions: {
+    header: "#header_view",
+    list: "#list_view",
+    video: "#video_view",
+  },
+  router: new MyRouter({controller: new MyController()}),
 });
-
-app.on("start", function(options){
-  new MyRouter({controller: new MyController()});
-  Backbone.history.start();
-});
-
