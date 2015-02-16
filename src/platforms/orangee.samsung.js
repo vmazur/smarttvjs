@@ -22,6 +22,10 @@ orangee.init = function(callback) {
   orangee._samsungWidgetAPI.sendReadyEvent();
 };
 
+orangee.exit = function() {
+  orangee._samsungWidgetAPI.sendReturnEvent();
+};
+
 window.onShow = function (e) {
   //http://www.samsungdforum.com/SamsungDForum/ForumView/df3455b529adf7c4?forumID=7126e09362131c36
   //http://www.dummies.com/how-to/content/registeringunregistering-remote-control-keys-for-s.html
