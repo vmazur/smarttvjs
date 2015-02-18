@@ -48,7 +48,9 @@ var MyRouter = Orangee.Router.extend({
   appRoutes: {
     "": "index",
   },
+});
 
+var MyController = Orangee.Controller.extend({
   index: function() {
     var name = {
       name: orangee.PLATFORM, 
@@ -81,5 +83,5 @@ var app = new Orangee.Application({
     list: "#list_view",
     video: "#video_view",
   },
-  router: new MyRouter(),
+  router: new MyRouter({controller: new MyController()}),
 });
