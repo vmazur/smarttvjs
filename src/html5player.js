@@ -21,7 +21,12 @@ orangee.html5player.prototype.currentTime = function() {
 };
 
 orangee.html5player.prototype.seek = function(second) {
-  this.video.currentTime = second;
+  var seekToTime = this.video.currentTime + second;
+  if (seekToTime < 0 || seekToTime > this.video.duration) {
+    return;
+  }
+
+  this.video.currentTime = seekToTime;
 };
 
 orangee.html5player.prototype.load = function(url, startSeconds, divid, options) {
