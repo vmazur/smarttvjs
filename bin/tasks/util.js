@@ -13,6 +13,7 @@ OrangeeJSUtil.core_js_sources = [
   'connectplayer.js',
   'html5player.js',
   'videoplayer.js',
+  'lib/video.js',
   'storage.js',
   'lib/openfb.js',
   'lib/xml2json.min.js',
@@ -39,6 +40,7 @@ OrangeeJSUtil.core_js_sources = [
 OrangeeJSUtil.core_css_sources = [
   'orangeejs.css',
   'lib/snap.css',
+  'lib/video-js.css',
 ];
 
 OrangeeJSUtil.lib_js_sources = [

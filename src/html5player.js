@@ -49,7 +49,7 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
 
     var div = document.getElementById(divid);
     this.video.setAttribute("class", div.getAttribute("class"));
-    this.video.setAttribute("poster", div.getAttribute("poster"));
+    //this.video.setAttribute("poster", div.getAttribute("poster"));
     div.parentNode.replaceChild(this.video, div);
 
     if (options['onplaying']) {
@@ -61,13 +61,22 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     if (options['onend']) {
       this.video.addEventListener("ended", options['onend']);
     }
+
+    videojs(divid,
+      {
+        "poster":  div.getAttribute("poster"),
+      }, function(){
+      // Player (this) is initialized and ready.
+    });
   }
   this.video.src = url;
   this.video.load();
-  var self = this;
-  this.video.addEventListener("canplay",function() { 
-    self.video.currentTime = startSeconds;
-  });
+  /* if (startSeconds > 0) {
+    var self = this;
+    this.video.addEventListener("canplay",function() { 
+      self.video.currentTime = startSeconds;
+    });
+  } */
 };
 
 
