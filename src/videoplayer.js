@@ -200,4 +200,8 @@ orangee.videoplayer.prototype.disconnect = function() {
     this.device.disconnect();
     this.device = null;
   }
+  if (this.currentplayer) {
+    this.currentplayer.disconnect();
+    this.currentplayer = null;
+  }
 };

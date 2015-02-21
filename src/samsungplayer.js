@@ -98,4 +98,5 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
   }
 };
 
-
+orangee.samsungplayer.prototype.disconnect = function() {
+};

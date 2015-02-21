@@ -74,7 +74,7 @@ var MyController = Orangee.Controller.extend({
 
 var app = new Orangee.Application({
   options: {
-    enable_debug: true,
+    debug_enabled: true,
     youtube_api: true,
     dailymotion_api: true,
   },

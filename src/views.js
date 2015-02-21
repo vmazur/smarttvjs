@@ -129,6 +129,7 @@ Orangee.SpinnerView = Marionette.ItemView.extend({
     this.spinner = new orangee.spinner(this.getOption('options')).spin(this.el);
   },
   onDestroy: function() {
+    orangee.debug("Orangee.SpinnerView#onDestroy");
     this.spinner.stop();
   },
 });
@@ -156,6 +157,10 @@ Orangee.VideoView = Orangee.ItemView.extend({
                           }, this.getOption('playerVars')),
                           this.collection.currentPosition,
                           startSeconds);
+  },
+  onDestroy: function() {
+    orangee.debug("Orangee.VideoView#onDestroy");
+    this.videoplayer.disconnect();
   },
   keyEvents: {
     'right': 'onKeyRight',

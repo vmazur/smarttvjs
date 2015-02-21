@@ -3,8 +3,8 @@
 Orangee.Application = Marionette.Application.extend({
   typeName: "Orangee.Application",
   initialize: function() {
-    orangee.enable_debug = this.getOption('enable_debug');
-    //orangee.debug("Orangee.Application#initialize");
+    orangee.debug_enabled = this.getOption('debug_enabled');
+    orangee.debug("Orangee.Application#initialize");
     orangee.init();
     if (this.getOption('youtube_api')) {
       orangee._loadYoutubeApi();

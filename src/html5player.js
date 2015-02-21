@@ -1,5 +1,7 @@
 orangee.html5player = function _OrangeeJSHTML5Player() {
   this.video = null;
+  this.player = null;
+  this.inactivityTimeout = null;
   this.support_translate = true;
 };
 
@@ -27,6 +29,15 @@ orangee.html5player.prototype.seek = function(second) {
   }
 
   this.video.currentTime = seekToTime;
+
+  this.player.userActive(true);
+  var self = this;
+  if (this.inactivityTimeout) {
+    clearTimeout(this.inactivityTimeout);
+  }
+  this.inactivityTimeout = setTimeout(function(){
+    self.player.userActive(false);
+  }, 2000);
 };
 
 orangee.html5player.prototype.load = function(url, startSeconds, divid, options) {
@@ -62,7 +73,7 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
       this.video.addEventListener("ended", options['onend']);
     }
 
-    videojs(divid,
+    this.player = videojs(divid,
       {
         "poster":  div.getAttribute("poster"),
       }, function(){
@@ -71,12 +82,15 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
   }
   this.video.src = url;
   this.video.load();
-  /* if (startSeconds > 0) {
+  if (startSeconds > 0) {
     var self = this;
     this.video.addEventListener("canplay",function() { 
       self.video.currentTime = startSeconds;
     });
-  } */
+  }
 };
 
-
+orangee.html5player.prototype.disconnect = function() {
+  orangee.debug("orangee.html5player.prototype.disconnect");
+  this.player.dispose();
+};

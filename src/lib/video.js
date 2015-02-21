@@ -99,7 +99,7 @@ vjs.options = {
 
   // Default of web browser is 300x150. Should rely on source width/height.
   'width': "100%",
-  'height': "auto",
+  'height': "100%",
   // defaultVolume: 0.85,
   'defaultVolume': 0.00, // The freakin seaguls are driving me crazy!
 

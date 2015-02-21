@@ -54,3 +54,5 @@ orangee.dmplayer.prototype.load = function(url, startSeconds, divid, options) {
   });
 };
 
+orangee.dmplayer.prototype.disconnect = function() {
+};

@@ -98,3 +98,5 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   }
 };
 
+orangee.ytplayer.prototype.disconnect = function() {
+};
