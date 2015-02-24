@@ -147,13 +147,15 @@ Orangee.VideoView = Orangee.ItemView.extend({
     var onplaying = this.getOption('onPlaying');
     var onpause = this.getOption('onPause');
     var onend = this.getOption('onEnd');
+    var onerror = this.getOption('onError');
     var startSeconds = this.getOption('startSeconds');
     this.videoplayer.load(this.collection.toJSON(),
                           this.getOption('divid'),
                           _.extend({
-                            onplaying: onplaying ? onplaying.bind(this) : onplaying,
-                            onpause: onpause ? onpause.bind(this): onpause,
-                            onend:  onend ? onend.bind(this) : onend,
+                            onplaying: onplaying ? onplaying.bind(this) : null,
+                            onpause: onpause ? onpause.bind(this): null,
+                            onend: onend ? onend.bind(this) : null,
+                            onerror: onerror ? onerror.bind(this) : null,
                           }, this.getOption('playerVars')),
                           this.collection.currentPosition,
                           startSeconds);

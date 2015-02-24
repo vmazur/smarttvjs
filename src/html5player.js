@@ -72,6 +72,10 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     if (options['onend']) {
       this.video.addEventListener("ended", options['onend']);
     }
+    if (options['onerror']) {
+      orangee.debug("added error handler");
+      this.video.addEventListener("error", options['onerror'], true);
+    }
 
     this.player = videojs(divid,
       {
