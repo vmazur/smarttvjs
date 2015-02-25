@@ -8,8 +8,11 @@ orangee.KEYS = {
   39: 'right',
   38: 'up',
   40: 'down',
-  32: 'play',
-  27: 'back',
+  415: 'play',
+  19: 'pause',
+  412: 'rewind',
+  417: 'fastforward',
+  461: 'back',
 };
 
 /*
