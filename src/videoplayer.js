@@ -172,8 +172,8 @@ orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
   } else {
     if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
       this.currentplayer = new orangee.html5player();
-      callback();
     }
+    callback();
   }
 };
 
