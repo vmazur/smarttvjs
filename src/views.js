@@ -271,14 +271,14 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
   },
   onKeyUp: function() {
     orangee.debug('Orangee.ScrollView#onKeyUp');
-    orangee.debug(this.children);
+    //orangee.debug(this.children);
     this.collection.selectPrev(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
   },
   onKeyDown: function() {
     orangee.debug('Orangee.ScrollView#onKeyDown');
-    orangee.debug(this.children);
+    //orangee.debug(this.children);
     this.collection.selectNext(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
