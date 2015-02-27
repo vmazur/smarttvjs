@@ -42,22 +42,15 @@ orangee.html5player.prototype.seek = function(second) {
 
 orangee.html5player.prototype.load = function(url, startSeconds, divid, options) {
   orangee.debug(url);
+  orangee.debug(options);
+
   if (orangee.PLATFORM === 'samsung' && url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
     url = url + "?|COMPONENT=HLS";
   }
 
   if (this.video == null) {
     this.video = document.createElement("video");
-    this.video.controls = true;
-    //this.video.width = options['width'] || '100%';
-    if ((options['playsinline'] || 0) == 1) {
-      this.video.setAttribute("webkit-playsinline", "");
-    }
-    if ((options['autoplay'] || 0) == 1) {
-      this.video.autoplay = true;
-    }
     this.video.id = divid;
-    
 
     var div = document.getElementById(divid);
     this.video.setAttribute("class", div.getAttribute("class"));
@@ -66,15 +59,15 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     this.video.src = url;
 
     var vjsopt = {
-      poster:  div.getAttribute("poster"),
-      width: "100%",
-      height: "100%",
+      poster: div.getAttribute("poster"),
+      width:  options['width']  || "100%",
+      height: options['height'] || "100%",
     };
     var self = this;
     videojs(divid, vjsopt, function(){
       self.player = this;
       orangee.debug("orangee.html5player#ready");
-      self._load(self, url, startSeconds, options);
+      self._load(url, startSeconds, options);
     });
     //this._load(url, startSeconds, options);
   } else {
@@ -83,7 +76,12 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
 };
 
 orangee.html5player.prototype._load = function(url, startSeconds, options) {
-  /*if (options['onplaying']) {
+  /*
+  //this.video.width = options['width'] || '100%';
+  if ((options['playsinline'] || 0) == 1) {
+    this.video.setAttribute("webkit-playsinline", "");
+  }
+  if (options['onplaying']) {
     this.video.addEventListener("playing", options['onplaying']);
   }
   if (options['onpause']) {
@@ -95,6 +93,11 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
   if (options['onerror']) {
     this.video.addEventListener("error", options['onerror'], true);
   }
+  if ((options['autoplay'] || 0) == 1) {
+    this.video.autoplay = true;
+  }
+
+  this.video.controls = true;
   orangee.debug("orangee.html5player.prototype._load " + url);
   this.video.load();
   if (startSeconds > 0) {
@@ -104,7 +107,6 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
       self.video.currentTime = startSeconds;
     });
   }*/
-  console.log(this);
 
   if (options['onplaying']) {
     this.player.on("playing", options['onplaying']);
@@ -118,6 +120,10 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
   if (options['onerror']) {
     this.player.on("error", options['onerror'], true);
   }
+  if ((options['autoplay'] || 0) == 1) {
+    this.player.autoplay(true);
+  }
+  this.player.controls(true);
   this.player.load();
   if (startSeconds > 0) {
     var self = this;
