@@ -797,7 +797,7 @@ control positioning and full window mode. **
   /* Start with 10px for base font size so other dimensions can be em based and
      easily calculable. */
 
-  font-size: 10px;
+  font-size: 20px;
   /* Allow poster to be vertically aligned. */
 
   vertical-align: middle;
