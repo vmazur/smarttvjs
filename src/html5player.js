@@ -57,9 +57,12 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
     //this.video.setAttribute("poster", div.getAttribute("poster"));
     div.parentNode.replaceChild(this.video, div);
     this.video.src = url;
+    if (options['playsinline']) {
+      this.video.setAttribute("webkit-playsinline", "");
+    }
 
     var vjsopt = {
-      poster: div.getAttribute("poster"),
+      poster: div.getAttribute("poster") || options['poster'],
       width:  options['width']  || "100%",
       height: options['height'] || "100%",
     };
@@ -78,9 +81,6 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
 orangee.html5player.prototype._load = function(url, startSeconds, options) {
   /*
   //this.video.width = options['width'] || '100%';
-  if ((options['playsinline'] || 0) == 1) {
-    this.video.setAttribute("webkit-playsinline", "");
-  }
   if (options['onplaying']) {
     this.video.addEventListener("playing", options['onplaying']);
   }
@@ -120,7 +120,7 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
   if (options['onerror']) {
     this.player.on("error", options['onerror'], true);
   }
-  if ((options['autoplay'] || 0) == 1) {
+  if (options['autoplay']) {
     this.player.autoplay(true);
   }
   this.player.controls(true);

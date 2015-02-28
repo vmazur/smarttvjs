@@ -38,13 +38,13 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
     e.setAttribute("frameborder", 0);
     e.src = "https://www.youtube.com/embed/" + vid + "?enablejsapi=1&fs=0&autohide=0&iv_load_policy=3&rel=0&showinfo=0&start=" +startSeconds;
     if (typeof(options['playsinline']) != 'undefined') {
-      e.src += "&playsinline=" + options['playsinline'];
+      e.src += "&playsinline=" + (options['playsinline'] ? 1 : 0);
     }
     if (typeof(options['autoplay']) != 'undefined') {
-      e.src += "&autoplay=" + options['autoplay'];
+      e.src += "&autoplay=" + (options['autoplay'] ? 1 : 0);
     }
     if (typeof(options['controls']) != 'undefined') {
-      e.src += "&controls=" + options['controls'];
+      e.src += "&controls=" + (options['controls'] ? 1 : 0);
     }
     /*
     playerVars: {

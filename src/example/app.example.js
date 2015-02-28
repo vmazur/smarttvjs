@@ -28,9 +28,7 @@ var VideoView =  Orangee.VideoView.extend({
   template: '#video_template',
   options: {
     divid: 'myvideo',
-    playerVars: {
-      playsinline: 1
-    },
+    playsinline: true,
   },
   onPlaying: function() {
     orangee.log('playing');

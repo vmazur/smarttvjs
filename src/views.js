@@ -138,7 +138,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
   typeName: "Orangee.VideoView",
   onShow: function() {
     orangee.debug("Orangee.VideoView#onShow");
-    //orangee.debug(this.getOption('player'));
+    //orangee.debug(this.getOption('options'));
     this.videoplayer = new orangee.videoplayer({
       youtube: this.getOption('youtube'),
       dailymotion: this.getOption('dailymotion'),
@@ -156,7 +156,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
                             onpause: onpause ? onpause.bind(this): null,
                             onend: onend ? onend.bind(this) : null,
                             onerror: onerror ? onerror.bind(this) : null,
-                          }, this.getOption('playerVars')),
+                          }, this.getOption('options')),
                           this.collection.currentPosition,
                           startSeconds);
   },
