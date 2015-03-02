@@ -172,6 +172,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
     'play' : 'onKeyPlay',
     'pause' : 'onKeyPause',
     'stop' : 'onKeyPause',
+    'enter': 'onEnter',
   },
   onKeyPlay: function() {
     orangee.debug('Orangee.VideoView#onKeyPlay');
@@ -188,6 +189,8 @@ Orangee.VideoView = Orangee.ItemView.extend({
   onKeyLeft: function() {
     orangee.debug('Orangee.VideoView#onKeyLeft');
     this.videoplayer.seek(-60);
+  },
+  onEnter: function() {
   },
 });
 
