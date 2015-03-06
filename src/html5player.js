@@ -66,6 +66,15 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
       poster: div.getAttribute("poster") || options['poster'],
       width:  options['width']  || "100%",
       height: options['height'] || "100%",
+      children: {
+        controlBar: {
+          children: {
+            muteToggle: false,
+            fullscreenToggle: false,
+            volumeControl: false,
+          },
+        },
+      },
     };
     if (this.native_controls) {
       this._load(url, startSeconds, options);
