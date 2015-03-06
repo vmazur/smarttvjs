@@ -99,6 +99,10 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   this.currentIndex = (typeof index !== 'undefined') ? index : 0;
   startSeconds = (typeof startSeconds !== 'undefined') ? startSeconds : 0;
 
+  if (this.options['autoplay']) {
+    orangee.disableScreenSaver();
+  }
+
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url, function() {
     if (this.currentplayer.support_translate && this.translate_url) {
@@ -115,6 +119,10 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
 orangee.videoplayer.prototype.switchVideo = function(index) {
   this.currentIndex = index;
   var startSeconds = 0;
+
+  if (this.options['autoplay']) {
+    orangee.disableScreenSaver();
+  }
 
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url, function() {
@@ -204,4 +212,5 @@ orangee.videoplayer.prototype.disconnect = function() {
     this.currentplayer.disconnect();
     this.currentplayer = null;
   }
+  orangee.enableScreenSaver();
 };

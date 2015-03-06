@@ -97,7 +97,7 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
     if (options['onerror']) {
       this.video.addEventListener("error", options['onerror'], true);
     }
-    if ((options['autoplay'] || 0) == 1) {
+    if (options['autoplay']) {
       this.video.autoplay = true;
     }
 
