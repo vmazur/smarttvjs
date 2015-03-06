@@ -168,7 +168,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
     'right': 'onKeyRight',
     'fastforward': 'onKeyRight',
     'left' : 'onKeyLeft',
-    'rewind': 'onKeyRight',
+    'rewind': 'onKeyLeft',
     'play' : 'onKeyPlay',
     'pause' : 'onKeyPause',
     'stop' : 'onKeyPause',
