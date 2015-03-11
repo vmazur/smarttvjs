@@ -110,8 +110,12 @@ Orangee.RSSItemModel = Orangee.Model.extend({
   typeName: "Orangee.RSSItemModel",
   mutators: {
     thumbnail_url: function() {
-      if (this.get("thumbnail")) {
-        return this.get("thumbnail")._url;
+      var image = this.get("thumbnail");
+      if (image) {
+        if (_.isArray(image)) {
+          image = image[0];
+        }
+        return image._url;
       } else if (this.collection) {
         return this.collection.thumbnail_url;
       } else {
