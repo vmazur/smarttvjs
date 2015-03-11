@@ -50,7 +50,12 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
   }
 
   if (this.video == null) {
-    this.video = document.createElement("video");
+    var ext = window.url('fileext', url);
+    if (ext === 'mp3' || ext === 'm4a') {
+      this.video = document.createElement("audio");
+    } else {
+      this.video = document.createElement("video");
+    }
     this.video.id = divid;
 
     var div = document.getElementById(divid);

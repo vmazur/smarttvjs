@@ -37,7 +37,9 @@ var OrangeeScrollerBehavior = Marionette.Behavior.extend({
     this.view.scroller.on("scrollEnd", function() {
       this.$el.trigger('scroll');
     }.bind(this));
-    this.view.collection.selectModel(this.view.collection.at(this.view.collection.currentPosition));
+    if (this.view.collection) {
+      this.view.collection.selectModel(this.view.collection.at(this.view.collection.currentPosition));
+    }
     //orangee.debug(this.view);
   },
   onDestroy: function() {
@@ -285,6 +287,18 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     this.collection.selectNext(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
+  },
+  scrollBy: function(x, y) {
+    //https://github.com/cubiq/iscroll/issues/670
+    var newx = this.scroller.x + x;//TODO check x boundary
+    var newy = this.scroller.y + y;
+    if (newy > 0) {
+      newy = 0;
+    } else if (newy < this.scroller.maxScrollY) {
+      newy = this.scroller.maxScrollY;
+    }
+    orangee.debug('Orangee.ScrollView#scrollBy:' + newx + "/" + newy);
+    this.scroller.scrollTo(x, y);
   },
 });
 
