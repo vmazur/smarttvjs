@@ -10,17 +10,18 @@ function OrangeeJSInitTask() {
 OrangeeJSInitTask.prototype.run = function(debug) {
   mkdir('-p', 'app/lib');
   mkdir('-p', 'assets');
- 
+
   if (debug) {
     console.log("DEBUG: js will not be minified");
   }
 
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var name = path.basename(process.cwd());
-  
+
   if (!fs.existsSync('package.json')) {
       OrangeeJSUtil.transform_template(src + "/example/package.json.template", "package.json", {name: name});
   };
+  OrangeeJSUtil.create_version_js();
 
   OrangeeJSUtil.lib_js_sources.forEach(function(value) {
     cp(src + "/assets/javascripts/" + value, "app/lib/" + value);

@@ -133,7 +133,8 @@ Orangee.RSSCollection = Orangee.XMLCollection.extend({
       }
       this.thumbnail_url = image.url || image._href;
     }
-    return _.filter(json.rss.channel.item, function(x) {return x.enclosure;});
+    //return _.filter(json.rss.channel.item, function(x) {return x.enclosure;});
+    return json.rss.channel.item;
   },
 });
 

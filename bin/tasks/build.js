@@ -8,6 +8,7 @@ function OrangeeJSBuildTask() {
 
 OrangeeJSBuildTask.prototype.run = function(name) {
   mkdir("-p", 'build');
+  OrangeeJSUtil.create_version_js();
   if (name === 'samsung') {
     this._build_samsung();
   } else if (name === 'lg') {
@@ -45,6 +46,7 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 
   OrangeeJSUtil.zip("build/lg/WebContent", "build/lg.zip");
 };
+
 
 OrangeeJSBuildTask.prototype._build_android = function() {
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));

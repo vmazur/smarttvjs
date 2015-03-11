@@ -95,6 +95,12 @@ OrangeeJSUtil.transform_template = function(inputfile, outputfile, data) {
   fs.writeFileSync(outputfile, s);
 };
 
+OrangeeJSUtil.create_version_js = function() {
+  var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
+  var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
+  OrangeeJSUtil.transform_template(src + "/version.js.template", "app/version.js", appdata);
+};
+
 OrangeeJSUtil.resize_image = function(size_array, callback) {
   var i = 0;
   var gm = require('gm');
