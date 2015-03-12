@@ -226,8 +226,9 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
   OrangeeJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
-  
+
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
+  cp("-f", src + "/platforms/samsung/Uninstall.js", "build/samsung/");
 
   OrangeeJSUtil.resize_image([
     //['assets/icon.png',512, 423, 'assets/samsung/icon_512_423.png'],

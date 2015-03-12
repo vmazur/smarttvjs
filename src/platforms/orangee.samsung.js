@@ -60,6 +60,52 @@ orangee.enableScreenSaver = function() {
   sf.service.setScreenSaver(true);
 };
 
+//http://www.samsungdforum.com/Guide/ref00001/index.html
+/*
+orangee.writeFile = function(filename, data) {
+  orangee.debug("orangee.writeFile: " + curWidget.id+'/'+filename);
+  try {
+    var fileSystemObj = new FileSystem();
+    var bValid = fileSystemObj.isValidCommonPath(curWidget.id);
+    if (!bValid) {
+      fileSystemObj.createCommonDir(curWidget.id);
+    }
+    var fileObj = fileSystemObj.openCommonFile(curWidget.id+'/'+filename,'w');
+    fileObj.writeLine(data);
+    fileSystemObj.closeCommonFile(fileObj);
+  } catch (e) {
+    orangee.log('orangee.writeFile ERROR: ' + filename + " " + e);
+  }
+};
+
+orangee.readFile = function(filename) {
+  try {
+    var fileSystemObj = new FileSystem();
+    var fileObj = fileSystemObj.openCommonFile(curWidget.id + '/' + filename, 'r');
+    if (!fileObj) {
+      return null;
+    }
+    var strLine = '';
+    var arrResult = new Array();
+
+    while (strLine = fileObj.readLine()) {
+        arrResult.push(strLine);
+    }
+
+    fileSystemObj.closeCommonFile(fileObj);
+
+    return arrResult.join("\n");
+  } catch(e) {
+    orangee.log('orangee.readFile ERROR: ' + filename + " " + e);
+    return null;
+  }
+};
+
+orangee.deleteFile = function(filename) {
+  var fileSystemObj = new FileSystem();
+  var bResult = fileSystemObj.deleteCommonFile(curWidget.id + '/' + filename);
+};*/
+
 //https://github.com/leahciMic/polyfill-function-prototype-bind/blob/master/bind.js
 // Taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
 if (!Function.prototype.bind) {

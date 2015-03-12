@@ -6,7 +6,8 @@
   <BigListIcon>icons/icon_95.png</BigListIcon>
 	
   <category>{{category}}</category>
-	<autoUpdate>y</autoUpdate>
+  <autoUpdate>y</autoUpdate>
+  <deleteJS>Uninstall</deleteJS>
 
   <cpname>{{name}}</cpname>
   <runTitle>{{name}}</runTitle>
