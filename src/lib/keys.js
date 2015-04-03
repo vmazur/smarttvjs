@@ -6,7 +6,7 @@
 
     var keyMatches = function(e, key) {
         return String.fromCharCode(e.which).toLowerCase() == key
-            || orangee.KEYS[e.which] == key;
+            || smarttv.KEYS[e.which] == key;
     };
 
     var modifierMatches = function(e, modifiers) {
@@ -64,12 +64,12 @@
     var onKeydown = function() {
         _.each(eventsNamespace, function(namespace) {
           _.each(namespace, function(callback) {
-            if (orangee.PLATFORM === 'samsung') {
-              if (orangee.KEYS[event.keyCode] === 'back') {
-                orangee._samsungWidgetAPI.blockNavigation(event);//does not work with keyup
-              } /*else if (orangee.KEYS[event.keyCode] === 'exit') {
-                orangee._samsungWidgetAPI.blockNavigation(event);
-                orangee._samsungWidgetAPI.sendReturnEvent();
+            if (smarttv.PLATFORM === 'samsung') {
+              if (smarttv.KEYS[event.keyCode] === 'back') {
+                smarttv._samsungWidgetAPI.blockNavigation(event);//does not work with keyup
+              } /*else if (smarttv.KEYS[event.keyCode] === 'exit') {
+                smarttv._samsungWidgetAPI.blockNavigation(event);
+                smarttv._samsungWidgetAPI.sendReturnEvent();
               }*/
             }
             callback(event);
@@ -78,8 +78,8 @@
     };
 
     $(document).on('keydown', onKeydown);
-    //<a href="javascript:void(0);" id="orangeeKeyboardAnchor" onkeydown="HotKeys.onKeydown();"></a>
-    //document.getElementById("orangeeKeyboardAnchor").focus();
+    //<a href="javascript:void(0);" id="smarttvKeyboardAnchor" onkeydown="HotKeys.onKeydown();"></a>
+    //document.getElementById("smarttvKeyboardAnchor").focus();
 
     root.HotKeys = {
         'bind': bind,

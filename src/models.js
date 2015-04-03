@@ -1,16 +1,16 @@
 'use strict';
 
-Orangee.Application = Marionette.Application.extend({
-  typeName: "Orangee.Application",
+SmartTV.Application = Marionette.Application.extend({
+  typeName: "SmartTV.Application",
   initialize: function() {
-    orangee.debug_enabled = this.getOption('debug_enabled');
-    orangee.debug("Orangee.Application#initialize");
-    orangee.init();
+    smarttv.debug_enabled = this.getOption('debug_enabled');
+    smarttv.debug("SmartTV.Application#initialize");
+    smarttv.init();
     if (this.getOption('youtube_api')) {
-      orangee._loadYoutubeApi();
+      smarttv._loadYoutubeApi();
     }
     if (this.getOption('dailymotion_api')) {
-      orangee._loadDailymotionApi();
+      smarttv._loadDailymotionApi();
     }
   },
   start: function(options) {
@@ -19,16 +19,16 @@ Orangee.Application = Marionette.Application.extend({
   },
 });
 
-Orangee.Controller = Marionette.Controller.extend({
-  typeName: "Orangee.Controller",
+SmartTV.Controller = Marionette.Controller.extend({
+  typeName: "SmartTV.Controller",
 });
 
-Orangee.Router = Backbone.Marionette.AppRouter.extend({
-  typeName: "Orangee.Router",
+SmartTV.Router = Backbone.Marionette.AppRouter.extend({
+  typeName: "SmartTV.Router",
 });
 
-Orangee.Model = Backbone.Model.extend({
-  typeName: "Orangee.Model",
+SmartTV.Model = Backbone.Model.extend({
+  typeName: "SmartTV.Model",
   initialize: function() {
     // Applies the mixin:
     Backbone.Select.Me.applyTo(this);
@@ -41,22 +41,22 @@ Orangee.Model = Backbone.Model.extend({
   },
 });
 
-Orangee.XMLModel = Orangee.Model.extend({
-  typeName: "Orangee.XMLModel",
+SmartTV.XMLModel = SmartTV.Model.extend({
+  typeName: "SmartTV.XMLModel",
   fetch: function(options) {
     options = options || {};
     options.dataType = "html";
     return Backbone.Model.prototype.fetch.apply(this, arguments);
   },
   parse: function(xml) {
-    return orangee.xml2json(xml);
+    return smarttv.xml2json(xml);
   },
 });
 
 //http://jaketrent.com/post/backbone-inheritance/
-Orangee.Collection = Backbone.PageableCollection.extend({
-  typeName: "Orangee.Collection",
-  model: Orangee.Model,
+SmartTV.Collection = Backbone.PageableCollection.extend({
+  typeName: "SmartTV.Collection",
+  model: SmartTV.Model,
   initialize: function(models, options) {
     // Applies the mixin:
     Backbone.Select.One.applyTo(this, models, options);
@@ -86,8 +86,8 @@ Orangee.Collection = Backbone.PageableCollection.extend({
   },
 });
 
-Orangee.XMLCollection = Orangee.Collection.extend({
-  typeName: "Orangee.XMLCollection",
+SmartTV.XMLCollection = SmartTV.Collection.extend({
+  typeName: "SmartTV.XMLCollection",
   fetch: function(options) {
     options = options || {};
     //options.dataType = "html";
@@ -96,18 +96,18 @@ Orangee.XMLCollection = Orangee.Collection.extend({
   },
 });
 
-Orangee.OPMLCollection = Orangee.XMLCollection.extend({
-  typeName: "Orangee.OPMLCollection",
+SmartTV.OPMLCollection = SmartTV.XMLCollection.extend({
+  typeName: "SmartTV.OPMLCollection",
   parse:function(xml) {
-    //orangee.debug(xml);
+    //smarttv.debug(xml);
     //var response = {data: json.opml.body.outline.map(function(x) {return {name: x._title, standardPic: x._img, url: x._url}})}
-    var json = orangee.xml2json(xml);
+    var json = smarttv.xml2json(xml);
     return json.opml.body.outline;
   },
 });
 
-Orangee.RSSItemModel = Orangee.Model.extend({
-  typeName: "Orangee.RSSItemModel",
+SmartTV.RSSItemModel = SmartTV.Model.extend({
+  typeName: "SmartTV.RSSItemModel",
   mutators: {
     thumbnail_url: function() {
       var image = this.get("thumbnail");
@@ -125,11 +125,11 @@ Orangee.RSSItemModel = Orangee.Model.extend({
   },
 });
 
-Orangee.RSSCollection = Orangee.XMLCollection.extend({
-  typeName: "Orangee.RSSCollection",
-  model: Orangee.RSSItemModel,
+SmartTV.RSSCollection = SmartTV.XMLCollection.extend({
+  typeName: "SmartTV.RSSCollection",
+  model: SmartTV.RSSItemModel,
   parse: function(xml) {
-    var json = orangee.xml2json(xml);
+    var json = smarttv.xml2json(xml);
     if (json.rss.channel.image) {
       var image = json.rss.channel.image;
       if (_.isArray(image)) {
@@ -142,8 +142,8 @@ Orangee.RSSCollection = Orangee.XMLCollection.extend({
   },
 });
 
-Orangee.CSVCollection = Orangee.XMLCollection.extend({
-  typeName: "Orangee.CSVCollection",
+SmartTV.CSVCollection = SmartTV.XMLCollection.extend({
+  typeName: "SmartTV.CSVCollection",
   parse:function(csv) {
     var lines=csv.split("\n");
     var result = [];
@@ -171,7 +171,7 @@ Orangee.CSVCollection = Orangee.XMLCollection.extend({
         }
 
         if (!obj['_img']) {
-          var ytid = orangee._findYoutubeId(obj['_url']);
+          var ytid = smarttv._findYoutubeId(obj['_url']);
           if (ytid) {
             obj['_img'] = "http://i.ytimg.com/vi/" + ytid + "/mqdefault.jpg";
           }

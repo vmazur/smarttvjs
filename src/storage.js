@@ -1,5 +1,5 @@
 //http://stackoverflow.com/questions/4692245/html5-local-storage-fallback-solutions
-orangee.storage = {
+smarttv.storage = {
     localStoreSupport: function() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
@@ -16,8 +16,8 @@ orangee.storage = {
         else {
             var expires = "";
         }
-        /*if (orangee.PLATFORM === 'samsung') {
-            orangee.writeFile(name, value);
+        /*if (smarttv.PLATFORM === 'samsung') {
+            smarttv.writeFile(name, value);
         }
         else*/
         if( this.localStoreSupport() ) {
@@ -28,8 +28,8 @@ orangee.storage = {
         }
     },
     get: function(name) {
-        /*if (orangee.PLATFORM === 'samsung') {
-            return orangee.readFile(name);
+        /*if (smarttv.PLATFORM === 'samsung') {
+            return smarttv.readFile(name);
         }
         else*/
         if( this.localStoreSupport() ) {
@@ -66,8 +66,8 @@ orangee.storage = {
         }
     },
     del: function(name) {
-        /*if (orangee.PLATFORM === 'samsung') {
-            orangee.deleteFile(name);
+        /*if (smarttv.PLATFORM === 'samsung') {
+            smarttv.deleteFile(name);
         }
         else */
         if( this.localStoreSupport() ) {

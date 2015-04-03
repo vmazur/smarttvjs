@@ -1,37 +1,37 @@
-orangee.dmplayer = function _OrangeeJSDMplayer() {
+smarttv.dmplayer = function _SmartTVJSDMplayer() {
   this.player = null;
   this.support_translate = false;
 };
 
-orangee.dmplayer.prototype.play = function() {
+smarttv.dmplayer.prototype.play = function() {
   this.player.play();
 };
 
-orangee.dmplayer.prototype.pause = function() {
+smarttv.dmplayer.prototype.pause = function() {
   this.player.pause();
 };
 
-orangee.dmplayer.prototype.stop = function() {
+smarttv.dmplayer.prototype.stop = function() {
   this.player.pause();
 };
 
-orangee.dmplayer.prototype.currentTime = function() {
+smarttv.dmplayer.prototype.currentTime = function() {
    return this.player.currentTime;
 };
 
-orangee.dmplayer.prototype.seek = function(second) {
+smarttv.dmplayer.prototype.seek = function(second) {
    return this.player.seek(second);
 };
 
-orangee.dmplayer.prototype.load = function(url, startSeconds, divid, options) {
-  var vid = orangee._findDailymotionId(url);
+smarttv.dmplayer.prototype.load = function(url, startSeconds, divid, options) {
+  var vid = smarttv._findDailymotionId(url);
   startSeconds = Math.round(startSeconds);
 
   if (this.player) {
-    orangee.debug("orangee.dmplayer#load");
+    smarttv.debug("smarttv.dmplayer#load");
     this.player.load(vid);
   } else {
-    orangee.debug("orangee.dmplayer#load new iframe");
+    smarttv.debug("smarttv.dmplayer#load new iframe");
 
     var div = document.getElementById(divid);
 
@@ -54,5 +54,5 @@ orangee.dmplayer.prototype.load = function(url, startSeconds, divid, options) {
   });
 };
 
-orangee.dmplayer.prototype.disconnect = function() {
+smarttv.dmplayer.prototype.disconnect = function() {
 };

@@ -1,29 +1,29 @@
-orangee.html5player = function _OrangeeJSHTML5Player() {
+smarttv.html5player = function _SmartTVJSHTML5Player() {
   this.video = null;
   this.player = null;
   this.inactivityTimeout = null;
   this.support_translate = true;
-  this.native_controls = (orangee.PLATFORM == 'lg');//lg's os will crash with videojs if video is paused
+  this.native_controls = (smarttv.PLATFORM == 'lg');//lg's os will crash with videojs if video is paused
 };
 
-orangee.html5player.prototype.play = function() {
+smarttv.html5player.prototype.play = function() {
   this.video.play();
 };
 
-orangee.html5player.prototype.pause = function() {
+smarttv.html5player.prototype.pause = function() {
   this.video.pause();
 };
 
-orangee.html5player.prototype.stop = function() {
+smarttv.html5player.prototype.stop = function() {
   this.video.pause();
   this.video.src="";
 };
 
-orangee.html5player.prototype.currentTime = function() {
+smarttv.html5player.prototype.currentTime = function() {
   return this.video.currentTime;
 };
 
-orangee.html5player.prototype.seek = function(second) {
+smarttv.html5player.prototype.seek = function(second) {
   var seekToTime = this.video.currentTime + second;
   if (seekToTime < 0 || seekToTime > this.video.duration) {
     return;
@@ -41,11 +41,11 @@ orangee.html5player.prototype.seek = function(second) {
   }, 2000);
 };
 
-orangee.html5player.prototype.load = function(url, startSeconds, divid, options) {
-  orangee.debug(url);
-  orangee.debug(options);
+smarttv.html5player.prototype.load = function(url, startSeconds, divid, options) {
+  smarttv.debug(url);
+  smarttv.debug(options);
 
-  if (orangee.PLATFORM === 'samsung' && url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
+  if (smarttv.PLATFORM === 'samsung' && url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
     url = url + "?|COMPONENT=HLS";
   }
 
@@ -87,7 +87,7 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
       var self = this;
       videojs(divid, vjsopt, function(){
         self.player = this;
-        orangee.debug("orangee.html5player#ready");
+        smarttv.debug("smarttv.html5player#ready");
         self._load(url, startSeconds, options);
       });
     }
@@ -96,7 +96,7 @@ orangee.html5player.prototype.load = function(url, startSeconds, divid, options)
   }
 };
 
-orangee.html5player.prototype._load = function(url, startSeconds, options) {
+smarttv.html5player.prototype._load = function(url, startSeconds, options) {
   if (this.native_controls) {
     //this.video.width = options['width'] || '100%';
     if (options['onplaying']) {
@@ -116,12 +116,12 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
     }
 
     this.video.controls = true;
-    orangee.debug("orangee.html5player.prototype._load " + url);
+    smarttv.debug("smarttv.html5player.prototype._load " + url);
     this.video.load();
     if (startSeconds > 0) {
       var self = this;
       this.video.addEventListener("canplay",function() { 
-        orangee.debug("orangee.html5player#canplay");
+        smarttv.debug("smarttv.html5player#canplay");
         self.video.currentTime = startSeconds;
       });
     }
@@ -146,15 +146,15 @@ orangee.html5player.prototype._load = function(url, startSeconds, options) {
     if (startSeconds > 0) {
       var self = this;
       this.player.one("canplay",function() {
-        orangee.debug("orangee.html5player#canplay");
+        smarttv.debug("smarttv.html5player#canplay");
         self.player.currentTime(startSeconds);
       });
     }
   }
 };
 
-orangee.html5player.prototype.disconnect = function() {
-  orangee.debug("orangee.html5player.prototype.disconnect");
+smarttv.html5player.prototype.disconnect = function() {
+  smarttv.debug("smarttv.html5player.prototype.disconnect");
   if (this.player) {
     this.player.dispose();
   }

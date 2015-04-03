@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "package": "com.orangeejs.{{name}}",
+  "package": "com.smarttvjs.{{name}}",
   "version": "0.0.0",
   "category": "video",
   "description": "",

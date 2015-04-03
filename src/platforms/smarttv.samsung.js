@@ -1,29 +1,29 @@
-orangee.PLATFORM = "samsung";
+smarttv.PLATFORM = "samsung";
 
 //http://www.samsungdforum.com/Guide/ref00006/index.html
-orangee.init = function(callback) {
+smarttv.init = function(callback) {
   //http://www.samsungdforum.com/Guide/ref00006/TVKeyValue_Object.html
-  orangee._samsungKeys =  new Common.API.TVKeyValue();
-  orangee.KEYS = {};
-  orangee.KEYS[orangee._samsungKeys.KEY_ENTER] = "enter";
-  orangee.KEYS[orangee._samsungKeys.KEY_LEFT] = "left";
-  orangee.KEYS[orangee._samsungKeys.KEY_RIGHT] = "right";
-  orangee.KEYS[orangee._samsungKeys.KEY_UP] = "up";
-  orangee.KEYS[orangee._samsungKeys.KEY_DOWN] = "down";
-  orangee.KEYS[orangee._samsungKeys.KEY_PLAY] = "play";
-  orangee.KEYS[orangee._samsungKeys.KEY_PAUSE] = "pause";
-  orangee.KEYS[orangee._samsungKeys.KEY_STOP] = "stop";
-  orangee.KEYS[orangee._samsungKeys.KEY_RW] = "rewind";
-  orangee.KEYS[orangee._samsungKeys.KEY_FF] = "fastforward";
-  orangee.KEYS[orangee._samsungKeys.KEY_RETURN] = "back";
-  orangee.KEYS[orangee._samsungKeys.KEY_EXIT] = "exit";
+  smarttv._samsungKeys =  new Common.API.TVKeyValue();
+  smarttv.KEYS = {};
+  smarttv.KEYS[smarttv._samsungKeys.KEY_ENTER] = "enter";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_LEFT] = "left";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_RIGHT] = "right";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_UP] = "up";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_DOWN] = "down";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_PLAY] = "play";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_PAUSE] = "pause";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_STOP] = "stop";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_RW] = "rewind";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_FF] = "fastforward";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_RETURN] = "back";
+  smarttv.KEYS[smarttv._samsungKeys.KEY_EXIT] = "exit";
 
-  orangee._samsungWidgetAPI = new Common.API.Widget();
-  orangee._samsungWidgetAPI.sendReadyEvent();
+  smarttv._samsungWidgetAPI = new Common.API.Widget();
+  smarttv._samsungWidgetAPI.sendReadyEvent();
 };
 
-orangee.exit = function() {
-  orangee._samsungWidgetAPI.sendReturnEvent();
+smarttv.exit = function() {
+  smarttv._samsungWidgetAPI.sendReturnEvent();
 };
 
 window.onShow = function (e) {
@@ -34,12 +34,12 @@ window.onShow = function (e) {
 
   // Unregister keys for volume OSD.
   var pluginAPI = new Common.API.Plugin();
-  pluginAPI.unregistKey(orangee._samsungKeys.KEY_VOL_UP);
-  pluginAPI.unregistKey(orangee._samsungKeys.KEY_VOL_DOWN);
-  pluginAPI.unregistKey(orangee._samsungKeys.KEY_MUTE);
+  pluginAPI.unregistKey(smarttv._samsungKeys.KEY_VOL_UP);
+  pluginAPI.unregistKey(smarttv._samsungKeys.KEY_VOL_DOWN);
+  pluginAPI.unregistKey(smarttv._samsungKeys.KEY_MUTE);
 };
 
-orangee.hasNetwork = function() {
+smarttv.hasNetwork = function() {
   var networkPlugin = document.getElementById('pluginObjectNetwork');
   var connType = networkPlugin.GetActiveType();
   var phyConn = networkPlugin.CheckPhysicalConnection(connType);
@@ -51,19 +51,19 @@ orangee.hasNetwork = function() {
   }
 };
 
-orangee.disableScreenSaver = function() {
+smarttv.disableScreenSaver = function() {
   //http://www.samsungdforum.com/Guide/index.html?FolderName=tec00115&FileName=index.html
   sf.service.setScreenSaver(false);
 };
 
-orangee.enableScreenSaver = function() {
+smarttv.enableScreenSaver = function() {
   sf.service.setScreenSaver(true);
 };
 
 //http://www.samsungdforum.com/Guide/ref00001/index.html
 /*
-orangee.writeFile = function(filename, data) {
-  orangee.debug("orangee.writeFile: " + curWidget.id+'/'+filename);
+smarttv.writeFile = function(filename, data) {
+  smarttv.debug("smarttv.writeFile: " + curWidget.id+'/'+filename);
   try {
     var fileSystemObj = new FileSystem();
     var bValid = fileSystemObj.isValidCommonPath(curWidget.id);
@@ -74,11 +74,11 @@ orangee.writeFile = function(filename, data) {
     fileObj.writeLine(data);
     fileSystemObj.closeCommonFile(fileObj);
   } catch (e) {
-    orangee.log('orangee.writeFile ERROR: ' + filename + " " + e);
+    smarttv.log('smarttv.writeFile ERROR: ' + filename + " " + e);
   }
 };
 
-orangee.readFile = function(filename) {
+smarttv.readFile = function(filename) {
   try {
     var fileSystemObj = new FileSystem();
     var fileObj = fileSystemObj.openCommonFile(curWidget.id + '/' + filename, 'r');
@@ -96,12 +96,12 @@ orangee.readFile = function(filename) {
 
     return arrResult.join("\n");
   } catch(e) {
-    orangee.log('orangee.readFile ERROR: ' + filename + " " + e);
+    smarttv.log('smarttv.readFile ERROR: ' + filename + " " + e);
     return null;
   }
 };
 
-orangee.deleteFile = function(filename) {
+smarttv.deleteFile = function(filename) {
   var fileSystemObj = new FileSystem();
   var bResult = fileSystemObj.deleteCommonFile(curWidget.id + '/' + filename);
 };*/

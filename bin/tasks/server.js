@@ -2,12 +2,12 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs");
-var OrangeeJSUtil = require('./util');
+var SmartTVJSUtil = require('./util');
 
-function OrangeeJSServerTask() {
+function SmartTVJSServerTask() {
 };
 
-OrangeeJSServerTask.prototype.run = function(port, dir) {
+SmartTVJSServerTask.prototype.run = function(port, dir) {
 
   http.createServer(function(request, response) {
     request.on('data', function(data) {
@@ -44,8 +44,8 @@ OrangeeJSServerTask.prototype.run = function(port, dir) {
   });
 
   console.log("Static file server running at");
-  console.log("  => http://" + OrangeeJSUtil.getip() + (port == 80 ? '' : (":" + port)));
+  console.log("  => http://" + SmartTVJSUtil.getip() + (port == 80 ? '' : (":" + port)));
   console.log("CTRL + C to shutdown");
 };
 
-module.exports = OrangeeJSServerTask;
+module.exports = SmartTVJSServerTask;

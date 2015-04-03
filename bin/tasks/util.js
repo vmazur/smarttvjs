@@ -3,10 +3,10 @@ var path = require('path');
 var mustache = require('mustache');
 require('shelljs/global');
 
-function OrangeeJSUtil() {
+function SmartTVJSUtil() {
 };
 
-OrangeeJSUtil.core_js_sources = [
+SmartTVJSUtil.core_js_sources = [
   'core.js',
   'ytplayer.js',
   'dmplayer.js',
@@ -37,34 +37,34 @@ OrangeeJSUtil.core_js_sources = [
   'views.js',
 ];
 
-OrangeeJSUtil.core_css_sources = [
-  'orangeejs.css',
+SmartTVJSUtil.core_css_sources = [
+  'smarttvjs.css',
   'lib/snap.css',
   'lib/video-js.css',
 ];
 
-OrangeeJSUtil.lib_js_sources = [
+SmartTVJSUtil.lib_js_sources = [
   'jquery.min.js',
   'underscore-min.js',
   'backbone-min.js',
 ];
 
-OrangeeJSUtil.lib_css_sources = [
+SmartTVJSUtil.lib_css_sources = [
   'bootstrap.min.css',
   'font-awesome.min.css',
 ];
 
-OrangeeJSUtil.exec = function(cmd) {
+SmartTVJSUtil.exec = function(cmd) {
   console.log(cmd);
   return exec(cmd, {async: false});
 };
 
-OrangeeJSUtil.exec_background = function(cmd) {
+SmartTVJSUtil.exec_background = function(cmd) {
   console.log(cmd);
   return exec(cmd, {async: true});
 };
 //exec will block forerver if a app does not return
-/*OrangeeJSUtil.exec_background = function(cmd) {
+/*SmartTVJSUtil.exec_background = function(cmd) {
   var exec_command = require('child_process').exec;
   console.log(cmd);
   exec_command(cmd, function (error, stdout, stderr) {
@@ -74,7 +74,7 @@ OrangeeJSUtil.exec_background = function(cmd) {
   });
 };*/
 
-OrangeeJSUtil.getip = function() {
+SmartTVJSUtil.getip = function() {
   var os=require('os');
   var ifaces=os.networkInterfaces();
   for (var dev in ifaces) {
@@ -89,19 +89,19 @@ OrangeeJSUtil.getip = function() {
   return "127.0.0.1";
 };
 
-OrangeeJSUtil.transform_template = function(inputfile, outputfile, data) {
+SmartTVJSUtil.transform_template = function(inputfile, outputfile, data) {
   var template = fs.readFileSync(inputfile, "utf8");
   var s = mustache.render(template, data);
   fs.writeFileSync(outputfile, s);
 };
 
-OrangeeJSUtil.create_version_js = function() {
+SmartTVJSUtil.create_version_js = function() {
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  OrangeeJSUtil.transform_template(src + "/version.js.template", "app/version.js", appdata);
+  SmartTVJSUtil.transform_template(src + "/version.js.template", "app/version.js", appdata);
 };
 
-OrangeeJSUtil.resize_image = function(size_array, callback) {
+SmartTVJSUtil.resize_image = function(size_array, callback) {
   var i = 0;
   var gm = require('gm');
 
@@ -128,7 +128,7 @@ OrangeeJSUtil.resize_image = function(size_array, callback) {
   }
 };
 
-OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
+SmartTVJSUtil.zip = function(inputdir, zipfilename, callback) {
   var archiver = require('archiver');
 
   var output = fs.createWriteStream(zipfilename);
@@ -152,7 +152,7 @@ OrangeeJSUtil.zip = function(inputdir, zipfilename, callback) {
   archive.finalize();
 };
 
-OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile, debug) {
+SmartTVJSUtil.concat_js = function(source_dir, source_files, outputfile, debug) {
   var new_sources = [];
   source_files.forEach(function(x) {
     new_sources = new_sources.concat(source_dir + '/' + x);
@@ -177,7 +177,7 @@ OrangeeJSUtil.concat_js = function(source_dir, source_files, outputfile, debug) 
   }
 };
 
-OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
+SmartTVJSUtil.concat_css = function(source_dir, source_files, outputfile) {
   var new_sources = [];
   source_files.forEach(function(x) {
     new_sources = new_sources.concat(source_dir + '/' + x);
@@ -187,9 +187,9 @@ OrangeeJSUtil.concat_css = function(source_dir, source_files, outputfile) {
   fs.writeFileSync(outputfile, result);
 }
 
-OrangeeJSUtil.version = function() {
+SmartTVJSUtil.version = function() {
   var file = path.join(path.dirname(fs.realpathSync(__filename)), '../../package.json');
   return JSON.parse(fs.readFileSync(file, "utf8"))['version']
 }
 
-module.exports = OrangeeJSUtil;
+module.exports = SmartTVJSUtil;

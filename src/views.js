@@ -1,15 +1,15 @@
 'use strict';
 
-orangee.scroller = IScroll;
-//orangee.sidemenu = Snap;
-orangee.spinner = Spinner;
+smarttv.scroller = IScroll;
+//smarttv.sidemenu = Snap;
+smarttv.spinner = Spinner;
 
 Marionette.Behaviors.behaviorsLookup = function() {
   return window;
 }
 
-var OrangeeHotKeysBehavior = Marionette.Behavior.extend({
-  typeName: "OrangeeHotKeysBehavior",
+var SmartTVHotKeysBehavior = Marionette.Behavior.extend({
+  typeName: "SmartTVHotKeysBehavior",
   onRender: function() {
     if (this.view.keyEvents) {
       HotKeys.bind(this.view.keyEvents, this.view, this.view.cid);
@@ -17,20 +17,20 @@ var OrangeeHotKeysBehavior = Marionette.Behavior.extend({
   },
   onDestroy: function() {
     if (this.view.keyEvents) {
-      orangee.debug("OrangeeHotKeysBehavior#onDestroy");
+      smarttv.debug("SmartTVHotKeysBehavior#onDestroy");
       HotKeys.unbind(this.view.keyEvents, this.view, this.view.cid);
     }
   },
 });
 
-var OrangeeScrollerBehavior = Marionette.Behavior.extend({
-  typeName: "OrangeeScrollerBehavior",
+var SmartTVScrollerBehavior = Marionette.Behavior.extend({
+  typeName: "SmartTVScrollerBehavior",
   onShow: function() {
-    orangee.debug("OrangeeScrollerBehavior#onShow");
-    orangee.debug(this.view.getOption('options'));
-    //orangee.debug(this.el.parentNode.parentNode);
-    //orangee.debug(this.el);
-    this.view.scroller = new orangee.scroller(this.el, this.view.getOption('options'));
+    smarttv.debug("SmartTVScrollerBehavior#onShow");
+    smarttv.debug(this.view.getOption('options'));
+    //smarttv.debug(this.el.parentNode.parentNode);
+    //smarttv.debug(this.el);
+    this.view.scroller = new smarttv.scroller(this.el, this.view.getOption('options'));
     //http://stackoverflow.com/questions/11924711/how-to-make-iscroll-and-lazy-load-jquery-plugins-work-together
     //http://www.cnblogs.com/MartinLi841538513/articles/3663638.html
     //http://blog.rodneyrehm.de/archives/32-Updating-to-iScroll-5.html
@@ -40,10 +40,10 @@ var OrangeeScrollerBehavior = Marionette.Behavior.extend({
     if (this.view.collection) {
       this.view.collection.selectModel(this.view.collection.at(this.view.collection.currentPosition));
     }
-    //orangee.debug(this.view);
+    //smarttv.debug(this.view);
   },
   onDestroy: function() {
-    orangee.debug("OrangeeScrollerBehavior#onDestroy");
+    smarttv.debug("SmartTVScrollerBehavior#onDestroy");
     if (this.view.scroller) {
       this.view.scroller.destroy();
       this.view.scroller = null;
@@ -51,8 +51,8 @@ var OrangeeScrollerBehavior = Marionette.Behavior.extend({
   },
 });
 
-var OrangeeLazyloadBehavior = Marionette.Behavior.extend({
-  typeName: "OrangeeLazyloadBehavior",
+var SmartTVLazyloadBehavior = Marionette.Behavior.extend({
+  typeName: "SmartTVLazyloadBehavior",
   onShow: function() {
     this.view.$("img.lazy").lazyload({
       effect : "fadeIn",
@@ -61,11 +61,11 @@ var OrangeeLazyloadBehavior = Marionette.Behavior.extend({
   },
 });
 
-var OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
-  typeName: "OrangeeNoExtraDivBehavior",
+var SmartTVNoExtraDivBehavior = Marionette.Behavior.extend({
+  typeName: "SmartTVNoExtraDivBehavior",
   //http://stackoverflow.com/questions/14656068/turning-off-div-wrap-for-backbone-marionette-itemview
   onRender: function () {
-    //orangee.debug("OrangeeNoExtraDivBehavior#onRender");
+    //smarttv.debug("SmartTVNoExtraDivBehavior#onRender");
     // Get rid of that pesky wrapping-div.
     // Assumes 1 child element present in template.
     var children = this.$el.children();
@@ -82,32 +82,32 @@ var OrangeeNoExtraDivBehavior = Marionette.Behavior.extend({
   },
 });
 
-Orangee.ItemView = Marionette.ItemView.extend({
-  typeName: "Orangee.ItemView",
+SmartTV.ItemView = Marionette.ItemView.extend({
+  typeName: "SmartTV.ItemView",
   behaviors: {
-    OrangeeHotKeysBehavior: {},
-    OrangeeNoExtraDivBehavior: {},
+    SmartTVHotKeysBehavior: {},
+    SmartTVNoExtraDivBehavior: {},
   },
   initialize: function(options) {
-    //orangee.debug("Orangee.ItemView#initialize");
+    //smarttv.debug("SmartTV.ItemView#initialize");
     options = options || {};
     this.collectionView = options.collectionView;
   },
 });
 
-Orangee.CompositeView = Marionette.CompositeView.extend({
-  typeName: "Orangee.CompositeView",
+SmartTV.CompositeView = Marionette.CompositeView.extend({
+  typeName: "SmartTV.CompositeView",
   behaviors: {
-    OrangeeHotKeysBehavior: {},
-    OrangeeNoExtraDivBehavior: {},
+    SmartTVHotKeysBehavior: {},
+    SmartTVNoExtraDivBehavior: {},
   },
   childViewOptions: function() {
     return {collectionView: this};
   },
 });
 
-Orangee.SpinnerView = Marionette.ItemView.extend({
-  typeName: "Orangee.SpinnerView",
+SmartTV.SpinnerView = Marionette.ItemView.extend({
+  typeName: "SmartTV.SpinnerView",
   template: false,
   options: {
     lines: 13, // The number of lines to draw
@@ -128,23 +128,23 @@ Orangee.SpinnerView = Marionette.ItemView.extend({
     left: '50%' // Left position relative to parent
   },
   onShow: function() {
-    this.spinner = new orangee.spinner(this.getOption('options')).spin(this.el);
+    this.spinner = new smarttv.spinner(this.getOption('options')).spin(this.el);
   },
   onDestroy: function() {
-    orangee.debug("Orangee.SpinnerView#onDestroy");
+    smarttv.debug("SmartTV.SpinnerView#onDestroy");
     this.spinner.stop();
   },
 });
 
-Orangee.VideoView = Orangee.ItemView.extend({
-  typeName: "Orangee.VideoView",
+SmartTV.VideoView = SmartTV.ItemView.extend({
+  typeName: "SmartTV.VideoView",
   onShow: function() {
-    orangee.debug("Orangee.VideoView#onShow");
-    //orangee.debug(this.getOption('options'));
-    this.videoplayer = new orangee.videoplayer({
+    smarttv.debug("SmartTV.VideoView#onShow");
+    //smarttv.debug(this.getOption('options'));
+    this.videoplayer = new smarttv.videoplayer({
       youtube: this.getOption('youtube'),
       dailymotion: this.getOption('dailymotion'),
-      translate_url: (typeof(OrangeeJSPlugin) != 'undefined') ? OrangeeJSPlugin : null,
+      translate_url: (typeof(SmartTVJSPlugin) != 'undefined') ? SmartTVJSPlugin : null,
     });
     var onplaying = this.getOption('onPlaying');
     var onpause = this.getOption('onPause');
@@ -163,7 +163,7 @@ Orangee.VideoView = Orangee.ItemView.extend({
                           startSeconds);
   },
   onDestroy: function() {
-    orangee.debug("Orangee.VideoView#onDestroy");
+    smarttv.debug("SmartTV.VideoView#onDestroy");
     this.videoplayer.disconnect();
   },
   keyEvents: {
@@ -177,27 +177,27 @@ Orangee.VideoView = Orangee.ItemView.extend({
     'enter': 'onEnter',
   },
   onKeyPlay: function() {
-    orangee.debug('Orangee.VideoView#onKeyPlay');
+    smarttv.debug('SmartTV.VideoView#onKeyPlay');
     this.videoplayer.togglePlay();
   },
   onKeyPause: function() {
-    orangee.debug('Orangee.VideoView#onKeyPause');
+    smarttv.debug('SmartTV.VideoView#onKeyPause');
     this.videoplayer.pause();
   },
   onKeyRight: function() {
-    orangee.debug('Orangee.VideoView#onKeyRight');
+    smarttv.debug('SmartTV.VideoView#onKeyRight');
     this.videoplayer.seek(60);
   },
   onKeyLeft: function() {
-    orangee.debug('Orangee.VideoView#onKeyLeft');
+    smarttv.debug('SmartTV.VideoView#onKeyLeft');
     this.videoplayer.seek(-60);
   },
   onEnter: function() {
   },
 });
 
-Orangee.ScrollItemView = Orangee.ItemView.extend({
-  typeName: "Orangee.ScrollItemView",
+SmartTV.ScrollItemView = SmartTV.ItemView.extend({
+  typeName: "SmartTV.ScrollItemView",
   events: {
     'click': 'onClick',
     'mouseover': 'onMouseOver',
@@ -209,41 +209,41 @@ Orangee.ScrollItemView = Orangee.ItemView.extend({
     'oge:keyentered': 'onKeyEnter',
   },
   onClick: function() {
-    orangee.debug('Orangee.ScrollItemView#onClick');
+    smarttv.debug('SmartTV.ScrollItemView#onClick');
   },
   onKeyEnter: function() {
-    orangee.debug('Orangee.ScrollItemView#onKeyEnter');
+    smarttv.debug('SmartTV.ScrollItemView#onKeyEnter');
     this.onClick();
     var links = this.$('a');
     if (links.length > 0) {
       var firstlink = this.$('a')[0];
-      orangee.debug(firstlink);
+      smarttv.debug(firstlink);
       Backbone.history.navigate(firstlink.href.split('#')[1], {trigger: true});
     }
   },
   onMouseOver: function() {
-    //orangee.debug('Orangee.ScrollItemView#onMouseOver');
+    //smarttv.debug('SmartTV.ScrollItemView#onMouseOver');
     this.model.collection.selectModel(this.model);
   },
   onSelect: function(model) {
-    //orangee.debug('Orangee.ScrollItemView#onSelect');
+    //smarttv.debug('SmartTV.ScrollItemView#onSelect');
     //this.$(':first-child').addClass('active');
     this.$el.addClass('active');
   },
   onDeselect: function(model) {
-    //orangee.debug('Orangee.ScrollItemView#onDeselect');
+    //smarttv.debug('SmartTV.ScrollItemView#onDeselect');
     //this.$(':first-child').removeClass('active');
     this.$el.removeClass('active');
   },
 });
 
-Orangee.ScrollView = Orangee.CompositeView.extend({
-  typeName: "Orangee.ScrollView",
+SmartTV.ScrollView = SmartTV.CompositeView.extend({
+  typeName: "SmartTV.ScrollView",
   behaviors: {
-    OrangeeHotKeysBehavior: {},
-    OrangeeNoExtraDivBehavior: {},
-    OrangeeScrollerBehavior: {},
-    OrangeeLazyloadBehavior: {},
+    SmartTVHotKeysBehavior: {},
+    SmartTVNoExtraDivBehavior: {},
+    SmartTVScrollerBehavior: {},
+    SmartTVLazyloadBehavior: {},
   },
   childViewContainer: "ul",
   options: {
@@ -259,31 +259,31 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     'right': 'onKeyRight',
   },
   onKeyEnter: function() {
-    orangee.debug('Orangee.GridView#onKeyEnter');
+    smarttv.debug('SmartTV.GridView#onKeyEnter');
     this.collection.selected.trigger('oge:keyentered');
   },
   onKeyLeft: function() {
     if (this.numberOfColumns > 1) {
-      orangee.debug('Orangee.ScrollView#onKeyLeft');
+      smarttv.debug('SmartTV.ScrollView#onKeyLeft');
       this.collection.selectPrev();
     }
   },
   onKeyRight: function() {
     if (this.numberOfColumns > 1) {
-      orangee.debug('Orangee.ScrollView#onKeyRight');
+      smarttv.debug('SmartTV.ScrollView#onKeyRight');
       this.collection.selectNext();
     }
   },
   onKeyUp: function() {
-    orangee.debug('Orangee.ScrollView#onKeyUp');
-    //orangee.debug(this.children);
+    smarttv.debug('SmartTV.ScrollView#onKeyUp');
+    //smarttv.debug(this.children);
     this.collection.selectPrev(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
   },
   onKeyDown: function() {
-    orangee.debug('Orangee.ScrollView#onKeyDown');
-    //orangee.debug(this.children);
+    smarttv.debug('SmartTV.ScrollView#onKeyDown');
+    //smarttv.debug(this.children);
     this.collection.selectNext(this.numberOfColumns);
     var selectedChildView = this.children.findByIndex(this.collection.currentPosition);
     this.scroller.scrollToElement(selectedChildView.el);
@@ -297,13 +297,13 @@ Orangee.ScrollView = Orangee.CompositeView.extend({
     } else if (newy < this.scroller.maxScrollY) {
       newy = this.scroller.maxScrollY;
     }
-    orangee.debug('Orangee.ScrollView#scrollBy:' + newx + "/" + newy);
+    smarttv.debug('SmartTV.ScrollView#scrollBy:' + newx + "/" + newy);
     this.scroller.scrollTo(x, y);
   },
 });
 
-Orangee.HorizontalScrollView = Orangee.ScrollView.extend({
-  typeName: "Orangee.HorizontalScrollView",
+SmartTV.HorizontalScrollView = SmartTV.ScrollView.extend({
+  typeName: "SmartTV.HorizontalScrollView",
   options: {
     mouseWheel: true,
     scrollX: true,

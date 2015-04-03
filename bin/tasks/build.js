@@ -1,14 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mustache');
-var OrangeeJSUtil = require('./util');
+var SmartTVJSUtil = require('./util');
 
-function OrangeeJSBuildTask() {
+function SmartTVJSBuildTask() {
 };
 
-OrangeeJSBuildTask.prototype.run = function(name) {
+SmartTVJSBuildTask.prototype.run = function(name) {
   mkdir("-p", 'build');
-  OrangeeJSUtil.create_version_js();
+  SmartTVJSUtil.create_version_js();
   if (name === 'samsung') {
     this._build_samsung();
   } else if (name === 'lg') {
@@ -22,14 +22,14 @@ OrangeeJSBuildTask.prototype.run = function(name) {
   }
 };
 
-OrangeeJSBuildTask.prototype._build_lg = function() {
+SmartTVJSBuildTask.prototype._build_lg = function() {
   console.log("build lg");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   mkdir('-p', 'build/lg/WebContent');
 
 
   cp("-rf", 'app/', 'build/lg/WebContent');
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.lg.js"), "build/lg/WebContent/lib/orangee.js");
+  SmartTVJSUtil.concat_js(src, SmartTVJSUtil.core_js_sources.concat("/platforms/smarttv.lg.js"), "build/lg/WebContent/lib/smarttv.js");
 
     var indexhtml = fs.readFileSync("build/lg/WebContent/index.html", "utf8");
   indexhtml = indexhtml.replace("</head>",
@@ -39,16 +39,16 @@ OrangeeJSBuildTask.prototype._build_lg = function() {
 
 
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
+  SmartTVJSUtil.transform_template(src + "/platforms/lg/eclipse.project.template", "build/lg/.project", appdata);
   cp("-rf", src + '/platforms/lg/eclipse.settings/', 'build/lg/.settings');
-  OrangeeJSUtil.transform_template(src + "/platforms/lg/eclipse.settings/org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
+  SmartTVJSUtil.transform_template(src + "/platforms/lg/eclipse.settings/org.eclipse.wst.common.component.template", "build/lg/.settings/org.eclipse.wst.common.component", appdata);
   rm("-rf", "build/lg/.settings/org.eclipse.wst.common.component.template")
 
-  OrangeeJSUtil.zip("build/lg/WebContent", "build/lg.zip");
+  SmartTVJSUtil.zip("build/lg/WebContent", "build/lg.zip");
 };
 
 
-OrangeeJSBuildTask.prototype._build_android = function() {
+SmartTVJSBuildTask.prototype._build_android = function() {
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   var resizes = [
     ['assets/icon.png',96,96, 'assets/android/appicon-drawable.png'],
@@ -71,7 +71,7 @@ OrangeeJSBuildTask.prototype._build_android = function() {
   this._build_cordova('android', resizes, icon_map, splash_map, appdata);
 };
 
-OrangeeJSBuildTask.prototype._build_ios = function() {
+SmartTVJSBuildTask.prototype._build_ios = function() {
   //http://docs.appcelerator.com/titanium/3.0/#!/guide/Icons_and_Splash_Screens
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
   var resizes = [
@@ -132,7 +132,7 @@ OrangeeJSBuildTask.prototype._build_ios = function() {
   this._build_cordova('ios', resizes, icon_map, splash_map, appdata);
 };
 
-OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_map, splash_map, appdata) {
+SmartTVJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_map, splash_map, appdata) {
   console.log("build " + os_name);
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   if (!which('cordova')) {
@@ -141,11 +141,11 @@ OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_ma
   }
   
   if (!fs.existsSync('build/' + os_name)) {
-    OrangeeJSUtil.exec('cordova create build/' + os_name + ' ' + appdata['package'] + " " + appdata['name']);
+    SmartTVJSUtil.exec('cordova create build/' + os_name + ' ' + appdata['package'] + " " + appdata['name']);
     cd('build/' + os_name);
-    OrangeeJSUtil.exec('cordova platform add ' + os_name);
+    SmartTVJSUtil.exec('cordova platform add ' + os_name);
     appdata['cordova_plugins'].forEach(function(plugin) {
-      OrangeeJSUtil.exec('cordova plugin add ' + plugin);
+      SmartTVJSUtil.exec('cordova plugin add ' + plugin);
     });
     cd("../../");
     rm("-rf", "build/" + os_name + "/www/*");
@@ -154,10 +154,10 @@ OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_ma
   mkdir('-p', 'assets/' + os_name);
   mkdir("-p", 'build/' + os_name + '/www/res/icon/' + os_name);
   mkdir("-p", 'build/' + os_name + '/www/res/screen/' + os_name);
-  OrangeeJSUtil.resize_image(resizes, function() {
+  SmartTVJSUtil.resize_image(resizes, function() {
     cp("-f", 'config.' + os_name + '.xml', 'build/' + os_name + '/config.xml');
     cp("-rf", 'app/', 'build/' + os_name + '/www');
-    OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), 'build/' + os_name + '/www/lib/orangee.js');
+    SmartTVJSUtil.concat_js(src, SmartTVJSUtil.core_js_sources.concat("/platforms/smarttv.html5.js"), 'build/' + os_name + '/www/lib/smarttv.js');
     
     //for phonegap build
     cp("-rf", 'assets/' + os_name + '/icon*', 'build/' +os_name + '/www/res/icon/' + os_name);
@@ -182,11 +182,11 @@ OrangeeJSBuildTask.prototype._build_cordova = function(os_name, resizes, icon_ma
 
 };
 
-OrangeeJSBuildTask.prototype._build_roku = function() {
+SmartTVJSBuildTask.prototype._build_roku = function() {
   console.log("build roku");
   mkdir('-p', 'roku/images');
 
-  OrangeeJSUtil.resize_image([
+  SmartTVJSUtil.resize_image([
     ['assets/icon.png', 336,210, 'roku/images/icon_focus_hd.png'],
     ['assets/icon.png', 248,140, 'roku/images/icon_focus_sd.png'],
     ['assets/icon.png', 108, 69, 'roku/images/icon_side_hd.png'],
@@ -194,18 +194,18 @@ OrangeeJSBuildTask.prototype._build_roku = function() {
     ['assets/splash-landscape.png',1280,720,'roku/images/hd_splash.png'],
     ['assets/splash-landscape.png',720,480, 'roku/images/sd_splash.png']
   ], function() {
-    OrangeeJSUtil.zip("roku", "build/roku.zip");
+    SmartTVJSUtil.zip("roku", "build/roku.zip");
   });
 }
 
-OrangeeJSBuildTask.prototype._build_samsung = function() {
+SmartTVJSBuildTask.prototype._build_samsung = function() {
   console.log("build samsung");
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   mkdir('-p', 'build/samsung/icons');
   mkdir('-p', 'assets/samsung');
 
   cp("-rf", 'app/', 'build/samsung/');
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("platforms/orangee.samsung.js", "samsungplayer.js"), "build/samsung/lib/orangee.js");
+  SmartTVJSUtil.concat_js(src, SmartTVJSUtil.core_js_sources.concat("platforms/smarttv.samsung.js", "samsungplayer.js"), "build/samsung/lib/smarttv.js");
 
   var indexhtml = fs.readFileSync("build/samsung/index.html", "utf8");
   indexhtml = indexhtml.replace("</head>",
@@ -224,13 +224,13 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
   fs.writeFileSync("build/samsung/index.html", indexhtml);
 
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  OrangeeJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
-  OrangeeJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
+  SmartTVJSUtil.transform_template(src + "/platforms/samsung/config.xml.template", "build/samsung/config.xml", appdata);
+  SmartTVJSUtil.transform_template(src + "/platforms/samsung/eclipse.project.template", "build/samsung/.project", appdata);
 
   cp("-f", src + "/platforms/samsung/widget.info", "build/samsung/");
   cp("-f", src + "/platforms/samsung/Uninstall.js", "build/samsung/");
 
-  OrangeeJSUtil.resize_image([
+  SmartTVJSUtil.resize_image([
     //['assets/icon.png',512, 423, 'assets/samsung/icon_512_423.png'],
     ['assets/icon.png',115, 95, 'assets/samsung/icon_115.png'],
     ['assets/icon.png', 106,87, 'assets/samsung/icon_106.png'],
@@ -241,13 +241,13 @@ OrangeeJSBuildTask.prototype._build_samsung = function() {
 
     rm("-rf", "build/samsung/samsung.zip")
     var self = this;
-    OrangeeJSUtil.zip("build/samsung", "build/samsung.zip", function(size) {
+    SmartTVJSUtil.zip("build/samsung", "build/samsung.zip", function(size) {
       appdata['filesize'] = size;
-      appdata['downloadurl'] = "http://" + OrangeeJSUtil.getip() + "/samsung.zip";
-      OrangeeJSUtil.transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
+      appdata['downloadurl'] = "http://" + SmartTVJSUtil.getip() + "/samsung.zip";
+      SmartTVJSUtil.transform_template(src + "/platforms/samsung/widgetlist.xml.template", "build/widgetlist.xml", appdata);
     })
   });
 
 };
 
-module.exports = OrangeeJSBuildTask;
+module.exports = SmartTVJSBuildTask;

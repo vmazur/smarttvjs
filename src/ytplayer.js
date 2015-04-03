@@ -1,37 +1,37 @@
-orangee.ytplayer = function _OrangeeJSYTPlayer() {
+smarttv.ytplayer = function _SmartTVJSYTPlayer() {
   this.player = null;
   this.support_translate = false;
 };
 
-orangee.ytplayer.prototype.play = function() {
+smarttv.ytplayer.prototype.play = function() {
   this.player.playVideo();
 };
 
-orangee.ytplayer.prototype.pause = function() {
+smarttv.ytplayer.prototype.pause = function() {
   this.player.pauseVideo();
 };
 
-orangee.ytplayer.prototype.stop = function() {
+smarttv.ytplayer.prototype.stop = function() {
   this.player.stopVideo();
 };
 
-orangee.ytplayer.prototype.currentTime = function() {
+smarttv.ytplayer.prototype.currentTime = function() {
    return this.player.getCurrentTime();
 };
 
-orangee.ytplayer.prototype.seek = function(second) {
+smarttv.ytplayer.prototype.seek = function(second) {
    return this.player.seekTo(second, true);
 };
 
-orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
-  var vid = orangee._findYoutubeId(url);
+smarttv.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
+  var vid = smarttv._findYoutubeId(url);
   startSeconds = Math.round(startSeconds);// youtube api only takes positive integer
 
   if (this.player) {
-    orangee.debug("orangee.ytplayer#load cueVideoById");
+    smarttv.debug("smarttv.ytplayer#load cueVideoById");
     this.player.cueVideoById(vid, startSeconds);
   } else {
-    orangee.debug("orangee.ytplayer#load new iframe");
+    smarttv.debug("smarttv.ytplayer#load new iframe");
     var e = document.createElement("iframe");
     //e.width =  options['width'] || '100%'; //viewportwidth will not not consider the size of scroll bar
     //e.height = options['height'] || '100%';
@@ -75,7 +75,7 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
         },*/
        // does not work on file://
         'onStateChange': function(event) {
-          orangee.debug("onStateChange");
+          smarttv.debug("onStateChange");
           if (event.data == YT.PlayerState.PLAYING && options['onplaying']) {
             options['onplaying']();
           } else if (event.data == YT.PlayerState.PAUSED && options['onpause']) {
@@ -98,5 +98,5 @@ orangee.ytplayer.prototype.load = function(url, startSeconds, divid, options) {
   }
 };
 
-orangee.ytplayer.prototype.disconnect = function() {
+smarttv.ytplayer.prototype.disconnect = function() {
 };

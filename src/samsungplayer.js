@@ -1,4 +1,4 @@
-orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
+smarttv.samsungplayer = function _SmartTVJSSamsungPlayer() {
   this.video = null;
   this.url = null;
   this.startSeconds = 0;
@@ -7,7 +7,7 @@ orangee.samsungplayer = function _OrangeeJSSamsungPlayer() {
   this.support_translate = true;
 };
 
-orangee.samsungplayer.prototype.play = function() {
+smarttv.samsungplayer.prototype.play = function() {
   if (this.url != null) {
     this.video.ResumePlay(this.url, this.startSeconds);
     this.url = null;
@@ -17,29 +17,29 @@ orangee.samsungplayer.prototype.play = function() {
   }
 };
 
-orangee.samsungplayer.prototype.pause = function() {
+smarttv.samsungplayer.prototype.pause = function() {
   this.video.Pause();
   if (this.onpause) {
     this.onpause();
   }
 };
 
-orangee.samsungplayer.prototype.stop = function() {
+smarttv.samsungplayer.prototype.stop = function() {
   this.video.Stop();
 };
 
-orangee.samsungplayer.prototype.currentTime = function() {
+smarttv.samsungplayer.prototype.currentTime = function() {
   return this.currentTime;
 };
 
-orangee.samsungplayer.prototype.seek = function(second) {
+smarttv.samsungplayer.prototype.seek = function(second) {
   this.video.JumpForward(this.currentTime + second);
   //JumpBackward
 };
 
 ///Users/yong/Downloads/DeviceAPI\ Guide\[V2.10\].pdf
 //http://www.samsungdforum.com/Guide/API00005/Player_172.html
-orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, options) {
+smarttv.samsungplayer.prototype.load = function(url, startSeconds, divid, options) {
   //http://djsiw1wjy8vi7.cloudfront.net/[SDK2.5]Documents_Tutorials/Tutorial/HAS%20Tutorial/HAS%20App%20Creation%20Tutorial/HAS%20App%20Creation%20Tutorial[V1.05].pdf
   if (url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
     url = url + "?|COMPONENT=HLS";
@@ -98,5 +98,5 @@ orangee.samsungplayer.prototype.load = function(url, startSeconds, divid, option
   }
 };
 
-orangee.samsungplayer.prototype.disconnect = function() {
+smarttv.samsungplayer.prototype.disconnect = function() {
 };

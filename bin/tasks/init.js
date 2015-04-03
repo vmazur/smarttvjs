@@ -1,13 +1,13 @@
 var fs = require('fs');
 var path = require('path');
 var mustache = require('mustache');
-var OrangeeJSUtil = require('./util');
+var SmartTVJSUtil = require('./util');
 require('shelljs/global');
 
-function OrangeeJSInitTask() {
+function SmartTVJSInitTask() {
 };
 
-OrangeeJSInitTask.prototype.run = function(debug) {
+SmartTVJSInitTask.prototype.run = function(debug) {
   mkdir('-p', 'app/lib');
   mkdir('-p', 'assets');
 
@@ -19,19 +19,19 @@ OrangeeJSInitTask.prototype.run = function(debug) {
   var name = path.basename(process.cwd());
 
   if (!fs.existsSync('package.json')) {
-      OrangeeJSUtil.transform_template(src + "/example/package.json.template", "package.json", {name: name});
+      SmartTVJSUtil.transform_template(src + "/example/package.json.template", "package.json", {name: name});
   };
-  OrangeeJSUtil.create_version_js();
+  SmartTVJSUtil.create_version_js();
 
-  OrangeeJSUtil.lib_js_sources.forEach(function(value) {
+  SmartTVJSUtil.lib_js_sources.forEach(function(value) {
     cp(src + "/assets/javascripts/" + value, "app/lib/" + value);
   });
-  OrangeeJSUtil.lib_css_sources.forEach(function(value) {
+  SmartTVJSUtil.lib_css_sources.forEach(function(value) {
     cp(src + "/assets/stylesheets/" + value, "app/lib/" + value);
   });
   cp("-r", src + "/assets/fonts", "app/lib/");
-  OrangeeJSUtil.concat_css(src, OrangeeJSUtil.core_css_sources, "app/lib/orangee.css");
-  OrangeeJSUtil.concat_js(src, OrangeeJSUtil.core_js_sources.concat("/platforms/orangee.html5.js"), "app/lib/orangee.js", debug);
+  SmartTVJSUtil.concat_css(src, SmartTVJSUtil.core_css_sources, "app/lib/smarttv.css");
+  SmartTVJSUtil.concat_js(src, SmartTVJSUtil.core_js_sources.concat("/platforms/smarttv.html5.js"), "app/lib/smarttv.js", debug);
 
   cp(src + '/example/icon.example.png', 'assets/icon.png');
   cp(src + '/example/splash-portrait.example.png',  'assets/splash-portrait.png');
@@ -41,4 +41,4 @@ OrangeeJSInitTask.prototype.run = function(debug) {
   cp(src + "/example/app.example.css", 'app/app.css');
 };
 
-module.exports = OrangeeJSInitTask;
+module.exports = SmartTVJSInitTask;

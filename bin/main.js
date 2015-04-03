@@ -21,10 +21,10 @@ if (argv.version) {
 } else if (argv._.length >= 1 && argv._[0] == 'console') {
   require('xconsole.io');
 } else {
-  console.log("orangeejs init");
-  console.log("orangeejs build samsung|lg|ios|roku");
-  console.log("orangeejs run samsung|lg|ios");
-  console.log("orangeejs server <port>");
+  console.log("smarttvjs init");
+  console.log("smarttvjs build samsung|lg|ios|roku");
+  console.log("smarttvjs run samsung|lg|ios");
+  console.log("smarttvjs server <port>");
 }
 
 

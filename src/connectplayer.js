@@ -1,9 +1,9 @@
-orangee.connectplayer = function(device) {
+smarttv.connectplayer = function(device) {
   this.device = device;
   this.launchSession = null;
 };
 
-orangee.connectplayer.init = function() {
+smarttv.connectplayer.init = function() {
   ConnectSDK.discoveryManager.setCapabilityFilters([
     new ConnectSDK.CapabilityFilter(["MediaPlayer.Display.Video", "MediaControl.Pause"]),
     new ConnectSDK.CapabilityFilter(["Launcher.YouTube.Params"])
@@ -12,19 +12,19 @@ orangee.connectplayer.init = function() {
   ConnectSDK.discoveryManager.startDiscovery();
 };
 
-orangee.connectplayer.showDevicePicker = function() {
+smarttv.connectplayer.showDevicePicker = function() {
   return ConnectSDK.discoveryManager.pickDevice();
 };
 
-orangee.connectplayer.prototype.isReady = function() {
+smarttv.connectplayer.prototype.isReady = function() {
   return this.device.isReady();
 };
 
-orangee.connectplayer.prototype.play = function(device) {
+smarttv.connectplayer.prototype.play = function(device) {
   this.device.getMediaControl().play();
 };
 
-orangee.connectplayer.prototype.stop = function(device) {
+smarttv.connectplayer.prototype.stop = function(device) {
   //this.device.getMediaControl().stop();
   // on lg, have to close youtube app to launch a new one
   if (this.launchSession) {
@@ -34,20 +34,20 @@ orangee.connectplayer.prototype.stop = function(device) {
   //this.device.getKeyControl().home();
 };
 
-orangee.connectplayer.prototype.pause = function(device) {
+smarttv.connectplayer.prototype.pause = function(device) {
   this.device.getMediaControl().pause();
   //this.device.KeyControl().ok();
 };
 
-orangee.connectplayer.prototype.currentTime = function() {
+smarttv.connectplayer.prototype.currentTime = function() {
   return this.device.getMediaControl().getPosition();
 };
 
-orangee.connectplayer.prototype.seek = function(second) {
+smarttv.connectplayer.prototype.seek = function(second) {
   this.device.getMediaControl().seek(second * 1000);
 };
 
-orangee.connectplayer.prototype.load = function(url, startSeconds, divid, options) {
+smarttv.connectplayer.prototype.load = function(url, startSeconds, divid, options) {
   var self = this;
   if (this.device && this.device.isReady()) {
     var ytid = url.indexOf('youtube.com') > -1 ? url.split('watch?v=')[1] : null;

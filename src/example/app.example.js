@@ -1,17 +1,17 @@
 //your script here
 'use strict';
 
-var HeaderModel = Orangee.Model.extend();
-var ListItemModel = Orangee.Model.extend();
-var ListCollection = Orangee.Collection.extend({
+var HeaderModel = SmartTV.Model.extend();
+var ListItemModel = SmartTV.Model.extend();
+var ListCollection = SmartTV.Collection.extend({
   model: ListItemModel,
 });
 
-var HeaderView = Orangee.ItemView.extend({
+var HeaderView = SmartTV.ItemView.extend({
   template: '#header_template',
 });
 
-var ListItemView = Orangee.ScrollItemView.extend({
+var ListItemView = SmartTV.ScrollItemView.extend({
   template: '#listitem_template',
   onClick: function() {
     var index = this.model.collection.indexOf(this.model);
@@ -19,40 +19,40 @@ var ListItemView = Orangee.ScrollItemView.extend({
   },
 });
 
-var ListView = Orangee.ScrollView.extend({
+var ListView = SmartTV.ScrollView.extend({
   template: '#list_template',
   childView: ListItemView,
 });
 
-var VideoView =  Orangee.VideoView.extend({
+var VideoView =  SmartTV.VideoView.extend({
   template: '#video_template',
   options: {
     divid: 'myvideo',
     playsinline: true,
   },
   onPlaying: function() {
-    orangee.log('playing');
+    smarttv.log('playing');
   },
   onPause: function() {
-    orangee.log(this);
-    orangee.log('paused at ' + this.videoplayer.currentTime());
+    smarttv.log(this);
+    smarttv.log('paused at ' + this.videoplayer.currentTime());
   },
   switchVideo: function(index) {
     this.videoplayer.switchVideo(index);
   },
 });
 
-var MyRouter = Orangee.Router.extend({
+var MyRouter = SmartTV.Router.extend({
   appRoutes: {
     "": "index",
   },
 });
 
-var MyController = Orangee.Controller.extend({
+var MyController = SmartTV.Controller.extend({
   index: function() {
     var name = {
-      name: orangee.PLATFORM, 
-      status: orangee.hasNetwork(),
+      name: smarttv.PLATFORM, 
+      status: smarttv.hasNetwork(),
     };
     var playlist = [
       {url: "http://techslides.com/demos/sample-videos/small.mp4", name: "mp4 video"},
@@ -71,7 +71,7 @@ var MyController = Orangee.Controller.extend({
   },
 });
 
-var app = new Orangee.Application({
+var app = new SmartTV.Application({
   options: {
     debug_enabled: true,
     youtube_api: true,

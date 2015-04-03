@@ -1,4 +1,4 @@
-orangee.videoplayer = function(options) {
+smarttv.videoplayer = function(options) {
   this.playlist = [];
   this.currentIndex = 0;
   this.currentplayer = null;
@@ -13,22 +13,22 @@ orangee.videoplayer = function(options) {
   this.playing = false;
 };
 
-orangee.videoplayer.prototype.play = function() {
+smarttv.videoplayer.prototype.play = function() {
   if (this.connectplayer) {
     var url = this.playlist[this.currentIndex]['url'];
     this.connectplayer.load(url, 0, this.divid, this.options);
   } else if (this.device) {
-    this.connectplayer = new orangee.connectplayer(this.device);
+    this.connectplayer = new smarttv.connectplayer(this.device);
     var url = this.playlist[this.currentIndex]['url'];
     this.connectplayer.load(url, 0, this.divid, this.options);
   } else {
     this.currentplayer.play();
   }
   this.playing = true;
-  orangee.disableScreenSaver();
+  smarttv.disableScreenSaver();
 };
 
-orangee.videoplayer.prototype.togglePlay = function() {
+smarttv.videoplayer.prototype.togglePlay = function() {
   if (this.playing) {
     this.pause();
   } else {
@@ -36,27 +36,27 @@ orangee.videoplayer.prototype.togglePlay = function() {
   }
 };
 
-orangee.videoplayer.prototype.pause = function() {
+smarttv.videoplayer.prototype.pause = function() {
   if (this.connectplayer) {
     this.connectplayer.pause();
   } else {
     this.currentplayer.pause();
   }
   this.playing = false;
-  orangee.enableScreenSaver();
+  smarttv.enableScreenSaver();
 };
 
-orangee.videoplayer.prototype.stop = function() {
+smarttv.videoplayer.prototype.stop = function() {
   if (this.connectplayer) {
     this.connectplayer.stop();
   } else {
     this.currentplayer.stop();
   }
   this.playing = false;
-  orangee.enableScreenSaver();
+  smarttv.enableScreenSaver();
 };
 
-orangee.videoplayer.prototype.currentTime = function() {
+smarttv.videoplayer.prototype.currentTime = function() {
   if (this.connectplayer) {
     return this.connectplayer.currentTime();
   } else {
@@ -64,7 +64,7 @@ orangee.videoplayer.prototype.currentTime = function() {
   }
 };
 
-orangee.videoplayer.prototype.seek = function(second) {
+smarttv.videoplayer.prototype.seek = function(second) {
   if (this.connectplayer) {
     return this.connectplayer.seek(second);
   } else {
@@ -72,11 +72,11 @@ orangee.videoplayer.prototype.seek = function(second) {
   }
 };
 
-orangee.videoplayer.prototype.currentVideo = function() {
+smarttv.videoplayer.prototype.currentVideo = function() {
   return this.playlist[this.currentIndex];
 };
 
-orangee.videoplayer.prototype.next = function() {
+smarttv.videoplayer.prototype.next = function() {
   currentIndex++;
   if (currentIndex >= this.playlist.length) {
     currentIndex = this.playlist.length - 1;
@@ -84,7 +84,7 @@ orangee.videoplayer.prototype.next = function() {
   this.switchVideo(currentIndex);
 };
 
-orangee.videoplayer.prototype.prev = function() {
+smarttv.videoplayer.prototype.prev = function() {
   currentIndex--;
   if (currentIndex < 0) {
     currentIndex = 0;
@@ -92,7 +92,7 @@ orangee.videoplayer.prototype.prev = function() {
   this.switchVideo(currentIndex);
 };
 
-orangee.videoplayer.prototype.load = function(playlist, divid, options, index, startSeconds) {
+smarttv.videoplayer.prototype.load = function(playlist, divid, options, index, startSeconds) {
   this.playlist = playlist;
   this.divid = divid;
   this.options = options || {};
@@ -100,7 +100,7 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   startSeconds = (typeof startSeconds !== 'undefined') ? startSeconds : 0;
 
   if (this.options['autoplay']) {
-    orangee.disableScreenSaver();
+    smarttv.disableScreenSaver();
   }
 
   var url = this.playlist[this.currentIndex]['url'];
@@ -116,19 +116,19 @@ orangee.videoplayer.prototype.load = function(playlist, divid, options, index, s
   }.bind(this));
 };
 
-orangee.videoplayer.prototype.switchVideo = function(index) {
+smarttv.videoplayer.prototype.switchVideo = function(index) {
   this.currentIndex = index;
   var startSeconds = 0;
 
   if (this.options['autoplay']) {
-    orangee.disableScreenSaver();
+    smarttv.disableScreenSaver();
   }
 
   var url = this.playlist[this.currentIndex]['url'];
   this._buildPlayer(url, function() {
     if (this.device) {
       if (!this.connectplayer) {
-        this.connectplayer = new orangee.connectplayer(this.device);
+        this.connectplayer = new smarttv.connectplayer(this.device);
       }
       this.connectplayer.load(url, startSeconds, this.divid, this.options);
       //beamed video always play automatically
@@ -145,53 +145,53 @@ orangee.videoplayer.prototype.switchVideo = function(index) {
   }.bind(this));
 };
 
-orangee.videoplayer.prototype._buildPlayer = function(url, callback) {
-  if (orangee.PLATFORM === 'samsung' && this.support_samsung) {
-    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.samsungplayer.name) {
-      this.currentplayer = new orangee.samsungplayer();
+smarttv.videoplayer.prototype._buildPlayer = function(url, callback) {
+  if (smarttv.PLATFORM === 'samsung' && this.support_samsung) {
+    if (null == this.currentplayer || this.currentplayer.constructor.name != smarttv.samsungplayer.name) {
+      this.currentplayer = new smarttv.samsungplayer();
       callback();
     }
   } else if (this.support_youtube && (url.indexOf('youtube.com') > -1 || url.indexOf('youtu.be') > -1)) {
-    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.ytplayer.name) {
-      if (orangee._youtubeReady) {
-        this.currentplayer = new orangee.ytplayer();
+    if (null == this.currentplayer || this.currentplayer.constructor.name != smarttv.ytplayer.name) {
+      if (smarttv._youtubeReady) {
+        this.currentplayer = new smarttv.ytplayer();
         callback();
       } else {
         $(document).on('oge-youtubeready', function() {
-          orangee.debug('oge-youtubeready');
-          this.currentplayer = new orangee.ytplayer();
+          smarttv.debug('oge-youtubeready');
+          this.currentplayer = new smarttv.ytplayer();
           callback();
         }.bind(this));
       }
     }
   } else if (this.support_dailymotion && url.indexOf('dailymotion.com') > -1) {
-    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.dmplayer.name) {
-      if (orangee._dailymotionReady) {
-        this.currentplayer = new orangee.dmplayer();
+    if (null == this.currentplayer || this.currentplayer.constructor.name != smarttv.dmplayer.name) {
+      if (smarttv._dailymotionReady) {
+        this.currentplayer = new smarttv.dmplayer();
         callback();
       } else {
         $(document).on('oge-dailymotionready', function() {
-          orangee.debug('oge-dailymotionready');
-          this.currentplayer = new orangee.dmplayer();
+          smarttv.debug('oge-dailymotionready');
+          this.currentplayer = new smarttv.dmplayer();
           callback();
         }.bind(this));
       }
     }
   } else {
-    if (null == this.currentplayer || this.currentplayer.constructor.name != orangee.html5player.name){
-      this.currentplayer = new orangee.html5player();
+    if (null == this.currentplayer || this.currentplayer.constructor.name != smarttv.html5player.name){
+      this.currentplayer = new smarttv.html5player();
     }
     callback();
   }
 };
 
-orangee.videoplayer.prototype.init_connectsdk = function() {
-  orangee.connectplayer.init();
+smarttv.videoplayer.prototype.init_connectsdk = function() {
+  smarttv.connectplayer.init();
 };
 
-orangee.videoplayer.prototype.showDevicePicker = function(callback) {
+smarttv.videoplayer.prototype.showDevicePicker = function(callback) {
   var self = this;
-  orangee.connectplayer.showDevicePicker().success(function(device) {
+  smarttv.connectplayer.showDevicePicker().success(function(device) {
     self.device = device;
     device.connect();
     if (typeof callback === "function") {
@@ -200,7 +200,7 @@ orangee.videoplayer.prototype.showDevicePicker = function(callback) {
   });
 };
 
-orangee.videoplayer.prototype.disconnect = function() {
+smarttv.videoplayer.prototype.disconnect = function() {
   if (this.connectplayer) {
     this.connectplayer = null;
   }
@@ -212,5 +212,5 @@ orangee.videoplayer.prototype.disconnect = function() {
     this.currentplayer.disconnect();
     this.currentplayer = null;
   }
-  orangee.enableScreenSaver();
+  smarttv.enableScreenSaver();
 };

@@ -1,18 +1,14 @@
-orangee.PLATFORM = 'lg';
+smarttv.PLATFORM = "html5";
 
-//http://developer.lgappstv.com/TV_HELP/topic/lge.tvsdk.developing.book/html/API/API/How%20to%20Use%20HTML5%20Video%20Player%20Framework.htm?path=1_3_15_0#_Toc358881075
-//src="../lge/framework/VideoPlayer/util/keycode.js"
-orangee.KEYS = {
+//http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
+smarttv.KEYS = {
   13: 'enter',
   37: 'left',
   39: 'right',
   38: 'up',
   40: 'down',
-  415: 'play',
-  19: 'pause',
-  412: 'rewind',
-  417: 'fastforward',
-  461: 'back',
+  32: 'play',
+  27: 'back',
 };
 
 /*
@@ -28,16 +24,16 @@ orangee.KEYS = {
     KEY_ENTER:13,
     KEY_INFO:1,
     KEY_EXIT:27,
-    KEY_RED:403,
-    KEY_GREEN:404,
-    KEY_YELLOW:405,
-    KEY_BLUE:406,
+    KEY_RED:65,
+    KEY_GREEN:66,
+    KEY_YELLOW:67,
+    KEY_BLUE:68,
     KEY_INFOLINK:1,
     KEY_RW:1,
-    KEY_PAUSE:1,
+    KEY_PAUSE:32,
     KEY_FF:1,
-    KEY_PLAY:1,
-    KEY_STOP:1,
+    KEY_PLAY:32,
+    KEY_STOP:32,
     KEY_1:49,
     KEY_2:50,
     KEY_3:51,
@@ -70,24 +66,24 @@ orangee.KEYS = {
     KEY_PANEL_POWER:1
 */
 
-orangee.init = function(callback) {
+smarttv.init = function(callback) {
 };
 
-orangee.exit = function() {
-  //window.NetCastExit();
-  if (window.NetCastBack) {
-    window.NetCastBack();
+smarttv.exit = function() {
+};
+
+smarttv.hasNetwork = function() {
+  if (navigator.connection) {
+    //https://github.com/apache/cordova-plugin-network-information/blob/master/doc/index.md
+    return navigator.connection.type != Connection.NONE
+  } else {
+    //do not know, just return true
+    return true;
   }
 };
 
-orangee.hasNetwork = function() {
-  var device = document.getElementById("device");
-  return device.net_isConnected;
+smarttv.disableScreenSaver = function() {
 };
 
-
-orangee.disableScreenSaver = function() {
-};
-
-orangee.enableScreenSaver = function() {
+smarttv.enableScreenSaver = function() {
 };
