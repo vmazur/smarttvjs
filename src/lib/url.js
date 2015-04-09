@@ -1,4 +1,4 @@
-window.url = (function() {
+smarttv.url = (function() {
     function isNumeric(arg) {
       return !isNaN(parseFloat(arg)) && isFinite(arg);
     }
@@ -74,8 +74,9 @@ window.url = (function() {
     };
 })();
 
+/*
 if(typeof jQuery !== 'undefined') {
     jQuery.extend({
-        url: function(arg, url) { return window.url(arg, url); }
+        url: function(arg, url) { return smarttv.url(arg, url); }
     });
-}
+}*/

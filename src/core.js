@@ -50,15 +50,15 @@ smarttv._loadDailymotionApi = function() {
 };
 
 smarttv._findYoutubeId = function(urlString) {
-  if (window.url('domain', urlString) === "youtube.com") {
-    return window.url('?v', urlString);
-  } else if (window.url('domain', urlString) === "youtu.be") {
-    return window.url('file', urlString);
+  if (smarttv.url('domain', urlString) === "youtube.com") {
+    return smarttv.url('?v', urlString);
+  } else if (smarttv.url('domain', urlString) === "youtu.be") {
+    return smarttv.url('file', urlString);
   }
 
   return null;
 };
 
 smarttv._findDailymotionId = function(urlString) {
-  return window.url('file', urlString);
+  return smarttv.url('file', urlString);
 };

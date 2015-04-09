@@ -44,13 +44,17 @@ smarttv.html5player.prototype.seek = function(second) {
 smarttv.html5player.prototype.load = function(url, startSeconds, divid, options) {
   smarttv.debug(url);
   smarttv.debug(options);
+  var ext = smarttv.url('fileext', url);
 
-  if (smarttv.PLATFORM === 'samsung' && url.match(/\.m3u8$/) && !url.match(/COMPONENT=HLS$/)) {
-    url = url + "?|COMPONENT=HLS";
+  if (smarttv.PLATFORM === 'samsung' && ext === "m3u8" && !url.match(/COMPONENT=HLS$/)) {
+    if (url.indexOf("?") > 0) {
+      url = url + "|COMPONENT=HLS";
+    } else {
+      url = url + "?|COMPONENT=HLS";
+    }
   }
 
   if (this.video == null) {
-    var ext = window.url('fileext', url);
     if (ext === 'mp3' || ext === 'm4a') {
       this.video = document.createElement("audio");
     } else {
