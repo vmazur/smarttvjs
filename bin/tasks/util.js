@@ -96,10 +96,10 @@ SmartTVJSUtil.transform_template = function(inputfile, outputfile, data) {
   fs.writeFileSync(outputfile, s);
 };
 
-SmartTVJSUtil.create_version_js = function() {
+SmartTVJSUtil.create_version_js = function(approot) {
   var src = path.join(path.dirname(fs.realpathSync(__filename)), '../../src');
   var appdata = JSON.parse(fs.readFileSync("package.json", "utf8"));
-  SmartTVJSUtil.transform_template(src + "/version.js.template", "app/version.js", appdata);
+  SmartTVJSUtil.transform_template(src + "/version.js.template", approot + "/version.js", appdata);
 };
 
 SmartTVJSUtil.resize_image = function(size_array, callback) {
