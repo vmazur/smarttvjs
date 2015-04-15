@@ -26,6 +26,7 @@ SmartTVJSUtil.core_js_sources = [
   //'lib/move.min.js',
 
   'lib/jquery.lazyload.min.js', //sluggish on samsung tv
+  'lib/jquery.easytabs.js',
   //'lib/jquery.fullPage.min.js',
 
   'lib/backbone.marionette.min.js',
