@@ -8,7 +8,7 @@ function SmartTVJSBuildTask() {
 
 SmartTVJSBuildTask.prototype.run = function(name) {
   mkdir("-p", 'build');
-  SmartTVJSUtil.create_version_js();
+  SmartTVJSUtil.create_version_js("app");
   if (name === 'samsung') {
     this._build_samsung();
   } else if (name === 'lg') {
