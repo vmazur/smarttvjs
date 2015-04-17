@@ -161,7 +161,7 @@ smarttv.html5player.prototype._load = function(url, startSeconds, options) {
 
 smarttv.html5player.prototype.disconnect = function() {
   smarttv.debug("smarttv.html5player.prototype.disconnect");
-  if (this.player && !native_controls) {
+  if (this.player && !this.native_controls) {
     this.player.dispose();
   }
 };
