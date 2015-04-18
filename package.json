@@ -1,7 +1,7 @@
 {
   "name": "smarttvjs",
   "package": "com.smarttvjs.smarttvjs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "javascript framework for smart tv app",
   "bin": {
     "smarttvjs": "bin/main.js"
