@@ -3,7 +3,7 @@ smarttv.html5player = function _SmartTVJSHTML5Player() {
   this.player = null;
   this.inactivityTimeout = null;
   this.support_translate = true;
-  this.native_controls = (smarttv.PLATFORM == 'lg');//lg's os will crash with videojs if video is paused
+  this.native_controls = false;(smarttv.PLATFORM == 'lg');//lg's os will crash with videojs if video is paused
 };
 
 smarttv.html5player.prototype.play = function() {
